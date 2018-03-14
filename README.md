@@ -1,0 +1,2 @@
+# reduxProject
+about redux
