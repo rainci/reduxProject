@@ -18,6 +18,6 @@ ReactDOM.render(
     document.getElementById('root')
 );
 store.subscribe(function(){
-    console.log('store:', store.getState())
+    console.log('stores:', store.getState())
 });
 
