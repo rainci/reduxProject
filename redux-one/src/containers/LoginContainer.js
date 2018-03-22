@@ -1,4 +1,4 @@
-import { Provider,connect } from 'react-redux';
+import { connect } from 'react-redux';
 import Login from '../components/Login/index'; 
 
 export const LoginContainer = connect((state) => ({

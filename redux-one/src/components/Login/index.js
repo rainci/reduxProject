@@ -26,7 +26,7 @@ class Login extends Component {
             <div>
                 <div>早上好，{ username }</div>
                 <div>用户名：<input defaultValue = {username} onChange={this.nameChange}/></div>
-                <div>密　码：<input type="papssword" onChange={this.mmChange}/>{mm}</div>
+                <div>密　码：<input type="papssword" defaultValue = {mm} onChange={this.mmChange}/>{mm}</div>
                 <button>登录</button>
             </div>
         )
