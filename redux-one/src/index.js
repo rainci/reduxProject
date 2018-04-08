@@ -7,7 +7,7 @@ import {ShowContainer} from './containers/ShowContainer';
 import {reducer} from './reducers/index'; 
 import './index.css';
 
-const store = createStore(reducer);
+const store = createStore(reducer, { whr: '123' });
 ReactDOM.render(
     <Provider store={store}>
         <div>
