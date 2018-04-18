@@ -34,7 +34,7 @@ class CountDown extends Component {
         let {num} = this.state;
         return(
             <div>
-                <h2>d</h2>
+                <h2>CountDown</h2>
                 <p>{num}</p>
             </div>
         )
