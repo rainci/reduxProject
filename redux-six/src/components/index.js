@@ -9,8 +9,9 @@ class ShowVal extends Component {
         }
     }
     componentDidMount(){
+        // 同步代码暂不执行，保存一个value+1，当异步执行时，调用这一个value+1
         this.setState({
-            value : this.state.value+1
+            value: this.state.value+1
         })
         console.log(1,this.state.value)
         this.setState({
