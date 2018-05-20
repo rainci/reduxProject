@@ -2,23 +2,31 @@ import React from 'react'
 import { connect } from 'react-redux'
 import Product from '../components/Product'
 
-const list = [
-    {
-        title : 'pro1',
-        id : 1,
-        price : 100,
-        kucun :3
+const Pro = (dispatch,productList) => {
+    const handleclick = (cid) => {
+        const item = productList.filter(({id})=> id === cid )[0];
+        dispatch({
+            type : 'ADDTOCAR',
+            payload : {item}
+        })
+    }
+    return (
+        <Product productList = {productList} ADDTOCAR = {handleclick}/>
+    )
+};
+const mapDispatchToProps = (dispatch) => ({
+    ADDTOCAR(){
+        dispatch({type: 'ADDTOCAR'})
     },
-    {
-        title : 'pro2',
-        id : 2,
-        price : 80,
-        kucun :4
-    },
-];
+    MOVEOUT(){
+        dispatch({type: 'MOVEOUT'})
+    }
 
-const App = connect((state = {list : list}) =>({
-    productList :  state.list
-})
-)(Product);
+});
+
+const App = connect(state =>{
+    return {
+        productList :  state.productList.shangpinList
+    }
+})(Pro);
 export default App;
