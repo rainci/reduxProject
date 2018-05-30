@@ -4,7 +4,7 @@ import 'antd/dist/antd.css';
 import logo from '../../logo.svg';
 import './Siderbar.css';
 import Date from '../Date/Date';
-// import Button from 'antd/lib/button';
+import Buttons from '../Button/Button';
 const { Header, Content, Footer, Sider } = Layout;
 
 class Siderbar extends Component {
@@ -67,12 +67,7 @@ class Siderbar extends Component {
                         </Breadcrumb>
                         <div style={{ padding: 24, background: '#fff', minHeight: 780 }}>
                             <Date />  
-                            <div>
-                                <Button type='primary' disabled>primary</Button>
-                                <Button shape='circle' size='large' loading>circle</Button>
-                                <Button  icon='user' size='large' >user</Button>
-                                
-                            </div>
+                            <Buttons />
                         </div>
                         
                     </Content>
