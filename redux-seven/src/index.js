@@ -1,10 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import Siderbar from './components/Siderbar/Siderbar';
+// import Routers from './routers/index.js';
 import './index.css';
-import { DatePicker } from 'antd';
-// import Show from './components/index';
+import Siderbar from './components/Siderbar/Siderbar';
 
+const App = () => <div>app</div>
 
 ReactDOM.render(<Siderbar />, document.getElementById('root'));
-// registerServiceWorker();

@@ -5,6 +5,8 @@ import logo from '../../logo.svg';
 import './Siderbar.css';
 import Date from '../Date/Date';
 import Buttons from '../Button/Button';
+import Bread from '../Breadcrumb/Breadcrumb';
+import Dropdowns from '../Dropdown/Dropdown';
 const { Header, Content, Footer, Sider } = Layout;
 
 class Siderbar extends Component {
@@ -61,13 +63,11 @@ class Siderbar extends Component {
                         </span>
                     </Header>
                     <Content style={{ margin: '0 16px' }}>
-                        <Breadcrumb style={{ margin: '12px 0' }}>
-                            <Breadcrumb.Item>User</Breadcrumb.Item>
-                            <Breadcrumb.Item>Bill</Breadcrumb.Item>
-                        </Breadcrumb>
+                        <Bread />
                         <div style={{ padding: 24, background: '#fff', minHeight: 780 }}>
                             <Date />  
                             <Buttons />
+                            <Dropdowns />
                         </div>
                         
                     </Content>
