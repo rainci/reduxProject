@@ -1,7 +1,5 @@
 import { Menu, Dropdown, Icon, message } from 'antd';
 import React from 'react';
-import 'antd/dist/antd.css';
-
 const onClick = function ({ key }) {
     message.info(`Click item ${key}`);
 };

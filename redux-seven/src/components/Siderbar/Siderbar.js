@@ -7,7 +7,10 @@ import Date from '../Date/Date';
 import Buttons from '../Button/Button';
 import Bread from '../Breadcrumb/Breadcrumb';
 import Dropdowns from '../Dropdown/Dropdown';
+import Side from '../Sider/Sider';
+
 const { Header, Content, Footer, Sider } = Layout;
+const SubMenu = Menu.SubMenu;
 
 class Siderbar extends Component {
     constructor(props){
@@ -24,29 +27,10 @@ class Siderbar extends Component {
         })
     }
     render(){
+        let { collapsed, mode } = this.state;
         return (
             <Layout>
-                <Sider
-                    trigger={null}
-                    collapsible
-                    collapsed={this.state.collapsed}
-                >
-                    <div className="logo" />
-                    <Menu theme="dark" mode="inline" defaultSelectedKeys={['1']}>
-                        <Menu.Item key="1">
-                            <Icon type="user" />
-                            <span className="nav-text">nav 1</span>
-                        </Menu.Item>
-                        <Menu.Item key="2">
-                            <Icon type="video-camera" />
-                            <span className="nav-text">nav 2</span>
-                        </Menu.Item>
-                        <Menu.Item key="3">
-                            <Icon type="upload" />
-                            <span className="nav-text">nav 3</span>
-                        </Menu.Item>
-                    </Menu>
-                </Sider>
+                <Side collapse={collapsed} mode={mode} />
                 <Layout>
                     <Header style={{ background: '#000', padding: 0 }}>
                         <span style={{color:'#fff', paddingLeft:'2%', fontSize:'1.4em'}}>
