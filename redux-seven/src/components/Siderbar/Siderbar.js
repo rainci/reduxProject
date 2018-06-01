@@ -8,7 +8,7 @@ import Buttons from '../Button/Button';
 import Bread from '../Breadcrumb/Breadcrumb';
 import Dropdowns from '../Dropdown/Dropdown';
 import Side from '../Sider/Sider';
-
+import Pagenation from '../Pagination/Pagination'
 const { Header, Content, Footer, Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -48,6 +48,7 @@ class Siderbar extends Component {
                     </Header>
                     <Content style={{ margin: '0 16px' }}>
                         <Bread />
+                        <Pagenation />
                         {/* <div style={{ padding: 24, background: '#fff', minHeight: 780 }}>
                             <Date />  
                             <Buttons />
