@@ -1,5 +1,6 @@
 import { Layout, Menu, Icon } from 'antd';
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -8,14 +9,18 @@ const Side = (props) => {
     return (
         <Sider trigger={null} collapsible  collapsed={collapse}>
             <Menu theme="dark" mode={mode} defaultSelectedKeys={['1']}>
-                <Menu.Item key="1">
-                    <Icon type="user" />
-                    <span className="nav-text">nav 1</span>
-                </Menu.Item>
-                <Menu.Item key="2">
-                    <Icon type="video-camera" />
-                    <span className="nav-text">nav 2</span>
-                </Menu.Item>
+                    <Menu.Item key="1">
+                        <Link to="/">
+                            <Icon type="user" />
+                            <span className="nav-text">nav 1</span>
+                        </Link>
+                    </Menu.Item>
+                    <Menu.Item key="2">
+                        <Link to="/date">
+                            <Icon type="video-camera" />
+                            <span className="nav-text">nav 2</span>
+                        </Link>
+                    </Menu.Item>
                 <Menu.Item key="3">
                     <Icon type="upload" />
                     <span className="nav-text">nav 3</span>

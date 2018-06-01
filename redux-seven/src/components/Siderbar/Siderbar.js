@@ -48,11 +48,11 @@ class Siderbar extends Component {
                     </Header>
                     <Content style={{ margin: '0 16px' }}>
                         <Bread />
-                        <div style={{ padding: 24, background: '#fff', minHeight: 780 }}>
+                        {/* <div style={{ padding: 24, background: '#fff', minHeight: 780 }}>
                             <Date />  
                             <Buttons />
                             <Dropdowns />
-                        </div>
+                        </div> */}
                         
                     </Content>
                     <Footer style={{ textAlign: 'center' }}>
