@@ -1,6 +1,7 @@
 import { Layout, Menu, Icon } from 'antd';
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import 'antd/dist/antd.css';
 const { Sider } = Layout;
 const SubMenu = Menu.SubMenu;
 
@@ -22,8 +23,10 @@ const Side = (props) => {
                         </Link>
                     </Menu.Item>
                 <Menu.Item key="3">
-                    <Icon type="upload" />
-                    <span className="nav-text">nav 3</span>
+                    <Link to="/pagelist">
+                        <Icon type="upload" />
+                        <span className="nav-text">nav 3</span>
+                    </Link>
                 </Menu.Item>
                 <SubMenu key="sub2" title={<span><Icon type="appstore" /><span>Navigtion Two</span></span>}>
                     <Menu.Item key="5">Option 5</Menu.Item>
