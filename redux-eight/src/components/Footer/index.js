@@ -18,7 +18,7 @@ const Foot = () => {
                     </Link>
                 </Col>
                 <Col span={6}>
-                    <Link to="/list">
+                    <Link to="/tbd">
                         <Icon type="red-envelope" /><br/>
                         项目
                     </Link>
@@ -37,24 +37,6 @@ const Foot = () => {
                 </Col>
             </Row>
         </div>
-        // <Menu mode="horizontal">  
-        //     <Menu.Item key="index">
-        //         <Icon type="home" />
-        //         首页
-        //     </Menu.Item>
-        //     <Menu.Item key="index">
-        //         <Icon type="red-envelope" />
-        //         项目
-        //     </Menu.Item>
-        //     <Menu.Item key="index">
-        //         <Icon type="compass" />
-        //         发现
-        //     </Menu.Item>
-        //     <Menu.Item key="index">
-        //         <Icon type="user" />
-        //         我的
-        //     </Menu.Item>
-        // </Menu>
     )
 };
 export default Foot;

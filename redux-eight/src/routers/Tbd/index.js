@@ -3,7 +3,7 @@ import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Layout, Icon } from 'antd';
 
 const List = () => (
-    <span>list Component</span>
+    <span>投标贷 Components</span>
 );
 
 export default List;

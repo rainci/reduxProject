@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
 import { Layout, Row, Col, Icon } from 'antd';
 import './index.css';
 const Show = () => {
