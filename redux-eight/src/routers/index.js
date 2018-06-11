@@ -7,9 +7,12 @@ import List from '../components/pages/List';
 const Routers = () => (
     <div>
         <Router>
-            <Route path="/" component={Index} />
+            <div>
+                <Route path="/" component={Index} />
+                <Route path="/list" component={List} />
+            </div>
         </Router>
-    </div>  
+    </div>
     );
 
 export default Routers;
