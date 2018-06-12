@@ -8,8 +8,7 @@ import Foot from '../components/Footer';
 const App = () => {
     return (
         <div>
-            我是公共的
-            <Route path="/home" component={Home} />
+            <Route exact path="/" component={Home} />
             <Route path="/tbd" component={Tbd} />
         </div>
     )
