@@ -1,6 +1,5 @@
 import React from 'react'
 import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-import { Divider,  Layout } from 'antd';
 import Home from './Home';
 import Tbd from './Tbd';
 import Foot from '../components/Footer';
