@@ -71,9 +71,9 @@ const ParamsExample = () => (
     </BrowserRouter>
   );
   
-  const Child = ({ matchs }) => (
+  const Child = ({ match }) => (
     <div>
-      <h3>ID: {matchs.params.id}</h3>
+      <h3>ID: {match.params.id}</h3>
     </div>
   );
   

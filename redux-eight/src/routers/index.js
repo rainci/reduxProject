@@ -9,9 +9,11 @@ const App = () => {
         <div>
             <Route exact path="/" component={Home} />
             <Route path="/tbd" component={Tbd} />
+            <Route path="/my" component={My} />
         </div>
     )
 };
+const My = () => (<p>my haha</p>)
 
 const Routers = () => (
         <Router>
