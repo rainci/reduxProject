@@ -1,5 +1,5 @@
 import React from 'react'
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Link, Switch } from 'react-router-dom';
 import Home from './Home';
 import Tbd from './Tbd';
 import Foot from '../components/Footer';
@@ -7,9 +7,12 @@ import Foot from '../components/Footer';
 const App = () => {
     return (
         <div>
-            <Route exact path="/" component={Home} />
+            {/* switch是：路由/tbd,则开始查找，找到对应path的Route后，渲染，停止往下 查找 */}
+            <Switch>    
             <Route path="/tbd" component={Tbd} />
             <Route path="/my" component={My} />
+            <Route exact  path="/" component={Home} />
+            </Switch> 
         </div>
     )
 };
