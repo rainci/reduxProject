@@ -42,9 +42,14 @@ class HorizontalLoginForm extends React.Component {
         <FormItem
           validateStatus={userNameError ? 'error' : ''}
           help={userNameError || ''}
+          label='name'
         >
           {getFieldDecorator('userName', {
-            rules: [{ required: true, message: 'Please input your username!' }],
+            rules: [
+                { required: true,message: 'Please input your username!' },
+                {max:4,message:'please less 4!'},
+                // {pattern:/\d{1,2}/,message:'please input num'}
+            ],
           })(
             <Input prefix={<Icon type="user" style={{ color: 'rgba(0,0,0,.25)' }} />} placeholder="Username" />
           )}
@@ -52,6 +57,7 @@ class HorizontalLoginForm extends React.Component {
         <FormItem
           validateStatus={passwordError ? 'error' : ''}
           help={passwordError || ''}
+          label='password'
         >
           {getFieldDecorator('password', {
             rules: [{ required: true, message: 'Please input your Password!' }],
