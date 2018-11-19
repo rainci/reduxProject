@@ -5,7 +5,7 @@ function onShowSizeChange(current, pageSize) {
     console.log(current, pageSize);
   }
 
-const Pagenation = () => {
+const Pagenations = () => {
     return(
         <div>
             <Pagination showSizeChanger onShowSizeChange={onShowSizeChange} defaultCurrent={3} total={500} />
@@ -14,4 +14,4 @@ const Pagenation = () => {
         </div>
     )
 }
-export default Pagenation;
+export default Pagenations;

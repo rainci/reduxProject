@@ -1,7 +1,8 @@
 import React from 'react';
 // 由于 antd 组件的默认文案是英文，所以需要修改为中文
 import 'moment/locale/zh-cn';
-import 'antd/dist/antd.css'
+import 'antd/dist/antd.css';
+import { Layout } from 'antd';
 // import Select from './aaa'
 
 // class Date extends Component {
