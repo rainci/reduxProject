@@ -5,7 +5,6 @@ import Side from '../components/Sider';
 import Bread from '../components/Breadcrumb';
 import Hello from '../pages/hello';
 import WrappedNormalLoginForm from '../pages/date';
-// import Datesss from '../pages/date';
 import Pagenations from '../pages/pagenation';
 
 const { Content, Sider } = Layout;
