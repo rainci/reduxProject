@@ -41,10 +41,10 @@ const treeData = [{
 
 class TreeDemo extends React.Component {
   state = {
-    expandedKeys: ['0-0-0', '0-0-1'],
+    expandedKeys: ['0-0-0'],
     autoExpandParent: true,
     checkedKeys: ['0-0-0'],
-    selectedKeys: [],
+    // selectedKeys: [],
   }
 
   onExpand = (expandedKeys) => {
@@ -62,10 +62,10 @@ class TreeDemo extends React.Component {
     this.setState({ checkedKeys });
   }
 
-  onSelect = (selectedKeys, info) => {
-    console.log('onSelect', info);
-    this.setState({ selectedKeys });
-  }
+  // onSelect = (selectedKeys, info) => {
+  //   console.log('onSelect', info);
+  //   this.setState({ selectedKeys });
+  // }
 
   renderTreeNodes = (data) => {
     return data.map((item) => {
@@ -89,8 +89,8 @@ class TreeDemo extends React.Component {
         autoExpandParent={this.state.autoExpandParent}
         onCheck={this.onCheck}
         checkedKeys={this.state.checkedKeys}
-        onSelect={this.onSelect}
-        selectedKeys={this.state.selectedKeys}
+        // onSelect={this.onSelect}
+        // selectedKeys={this.state.selectedKeys}
       >
         {this.renderTreeNodes(treeData)}
       </Tree>
