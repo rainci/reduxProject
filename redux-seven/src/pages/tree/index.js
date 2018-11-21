@@ -5,45 +5,45 @@ const TreeNode = Tree.TreeNode;
 
 const treeData = [{
   title: '0-0',
-  key: '0-0',
+  key: '123',
   children: [{
     title: '0-0-0',
-    key: '0-0-0',
+    key: '1',
     children: [
-      { title: '0-0-0-0', key: '0-0-0-0' },
-      { title: '0-0-0-1', key: '0-0-0-1' },
-      { title: '0-0-0-2', key: '0-0-0-2' },
+      { title: '0-0-0-0', key: '2' },
+      { title: '0-0-0-1', key: '3' },
+      { title: '0-0-0-2', key: '4' },
     ],
   }, {
     title: '0-0-1',
-    key: '0-0-1',
+    key: '5',
     children: [
-      { title: '0-0-1-0', key: '0-0-1-0' },
-      { title: '0-0-1-1', key: '0-0-1-1' },
-      { title: '0-0-1-2', key: '0-0-1-2' },
+      { title: '0-0-1-0', key: '6' },
+      { title: '0-0-1-1', key: '7' },
+      { title: '0-0-1-2', key: '8' },
     ],
   }, {
     title: '0-0-2',
-    key: '0-0-2',
+    key: '9',
   }],
 }, {
   title: '0-1',
-  key: '0-1',
+  key: '10',
   children: [
-    { title: '0-1-0-0', key: '0-1-0-0' },
-    { title: '0-1-0-1', key: '0-1-0-1' },
-    { title: '0-1-0-2', key: '0-1-0-2' },
+    { title: '0-1-0-0', key: '11' },
+    { title: '0-1-0-1', key: '12' },
+    { title: '0-1-0-2', key: '13' },
   ],
 }, {
   title: '0-2',
-  key: '0-2',
+  key: '14',
 }];
 
 class TreeDemo extends React.Component {
   state = {
-    expandedKeys: ['0-0-0'],
+    expandedKeys: ['1','5'],
     autoExpandParent: true,
-    checkedKeys: ['0-0-0'],
+    checkedKeys: ['1'],
     // selectedKeys: [],
   }
 
