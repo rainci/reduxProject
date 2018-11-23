@@ -23,7 +23,7 @@ const columns = [{
   
   class SelectTable extends React.Component {
     state = {
-      selectedRowKeys: [], // Check here to configure the default column
+      selectedRowKeys: [0], // Check here to configure the default column
       loading: false,
     };
   
