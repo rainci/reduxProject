@@ -33,6 +33,7 @@ const columns = [{
       setTimeout(() => {
         this.setState({
           loading: false,
+          selectedRowKeys: []
         });
       }, 1000);
     }
