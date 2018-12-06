@@ -48,7 +48,7 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      treeData: treeDatas,
+      treeData: [],
       checkedKeys: ['1', '11'],
       expandedKeys: ['1'] 
     }
@@ -58,7 +58,7 @@ class App extends Component {
   }
   componentDidMount(){
     this.setState({
-      treeData:  treeDatas 
+      treeData: treeDatas 
     })
   }
   render() {

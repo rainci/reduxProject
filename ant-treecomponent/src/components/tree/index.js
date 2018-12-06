@@ -39,11 +39,13 @@ export const generateList = (()=>{//将多层级的数据处理成单层级的�
 class TaskTagTreeList extends React.Component {
     constructor(props) {
         super(props)
+        let {checkedKeys, expandedKeys, treeData} = props;
         this.state = {
             autoExpandParent: true,
-            checkedKeys: [],
-            expandedKeys: [],
-            treeData: []
+            checkedKeys: checkedKeys || [],
+            expandedKeys: expandedKeys || [],
+            treeData: treeData || [],
+            sampleTreeData: generateList(treeData)
 
         }
     }
@@ -72,28 +74,6 @@ class TaskTagTreeList extends React.Component {
 
         });
     }
-    /***********页面业务逻辑 end *****************/
-    /***********生命周期 begin **************/
-    componentDidMount() {
-    }
-    componentWillReceiveProps(nextProps) {
-        const { checkedKeys, expandedKeys, treeData } = nextProps;
-        this.setState({
-            treeData,
-            sampleTreeData: generateList(treeData),
-        })
-        if(checkedKeys){
-            this.setState({
-                checkedKeys 
-            })    
-        }
-        if(expandedKeys){
-            this.setState({
-                expandedKeys 
-            })  
-        }
-    }
-    /***********生命周期 end **************/
     render() {
         const { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
         return (

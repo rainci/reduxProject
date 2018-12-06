@@ -53,12 +53,13 @@ export const filterOneData = (id, data) => { //筛选符合id的一条数据
 class TaskTreeList extends React.Component {
     constructor(props) {
         super(props)
+        let {checkedKeys, expandedKeys, treeData} = props;
         this.state = {
-            sampleTreeData: [],//平级tree data
-            treeData: [], //tree data
             autoExpandParent: true, //是否自动展开
-            checkedKeys: [], //选择的keys
-            expandedKeys: [], //展开的keys
+            checkedKeys: checkedKeys || [], //选择的keys
+            expandedKeys: expandedKeys || [], //展开的keys
+            treeData: treeData || [], //tree data
+            sampleTreeData: generateList(treeData),//平级tree data            
         }
     }
     /***********公共方法 begin *****************/
@@ -117,19 +118,6 @@ class TaskTreeList extends React.Component {
             autoExpandParent: false,
         });
     }
-    /***********页面业务逻辑 end *****************/
-    /***********生命周期 begin **************/
-    componentWillReceiveProps(nextProps) {
-        const { checkedKeys, expandedKeys, autoExpandParent, treeData } = nextProps;
-        this.setState({
-            autoExpandParent,
-            checkedKeys,
-            expandedKeys,
-            treeData,
-            sampleTreeData: generateList(treeData),
-        })
-    }
-    /***********生命周期 end **************/
     render() {
         const { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
         return (
