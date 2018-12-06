@@ -12,6 +12,7 @@
 import React from 'react'
 import UserSearch from './userSearch'
 import TaskTreeList from './TaskTreeList'
+import shallowEqual from 'shallowequal'
 
 const searchTagNames = [
     { 'name': 'tag', 'value': 'name', 'num': 20 },
@@ -74,7 +75,32 @@ class TaskTagTreeList extends React.Component {
 
         });
     }
+    /***********生命周期 begin **************/
+    componentWillReceiveProps(nextProps) {
+        const { checkedKeys, expandedKeys, treeData } = nextProps;
+        this.setState({
+            treeData,
+            sampleTreeData: generateList(treeData),
+        })
+        if(checkedKeys){
+            this.setState({
+                checkedKeys 
+            })    
+        }
+        if(expandedKeys){
+            this.setState({
+                expandedKeys 
+            })  
+        }
+    }
+    shouldComponentUpdate(nextProps,nextState){
+        return !shallowEqual(this.props, nextProps)
+            || !shallowEqual(this.state, nextState);
+
+    }
+    /***********生命周期 end **************/
     render() {
+        console.log('tasktagtreelist',this.state)
         const { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
         return (
             <div>

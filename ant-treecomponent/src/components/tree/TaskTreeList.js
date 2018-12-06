@@ -11,6 +11,7 @@
 
 import React from 'react';
 import { Tree } from 'antd';
+import shallowEqual from 'shallowequal';
 const TreeNode = Tree.TreeNode;
 /**
  * 
@@ -118,7 +119,25 @@ class TaskTreeList extends React.Component {
             autoExpandParent: false,
         });
     }
+    /***********生命周期 begin **************/
+    componentWillReceiveProps(nextProps) {
+        const { checkedKeys, expandedKeys, autoExpandParent, treeData } = nextProps;
+        this.setState({
+            autoExpandParent,
+            checkedKeys,
+            expandedKeys,
+            treeData,
+            sampleTreeData: generateList(treeData),
+        })
+    }
+    shouldComponentUpdate(nextProps,nextState){
+        return !shallowEqual(this.props, nextProps)
+            || !shallowEqual(this.state, nextState);
+
+    }
+    /***********生命周期 end **************/
     render() {
+        console.log('gen:',this.state)
         const { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
         return (
             <div>
