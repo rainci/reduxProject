@@ -77,7 +77,6 @@ class TaskTagTreeList extends React.Component {
     componentDidMount() {
     }
     componentWillReceiveProps(nextProps) {
-        console.log('nextProps:',nextProps)
         const { checkedKeys, expandedKeys, treeData } = nextProps;
         this.setState({
             treeData,
@@ -96,7 +95,6 @@ class TaskTagTreeList extends React.Component {
     }
     /***********生命周期 end **************/
     render() {
-        console.log('index props:',this.props)
         const { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
         return (
             <div>

@@ -62,7 +62,6 @@ class App extends Component {
     })
   }
   render() {
-    console.log('app state:',this.state)
     let { expandedKeys, checkedKeys, treeData } =this.state;
     return (
       <div className="App">
