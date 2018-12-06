@@ -48,25 +48,29 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      treeData: treeDatas 
+      treeData: treeDatas,
+      checkedKeys: ['1', '11'],
+      expandedKeys: ['1'] 
     }
   }
-  
-  checkedFn = (ids,names) => {
+  treeCheckFn = (ids,names) => {
     console.log(ids,names)  
   }
   componentDidMount(){
-    // this.setState({
-    //   treeData:  treeDatas 
-    // })
+    this.setState({
+      treeData:  treeDatas 
+    })
   }
   render() {
     console.log('app state:',this.state)
+    let { expandedKeys, checkedKeys, treeData } =this.state;
     return (
       <div className="App">
         <TaskTagTreeList 
-          treeData={this.state.treeData} 
-          onTreeCheck={this.checkedFn}  
+          treeData={treeData} 
+          onTreeCheck={this.treeCheckFn}
+          checkedKeys={checkedKeys} 
+          expandedKeys={expandedKeys} 
         />
       </div>
     );
