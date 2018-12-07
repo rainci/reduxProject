@@ -50,7 +50,7 @@ class App extends Component {
     this.state = {
       treeData: [],
       checkedKeys: ['1', '11'],
-      expandedKeys: ['1'] 
+      expandedKeys: ['1','11'] 
     }
   }
   treeCheckFn = (ids,names) => {
@@ -58,7 +58,8 @@ class App extends Component {
   }
   componentDidMount(){
     this.setState({
-      treeData: treeDatas 
+      treeData: treeDatas,
+      expandedKeys: ['1','11']  
     })
   }
   render() {

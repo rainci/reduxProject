@@ -40,6 +40,7 @@ export const generateList = (()=>{//将多层级的数据处理成单层级的�
 class TaskTagTreeList extends React.Component {
     constructor(props) {
         super(props)
+        console.log(123,props)
         let {checkedKeys, expandedKeys, treeData} = props;
         this.state = {
             autoExpandParent: true,
