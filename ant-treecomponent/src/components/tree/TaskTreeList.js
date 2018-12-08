@@ -137,7 +137,6 @@ class TaskTreeList extends React.Component {
     }
     /***********生命周期 end **************/
     render() {
-        console.log('gen:',this.state)
         const { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
         return (
             <div>
