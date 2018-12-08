@@ -63,6 +63,7 @@ class TaskTagTreeList extends React.Component {
         this.props.onTreeCheck(checkedKeys,checkedNames)       
     }
     searchTagFn = filter => {//搜索tag
+        console.log('index:',filter)
         const { sampleTreeData } = this.state;
         const value = filter.name,
             expandedKeys = [];
@@ -75,6 +76,10 @@ class TaskTagTreeList extends React.Component {
             expandedKeys,
 
         });
+    }
+    inputBlurFn = filter => {
+        console.log('当search blur时：',filter)
+
     }
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {
@@ -105,7 +110,7 @@ class TaskTagTreeList extends React.Component {
         const { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
         return (
             <div>
-                <UserSearch searchNames={searchTagNames} onSearchFn={this.searchTagFn} />
+                <UserSearch searchNames={searchTagNames} onSearchFn={this.searchTagFn} onInputBlurFn={this.inputBlurFn} />
                 <TaskTreeList
                     treeData={treeData}
                     checkedKeys={checkedKeys}
