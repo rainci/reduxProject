@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import './App.css';
 import TaskTagTreeList from './components/tree/index';
+import TableListCheck from './components/table/tableListCheck';
   const treeDatas = [
     {
       name: '顶部',
@@ -44,6 +45,53 @@ import TaskTagTreeList from './components/tree/index';
       ]
     }
   ];
+  const columnsTable = [
+    {
+        title: '帐号',
+        dataIndex: 'username',
+        key: 'username',
+        render: text => <a href="javascript:;">{text}</a>,
+    }, {
+        title: '手机号',
+        dataIndex: 'phone',
+        key: 'phone',
+    }, {
+        title: '邮箱',
+        dataIndex: 'email',
+        key: 'email',
+    },
+    {
+        title: '状态',
+        key: 'status',
+        dataIndex: 'status',
+        render: status => {
+            return status == "enabled" ? "启用" : "禁用"
+        }
+    },
+];
+  const tableListData = [
+    {
+      'username': 'lyx',
+      'phone': 15100000001,
+      'email': '123456@qq.com',
+      'status': '已完成',
+      'id': 0 
+    },
+    {
+      'username': 'lyx2',
+      'phone': 15100000001,
+      'email': '12345678@qq.com',
+      'status': '未完成',
+      'id': 1
+    },
+    {
+      'username': 'lyx3',
+      'phone': 15100000001,
+      'email': '12345678@qq.com',
+      'status': '未完成',
+      'id': 2
+    },
+  ] 
 class App extends Component {
   constructor(props){
     super(props)
@@ -55,6 +103,9 @@ class App extends Component {
   }
   treeCheckFn = (ids,names) => {
     console.log(ids,names)  
+  }
+  tableListCheck = (rowkeys,rows) => {
+    console.log('tableListCheck:',rowkeys,rows)
   }
   componentDidMount(){
     this.setState({
@@ -71,6 +122,12 @@ class App extends Component {
           onTreeCheck={this.treeCheckFn}
           checkedKeys={checkedKeys} 
           expandedKeys={expandedKeys} 
+        />
+        <TableListCheck 
+          columnsTable={columnsTable}
+          tableListData={tableListData}
+          selectedRowKeys={[0]}
+          onTableListCheck={this.tableListCheck}
         />
       </div>
     );
