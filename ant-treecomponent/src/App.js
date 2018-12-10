@@ -101,8 +101,12 @@ class App extends Component {
       expandedKeys: ['1','11'] 
     }
   }
-  treeCheckFn = (ids,names) => {
-    console.log(ids,names)  
+  treeCheckFn = (checkedKeys,names) => {
+    console.log(checkedKeys,names) 
+  //   this.setState({
+  //     checkedKeys,
+  //     expandedKeys: checkedKeys.length ? checkedKeys : this.state.expandedKeys   
+  // })  
   }
   tableListCheck = (rowkeys,rows) => {
     console.log('tableListCheck:',rowkeys,rows)
@@ -123,12 +127,12 @@ class App extends Component {
           checkedKeys={checkedKeys} 
           expandedKeys={expandedKeys} 
         />
-        <TableListCheck 
+        {/* <TableListCheck 
           columnsTable={columnsTable}
           tableListData={tableListData}
           selectedRowKeys={[0]}
           onTableListCheck={this.tableListCheck}
-        />
+        /> */}
       </div>
     );
   }

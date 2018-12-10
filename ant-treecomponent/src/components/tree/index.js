@@ -40,12 +40,12 @@ export const generateList = (()=>{//将多层级的数据处理成单层级的�
 class TaskTagTreeList extends React.Component {
     constructor(props) {
         super(props)
-        let {checkedKeys, expandedKeys, treeData} = props;
+        let {checkedKeys = [], expandedKeys = [], treeData = []} = props;
         this.state = {
             autoExpandParent: true,
-            checkedKeys: checkedKeys || [],
-            expandedKeys: expandedKeys || [],
-            treeData: treeData || [],
+            checkedKeys: checkedKeys,
+            expandedKeys: expandedKeys,
+            treeData: treeData,
             sampleTreeData: generateList(treeData)
 
         }
@@ -62,7 +62,6 @@ class TaskTagTreeList extends React.Component {
         this.props.onTreeCheck(checkedKeys,checkedNames)       
     }
     searchTagFn = filter => {//搜索tag
-        console.log('index:',filter)
         const { sampleTreeData } = this.state;
         const value = filter.name,
             expandedKeys = [];
@@ -77,15 +76,10 @@ class TaskTagTreeList extends React.Component {
         });
     }
     inputBlurFn = filter => {
-        console.log('当search blur时：',filter)
 
     }
     /***********生命周期 begin **************/
-    componentDidMount(){
-        console.log(`did mount`)
-    }
     componentWillReceiveProps(nextProps) {
-        console.log('willreceiveprop:',nextProps)
         const { checkedKeys, expandedKeys, treeData } = nextProps;
         this.setState({
             treeData,
@@ -101,8 +95,8 @@ class TaskTagTreeList extends React.Component {
     }
     /***********生命周期 end **************/
     render() {
-        console.log('render:',this.props,this.state)
         const { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
+        console.log('index:',checkedKeys)
         return (
             <div>
                 <UserSearch searchNames={searchTagNames} onSearchFn={this.searchTagFn} onInputBlurFn={this.inputBlurFn} />
