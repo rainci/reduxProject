@@ -4,7 +4,6 @@ const treeDatas = [
     {
       name: '顶部',
       tagId:1,
-      parentId:0,
       children: [
         {
           name: '人物',
