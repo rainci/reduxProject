@@ -13,18 +13,27 @@ import React from "react";
 import { Table} from 'antd'; 
 import shallowEqual from 'shallowequal';
 class TableListCheck extends React.Component{
-    state = {
-        selectedRowKeys: [], //选中的keys
-    };
+    constructor(props){
+        super(props)
+        let {selectedRowKeys = [], columnsTable = [], tableListData = [], scrollY = 448} = props;
+        this.state = {
+            selectedRowKeys, //选中的keys
+            columnsTable,
+            tableListData,
+            scrollY
+        };
+    }
+    
     onSelectChange = (selectedRowKeys,selectedRows) => { //select更改时
         this.props.onTableListCheck && this.props.onTableListCheck(selectedRowKeys,selectedRows)
         this.setState({ selectedRowKeys });
     }
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {
-        const { selectedRowKeys } = nextProps;
+        const { selectedRowKeys, tableListData } = nextProps;
         this.setState({
-            selectedRowKeys
+            selectedRowKeys,
+            tableListData
         })
     }
     shouldComponentUpdate(nextProps,nextState){
@@ -34,10 +43,11 @@ class TableListCheck extends React.Component{
     }
     /***********生命周期 end **************/
     render(){
-        const { tableListData = [], columnsTable=[], scrollY = 448 } = this.props;
+        console.log('table:',this.props,this.state)
+        const { selectedRowKeys, tableListData , columnsTable, scrollY } = this.state;
         // selectedRowKeys=selectedRowKeys.map((v,i)=>{return parseInt(v)});
         const rowSelection = {
-            selectedRowKeys: this.state.selectedRowKeys,
+            selectedRowKeys,
             onChange: this.onSelectChange,
         };
         return (
