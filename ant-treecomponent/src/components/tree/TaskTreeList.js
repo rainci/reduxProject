@@ -169,8 +169,8 @@ class TaskTreeList extends React.Component {
                     checkStrictly={true}
                     autoExpandParent={autoExpandParent}
                     onCheck={this.onTreeCheck}
-                    checkedKeys={checkedKeys}
-                    // checkedKeys={{ 'checked': checkedKeys }}
+                    // checkedKeys={checkedKeys}
+                    checkedKeys={{ 'checked': checkedKeys }}
                     expandedKeys={expandedKeys}
                     onExpand={this.onExpand}
                 >
