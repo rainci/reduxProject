@@ -20,11 +20,12 @@ const TreeNode = Tree.TreeNode;
  * @author rainci(刘雨熙)
  */
 export const generateList = (() => {//将多层级的数据处理成单层级的数据方法
-    let dealData = [];
+    let dealData = new Map();
     return function dealDataFn(data = []) {
         for (let i = 0; i < data.length; i++) {
-            const node = data[i];
-            dealData.push(node);
+            const node = data[i],
+                tagId = node.tagId;
+            dealData.set(tagId,node);
             if (node.children && node.children.length) {
                 dealDataFn(node.children);
             }
@@ -41,14 +42,7 @@ export const generateList = (() => {//将多层级的数据处理成单层级的
 * @author rainci(刘雨熙)
 */
 export const filterOneData = (id, data) => { //筛选符合id的一条数据
-    let arr = [];
-    for (let o of data) {
-        if (o.tagId === id) {
-            arr.push({ ...o })
-            break;
-        }
-    }
-    return arr
+    return data.get(id)
 }
 
 class TaskTreeList extends React.Component {
@@ -60,7 +54,8 @@ class TaskTreeList extends React.Component {
             checkedKeys: checkedKeys, //选择的keys
             expandedKeys: expandedKeys, //展开的keys
             treeData: treeData, //tree data
-            sampleTreeData: generateList(treeData),//平级tree data            
+            sampleTreeData: generateList(treeData),//平级tree data   
+            allSelectData:[]         
         }
     }
     /***********公共方法 begin *****************/
@@ -77,7 +72,18 @@ class TaskTreeList extends React.Component {
             return <TreeNode title={name} key={tagId} dataRef={item} id={tagId} parentId={parentId} />
         })
     }
-
+    getParentIdAndName = ({currentId,sampleTreeData,secletIds}) => {//获取父辈们的id和name
+        let parentItem = filterOneData(currentId, sampleTreeData);
+        let { name, tagId, parentId } = parentItem;
+        let arr = [];
+        secletIds.unshift(`${tagId}`)
+        arr.unshift({tagId,name})
+        if( parentId ){
+            let result = this.getParentIdAndName({ currentId:parentId, sampleTreeData, secletIds})
+            arr = [...arr,...result]
+        }
+        return arr;
+    }
     /**
      * 
      * @return {string[]} 
@@ -108,44 +114,6 @@ class TaskTreeList extends React.Component {
         return ids
     }
 
-    checkItem({ draftCheckedKeys, parentId, pos, treeData }) {
-
-        let checkedKeys = draftCheckedKeys;
-
-        // 看当前更改的复选框是否有父级，无，则直接更新 checkedKeys
-        if (parentId === undefined) {
-            this.setState({
-                checkedKeys
-            })
-            return;
-        }
-
-        /**
-         * pos 是当前选择项的位置 string[]（string是0则未选中，string是1则选中）
-         * 最后一位是当前项id
-         */
-        pos.pop();
-
-        if (pos.length) {
-            checkedKeys = [...checkedKeys, `${parentId}`];
-        }
-
-        const tier = pos.length; // 父级往上还有几层 （该数应该是 当前项距离顶层的层级减1）
-
-        let parentsIds = [];
-        if (tier > 0) {
-            parentsIds = this.getParentsIds({
-                treeData,
-                tier: tier + 1, // 因为包括父级层在内，所以加1
-                currId: `${parentId}`
-            });
-        }
-
-        this.setState({
-            checkedKeys: [...new Set([...parentsIds, ...checkedKeys, ...this.state.checkedKeys])]
-        })
-    }
-
     /**
      * 
      * @param {*} children 
@@ -168,6 +136,30 @@ class TaskTreeList extends React.Component {
         return ids;
     }
 
+
+    checkItem({ draftCheckedKeys, parentId, tagId, name, sampleTreeData }) {
+        let parentsIds = [], arr = [], allSelectData=[];
+        let checkedKeys = draftCheckedKeys;
+        arr.push({tagId,name})
+        // 看当前更改的复选框是否有父级，无，则直接更新 checkedKeys
+        if (parentId === 0 || parentId === undefined) {
+            this.setState({
+                checkedKeys
+            })
+            return;
+        }
+
+        arr =[...arr,...this.getParentIdAndName({
+            currentId: parentId,
+            secletIds: parentsIds,
+            sampleTreeData,
+        })]; 
+        allSelectData.push(arr)
+        this.setState({
+            checkedKeys: [...new Set([...parentsIds, ...checkedKeys, ...this.state.checkedKeys])],
+            allSelectData:[...this.state.allSelectData,...allSelectData]
+        })
+    }
     unCheckItem({ draftCheckedKeys, children }) {
         let checkedKeys = draftCheckedKeys;
 
@@ -189,15 +181,18 @@ class TaskTreeList extends React.Component {
     /***********页面业务逻辑 begin *****************/
     onTreeCheck = (checkedKeys, e) => {//当checkbox被点击时
         //ids存放被选中的checkbox的id及它父辈们的id；names存放被选中的checkbox的name和它父辈们的name
-
+        console.log('tree:',checkedKeys,e)
         const { node: { props }, checked: status } = e;
-        const { parentId, pos, dataRef: { children } } = props;
+        const { parentId, pos, dataRef: { children, tagId, name } } = props;
+        const {treeData, sampleTreeData} = this.state
         const changeInfo = {
-            treeData: this.state.treeData,
+            treeData,
+            sampleTreeData,
             draftCheckedKeys: checkedKeys.checked,
+            tagId,
+            name,
             parentId,
-            children,
-            pos: pos.split('-'), // props.pos 位置 0-n 一级；0-n-n 二级
+            children
         }
 
         if (status) {
@@ -205,6 +200,9 @@ class TaskTreeList extends React.Component {
         } else {
             this.unCheckItem(changeInfo);
         }
+        setTimeout(()=>{
+            this.props.onTreeCheck && this.props.onTreeCheck(this.state.checkedKeys,this.state.allSelectData)
+        },100)
     }
 
     onExpand = (expandedKeys) => {
@@ -233,6 +231,7 @@ class TaskTreeList extends React.Component {
     }
     /***********生命周期 end **************/
     render() {
+        console.log(this.state)
 
         let { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
 

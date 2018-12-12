@@ -4,6 +4,7 @@ const treeDatas = [
     {
       name: '顶部',
       tagId:1,
+      parentId:0,
       children: [
         {
           name: '人物',
@@ -47,12 +48,12 @@ const treeDatas = [
       super(props)
       this.state = {
         treeData: [],
-        checkedKeys: ['1', '11'],
+        // checkedKeys: ['1', '11'],
         expandedKeys: ['1','11'] 
       }
     }
     treeCheckFn = (checkedKeys,names) => {
-      console.log(checkedKeys,names) 
+      console.log('outercheckd:',checkedKeys,names) 
     }
     componentDidMount(){
       this.setState({

@@ -57,7 +57,7 @@ class TaskTagTreeList extends React.Component {
     treeCheckedFn = (checkedKeys,checkedNames) => {//当checkbox被点击时
         this.setState({
             checkedKeys,
-            expandedKeys: checkedKeys.length ? checkedKeys : this.state.expandedKeys   
+            expandedKeys: checkedKeys && checkedKeys.length ? checkedKeys : this.state.expandedKeys   
         }) 
         this.props.onTreeCheck(checkedKeys,checkedNames)       
     }
@@ -96,7 +96,7 @@ class TaskTagTreeList extends React.Component {
     /***********生命周期 end **************/
     render() {
         const { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
-        console.log('index:',checkedKeys)
+
         return (
             <div>
                 <UserSearch searchNames={searchTagNames} onSearchFn={this.searchTagFn} onInputBlurFn={this.inputBlurFn} />
