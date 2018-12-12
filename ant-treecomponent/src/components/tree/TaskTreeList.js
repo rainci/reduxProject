@@ -181,7 +181,7 @@ class TaskTreeList extends React.Component {
     /***********页面业务逻辑 begin *****************/
     onTreeCheck = (checkedKeys, e) => {//当checkbox被点击时
         //ids存放被选中的checkbox的id及它父辈们的id；names存放被选中的checkbox的name和它父辈们的name
-        console.log('tree:',checkedKeys,e)
+        console.log('ontreeCheck:',checkedKeys,e)
         const { node: { props }, checked: status } = e;
         const { parentId, pos, dataRef: { children, tagId, name } } = props;
         const {treeData, sampleTreeData} = this.state
@@ -231,8 +231,6 @@ class TaskTreeList extends React.Component {
     }
     /***********生命周期 end **************/
     render() {
-        console.log(this.state)
-
         let { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
 
         return (
