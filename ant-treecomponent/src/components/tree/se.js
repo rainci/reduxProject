@@ -30,7 +30,7 @@ function f(){
        resault.push([value, pa]);
        select.splice(i, 1);
        select.splice(paIndex, 1);
-     } else if () {}
+     } else if (paIndex) {}
      // 备选里面找爹
      
    }
