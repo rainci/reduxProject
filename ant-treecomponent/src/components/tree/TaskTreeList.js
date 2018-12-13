@@ -13,16 +13,6 @@ import React from 'react';
 import { Tree } from 'antd';
 import shallowEqual from 'shallowequal';
 const TreeNode = Tree.TreeNode;
-/**
-* 
-* @param {Array} data 
-* @param {Number} id
-* @return {Array}
-* @author rainci(刘雨熙)
-*/
-export const filterOneData = (id, data) => { //筛选符合id的一条数据
-    return data.get(id)
-}
 
 class TaskTreeList extends React.Component {
     constructor(props) {
@@ -59,6 +49,16 @@ class TaskTreeList extends React.Component {
         })
     }
     /**
+    * 
+    * @param {Array} data 
+    * @param {Number} id
+    * @return {Array}
+    * @author rainci(刘雨熙)
+    */
+    filterOneData = (id, data) => { //筛选符合id的一条数据
+        return data.get(id)
+    }
+    /**
      * 
      * @param {Number} currentId 
      * @param {Array} sampleTreeData 
@@ -69,7 +69,7 @@ class TaskTreeList extends React.Component {
      * 获取父辈们的id和name
      */
     getParentIdAndName = ({ currentId, sampleTreeData, secletIds = [], relationLeaf = [] }) => {//获取父辈们的id和name
-        let parentItem = filterOneData(currentId, sampleTreeData);
+        let parentItem = this.filterOneData(currentId, sampleTreeData);
         if (parentItem && Object.keys(parentItem).length) {
             let { tagId, name, parentId } = parentItem;
             secletIds.unshift(`${tagId}`)
@@ -190,7 +190,7 @@ class TaskTreeList extends React.Component {
     checkedWork = (checkedKeys) => {//select后要工作的内容
         let leaf = this.filterLeaf(checkedKeys)
         let relationLeaf = this.relationLeafFn(leaf)
-        this.props.onTreeCheck && this.props.onTreeCheck(checkedKeys,relationLeaf)
+        this.props.onTreeCheck && this.props.onTreeCheck(checkedKeys, relationLeaf)
     }
     onTreeCheck = (checkedKeys, e) => {//当checkbox被点击时
         //ids存放被选中的checkbox的id及它父辈们的id；names存放被选中的checkbox的name和它父辈们的name
