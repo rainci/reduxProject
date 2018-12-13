@@ -59,7 +59,7 @@ const treeDatas = [
       this.setState({
         treeData: treeDatas,
         expandedKeys: ['1','11'],
-        checkedKeys: ['1', '11','12'],  
+        checkedKeys: ['1', '11','12','121'],  
       })
     }
     render() {
