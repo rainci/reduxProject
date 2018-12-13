@@ -23,19 +23,20 @@ const searchTagNames = [
  * @return {Array}
  * @author rainci(刘雨熙)
  */
-export const generateList = (()=>{//将多层级的数据处理成单层级的数据方法
-    let dealData = [];
-    return function dealDataFn(data=[]) {
-      for (let i = 0; i < data.length; i++) {
-        const node = data[i];
-        dealData.push(node);
-        if (node.children && node.children.length) {
-          dealDataFn(node.children);
+export const generateList = (() => {//将多层级的数据处理成单层级的数据方法
+    let dealData = new Map();
+    return function dealDataFn(data = []) {
+        for (let i = 0; i < data.length; i++) {
+            const node = data[i],
+                tagId = node.tagId;
+            dealData.set(tagId,node);
+            if (node.children && node.children.length) {
+                dealDataFn(node.children);
+            }
         }
-      }
-      return dealData; 
-    } 
-  })();
+        return dealData;
+    }
+})();
 
 class TaskTagTreeList extends React.Component {
     constructor(props) {
@@ -50,9 +51,6 @@ class TaskTagTreeList extends React.Component {
 
         }
     }
-    /***********公共方法 begin *****************/
-    
-    /***********公共方法 end *****************/
     /***********页面业务逻辑 begin *****************/
     treeCheckedFn = (checkedKeys,checkedNames) => {//当checkbox被点击时
         this.setState({
@@ -75,9 +73,6 @@ class TaskTagTreeList extends React.Component {
 
         });
     }
-    inputBlurFn = filter => {
-
-    }
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {
         const { checkedKeys, expandedKeys, treeData } = nextProps;
@@ -95,13 +90,14 @@ class TaskTagTreeList extends React.Component {
     }
     /***********生命周期 end **************/
     render() {
-        const { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
+        const { autoExpandParent, checkedKeys, expandedKeys, treeData, sampleTreeData } = this.state;
 
         return (
             <div>
                 <UserSearch searchNames={searchTagNames} onSearchFn={this.searchTagFn} onInputBlurFn={this.inputBlurFn} />
                 <TaskTreeList
                     treeData={treeData}
+                    sampleTreeData={sampleTreeData}
                     checkedKeys={checkedKeys}
                     autoExpandParent={autoExpandParent}
                     expandedKeys={expandedKeys}

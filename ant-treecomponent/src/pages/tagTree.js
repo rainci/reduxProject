@@ -48,8 +48,8 @@ const treeDatas = [
       super(props)
       this.state = {
         treeData: [],
-        // checkedKeys: ['1', '11'],
-        expandedKeys: ['1','11'] 
+        checkedKeys: [],
+        expandedKeys: [] 
       }
     }
     treeCheckFn = (checkedKeys,names) => {
@@ -58,7 +58,8 @@ const treeDatas = [
     componentDidMount(){
       this.setState({
         treeData: treeDatas,
-        expandedKeys: ['1','11']  
+        expandedKeys: ['1','11'],
+        checkedKeys: ['1', '11','12'],  
       })
     }
     render() {
