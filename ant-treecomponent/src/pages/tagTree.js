@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Tag } from 'antd';
 import TaskTagTreeList from '../components/tree/index';
 const treeDatas = [
     {
@@ -49,11 +50,16 @@ const treeDatas = [
       this.state = {
         treeData: [],
         checkedKeys: [],
-        expandedKeys: [] 
+        expandedKeys: [],
+        transformTagData: ['老虎','狮子'] 
       }
     }
-    treeCheckFn = (checkedKeys,names) => {
-      console.log('outercheckd:',checkedKeys,names) 
+    treeCheckFn = (checkedKeys,leafRelation) => {
+      console.log('outercheckd:',checkedKeys,leafRelation) 
+    }
+    eachTagClose = e => {
+      e.preventDefault();
+      console.log(e)
     }
     componentDidMount(){
       this.setState({
@@ -72,6 +78,11 @@ const treeDatas = [
             checkedKeys={checkedKeys} 
             expandedKeys={expandedKeys} 
           />
+          {
+            this.state.transformTagData.map((item,key) => {
+              return <Tag closable key={key} id={key} onClose={this.eachTagClose}>{item}</Tag>
+            })
+          }
         </div>
       );
     }
