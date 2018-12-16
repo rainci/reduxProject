@@ -31,7 +31,7 @@ function f(){
        select.splice(i, 1);
        select.splice(paIndex, 1);
      } else if (paIndex) {}
-     // 备选里面找爹
+     // 备选里面找爹额
      
    }
  }
