@@ -3,7 +3,8 @@
  * @param {Array} 必选 treeData 
  * @param {Array} 可选 checkedKeys 
  * @param {Array} 可选 expandedKeys
- * @param {Function} 必选 onTreeCheck(arg1,arg2) 参数1{Array} 选中的id，参数2{Array} 选中的name
+ * @param {Number} 可选 treeHeight
+ * @param {Function} 必选 onTreeCheck({checkedKeys,expandedKeys,relationLeaf,checkedTagList}) 
  * @return {component} TaskTagTreeList 
  * @author rainci(刘雨熙)
  * @attention 当可选参数作为属性传入后，则展示相对应数据的控制权交到此组件的父组件上，
@@ -29,7 +30,7 @@ export const generateList = (() => {//将多层级的数据处理成单层级的
         for (let i = 0; i < data.length; i++) {
             const node = data[i],
                 tagId = node.tagId;
-            dealData.set(tagId,node);
+            dealData.set(tagId, node);
             if (node.children && node.children.length) {
                 dealDataFn(node.children);
             }
@@ -41,7 +42,7 @@ export const generateList = (() => {//将多层级的数据处理成单层级的
 class TaskTagTreeList extends React.Component {
     constructor(props) {
         super(props)
-        let {checkedKeys = [], expandedKeys = [], treeData = []} = props;
+        let { checkedKeys = [], expandedKeys = [], treeData = [] } = props;
         this.state = {
             autoExpandParent: true,
             checkedKeys: checkedKeys,
@@ -52,25 +53,27 @@ class TaskTagTreeList extends React.Component {
         }
     }
     /***********页面业务逻辑 begin *****************/
-    treeCheckedFn = (checkedKeys,checkedNames) => {//当checkbox被点击时
-        this.setState({
-            checkedKeys,
-            expandedKeys: checkedKeys && checkedKeys.length ? checkedKeys : this.state.expandedKeys   
-        }) 
-        this.props.onTreeCheck(checkedKeys,checkedNames)       
+    treeCheckedFn = ({checkedKeys,relationLeaf}) => {//当checkbox被点击时
+        let checkedTagList = this.getCheckedTagListFn(checkedKeys);
+        this.props.onTreeCheck({checkedKeys, relationLeaf, checkedTagList})
+
+    }
+    getCheckedTagListFn = checkedKeys => {//将选中的数组id转换成平级的有id和name的对象集数组
+        return [...checkedKeys].map(i => {
+            return { tagId: i, name: this.state.sampleTreeData.get(Number(i)).name }
+        })
     }
     searchTagFn = filter => {//搜索tag
         const { sampleTreeData } = this.state;
         const value = filter.name,
             expandedKeys = [];
-            sampleTreeData.forEach(item => {
+        sampleTreeData.forEach(item => {
             if (item.name.indexOf(value) > -1) {
                 expandedKeys.push(item.tagId.toString());
             }
         });
         this.setState({
             expandedKeys,
-
         });
     }
     /***********生命周期 begin **************/
@@ -83,7 +86,7 @@ class TaskTagTreeList extends React.Component {
             expandedKeys: expandedKeys || this.state.expandedKeys
         })
     }
-    shouldComponentUpdate(nextProps,nextState){
+    shouldComponentUpdate(nextProps, nextState) {
         return !shallowEqual(this.props, nextProps)
             || !shallowEqual(this.state, nextState);
 
@@ -97,6 +100,7 @@ class TaskTagTreeList extends React.Component {
                 <UserSearch searchNames={searchTagNames} onSearchFn={this.searchTagFn} onInputBlurFn={this.inputBlurFn} />
                 <TaskTreeList
                     treeData={treeData}
+                    treeHeight={this.props.treeHeight}
                     sampleTreeData={sampleTreeData}
                     checkedKeys={checkedKeys}
                     autoExpandParent={autoExpandParent}

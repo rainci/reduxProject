@@ -3,6 +3,7 @@
  * @param {Array} treeData 
  * @param {Array} checkedKeys
  * @param {Array}  expandedKeys
+ * @param {Number} 可选 treeHeight
  * @param {boolean} autoExpandParent 
  * @param {Function} onTreeCheck  
  * @return {component} TaskTreeList 
@@ -17,14 +18,13 @@ const TreeNode = Tree.TreeNode;
 class TaskTreeList extends React.Component {
     constructor(props) {
         super(props)
-        let { checkedKeys = [], expandedKeys = [], treeData = [], sampleTreeData = [] } = props;
+        let { checkedKeys = [], expandedKeys = [], treeData = [], sampleTreeData = []} = props;
         this.state = {
             autoExpandParent: true, //是否自动展开
-            checkedKeys: checkedKeys, //选择的keys
-            expandedKeys: expandedKeys, //展开的keys
-            treeData: treeData, //tree data
-            sampleTreeData: sampleTreeData,//平级tree data   
-            allSelectData: []
+            checkedKeys, //选择的keys
+            expandedKeys, //展开的keys
+            treeData, //tree data
+            sampleTreeData, //平级tree data   
         }
     }
     /***********公共方法 begin *****************/
@@ -190,7 +190,8 @@ class TaskTreeList extends React.Component {
     checkedWork = (checkedKeys) => {//select后要工作的内容
         let leaf = this.filterLeaf(checkedKeys)
         let relationLeaf = this.relationLeafFn(leaf)
-        this.props.onTreeCheck && this.props.onTreeCheck(checkedKeys, relationLeaf)
+        this.props.onTreeCheck && this.props.onTreeCheck({checkedKeys, relationLeaf})
+        
     }
     onTreeCheck = (checkedKeys, e) => {//当checkbox被点击时
         //ids存放被选中的checkbox的id及它父辈们的id；names存放被选中的checkbox的name和它父辈们的name
@@ -243,7 +244,7 @@ class TaskTreeList extends React.Component {
         let { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
 
         return (
-            <div>
+            <div style={{'height':`${this.props.treeHeight || 500 }px`,'overflow':'scroll'}}>
                 <Tree
                     checkable={true}
                     checkStrictly={true}

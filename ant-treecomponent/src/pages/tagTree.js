@@ -54,8 +54,8 @@ const treeDatas = [
         transformTagData: ['老虎','狮子'] 
       }
     }
-    treeCheckFn = (checkedKeys,leafRelation) => {
-      console.log('outercheckd:',checkedKeys,leafRelation) 
+    treeCheckFn = ({checkedKeys, relationLeaf, checkedTagList}) => {
+      console.log('outercheckd:',checkedKeys,relationLeaf,checkedTagList) 
     }
     eachTagClose = e => {
       e.preventDefault();
