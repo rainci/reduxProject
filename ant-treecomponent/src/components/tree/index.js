@@ -72,9 +72,13 @@ class TaskTagTreeList extends React.Component {
                 expandedKeys.push(item.tagId.toString());
             }
         });
-        this.setState({
-            expandedKeys,
-        });
+        console.log('search:',expandedKeys)
+        // let searchExpandKeys = [...new Set([...(this.props.expandedKeys?this.props.expandedKeys:[]),...expandedKeys])]
+        // console.log('new:',searchExpandKeys)
+        // this.setState({
+        //     expandedKeys: searchExpandKeys,
+        // });
+        this.props.onTreeSearch && this.props.onTreeSearch({expandedKeys})
     }
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {

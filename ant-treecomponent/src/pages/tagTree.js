@@ -55,13 +55,19 @@ const treeDatas = [
         transformTagData: ['老虎','狮子'] 
       }
     }
-    treeCheckFn = ({checkedKeys, relationLeaf, checkedTagList}) => {
+    /***************************页面业务逻辑 begin ******************************/
+    treeCheckFn = ({checkedKeys, relationLeaf, checkedTagList}) => { //every time check tree
       console.log('outercheckd:',checkedKeys,relationLeaf,checkedTagList) 
       this.setState({
         bfcheckedKeys: [...checkedKeys]
       })
     }
-    deleteTag = () => {
+    treeSearchFn = ({expandedKeys}) => {//search tree
+      this.setState({
+        expandedKeys 
+      })
+    }
+    deleteTag = () => { // delete tags
       let { bfcheckedKeys } = this.state;
       bfcheckedKeys.pop();
       this.setState({
@@ -72,6 +78,8 @@ const treeDatas = [
       e.preventDefault();
       console.log(e)
     }
+    /***************************页面业务逻辑 end ******************************/
+    /***********生命周期 begin **************/
     componentDidMount(){
       this.setState({
         treeData: treeDatas,
@@ -79,6 +87,7 @@ const treeDatas = [
         checkedKeys: ['1', '11','12','121'],  
       })
     }
+    /***********生命周期 end **************/
     render() {
       let { expandedKeys, checkedKeys, treeData } =this.state;
       return (
@@ -86,6 +95,7 @@ const treeDatas = [
           <TaskTagTreeList 
             treeData={treeData} 
             onTreeCheck={this.treeCheckFn}
+            onTreeSearch={this.treeSearchFn}
             checkedKeys={checkedKeys} 
             expandedKeys={expandedKeys} 
           />
