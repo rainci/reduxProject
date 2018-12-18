@@ -49,6 +49,7 @@ const treeDatas = [
       super(props)
       this.state = {
         treeData: [],
+        bfcheckedKeys: [],
         checkedKeys: [],
         expandedKeys: [],
         transformTagData: ['老虎','狮子'] 
@@ -56,6 +57,16 @@ const treeDatas = [
     }
     treeCheckFn = ({checkedKeys, relationLeaf, checkedTagList}) => {
       console.log('outercheckd:',checkedKeys,relationLeaf,checkedTagList) 
+      this.setState({
+        bfcheckedKeys: [...checkedKeys]
+      })
+    }
+    deleteTag = () => {
+      let { bfcheckedKeys } = this.state;
+      bfcheckedKeys.pop();
+      this.setState({
+        checkedKeys:bfcheckedKeys
+      })
     }
     eachTagClose = e => {
       e.preventDefault();
@@ -78,11 +89,13 @@ const treeDatas = [
             checkedKeys={checkedKeys} 
             expandedKeys={expandedKeys} 
           />
-          {
+          
+          {/* {
             this.state.transformTagData.map((item,key) => {
               return <Tag closable key={key} id={key} onClose={this.eachTagClose}>{item}</Tag>
             })
-          }
+          } */}
+          <span onClick={this.deleteTag}>delete</span>
         </div>
       );
     }
