@@ -62,11 +62,6 @@ const treeDatas = [
         bfcheckedKeys: [...checkedKeys]
       })
     }
-    treeSearchFn = ({expandedKeys}) => {//search tree
-      this.setState({
-        expandedKeys 
-      })
-    }
     deleteTag = () => { // delete tags
       let { bfcheckedKeys } = this.state;
       bfcheckedKeys.pop();
@@ -83,8 +78,8 @@ const treeDatas = [
     componentDidMount(){
       this.setState({
         treeData: treeDatas,
-        expandedKeys: ['1','11'],
-        checkedKeys: ['1', '11','12','121'],  
+        expandedKeys: ['1'],
+        checkedKeys: ['1'],  
       })
     }
     /***********生命周期 end **************/
@@ -95,7 +90,6 @@ const treeDatas = [
           <TaskTagTreeList 
             treeData={treeData} 
             onTreeCheck={this.treeCheckFn}
-            onTreeSearch={this.treeSearchFn}
             checkedKeys={checkedKeys} 
             expandedKeys={expandedKeys} 
           />

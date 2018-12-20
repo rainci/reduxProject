@@ -131,8 +131,9 @@ class TaskTreeList extends React.Component {
      * 筛选data(tree data)，把data中的子节点和子节点没有在data中的父节点返回
      */
     filterLeaf = data => { //筛选select后的叶子节点
+        const {sampleTreeData} = this.state;
         return data.filter(item => {
-            let itemChildren = this.state.sampleTreeData.get(parseInt(item)).children;
+            let itemChildren = sampleTreeData && sampleTreeData.size && sampleTreeData.get(parseInt(item)) && sampleTreeData.get(parseInt(item)).children;
             if (itemChildren && itemChildren.length && this.checkHasChildren(data, itemChildren)) {
                 return false;
             } else {
@@ -211,12 +212,15 @@ class TaskTreeList extends React.Component {
         setTimeout(() => {
             const { checkedKeys } = this.state;
             this.checkedWork(checkedKeys);
+            console.log('inner:state',this.state)
         }, 10)
+        
     }
 
     onExpand = (expandedKeys) => {
         // if not set autoExpandParent to false, if children expanded, parent can not collapse.
         // or, you can remove all expanded children keys.
+        console.log('inner:expand:',expandedKeys)
         this.setState({
             expandedKeys,
             autoExpandParent: false,
@@ -224,11 +228,13 @@ class TaskTreeList extends React.Component {
     }
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {
-        const { checkedKeys, expandedKeys, autoExpandParent, treeData, sampleTreeData } = nextProps;
+        const { checkedKeys=[], expandedKeys=[], autoExpandParent, treeData, sampleTreeData } = nextProps;
         this.setState({
             autoExpandParent,
-            checkedKeys,
-            expandedKeys,
+            // checkedKeys, //只这样传，不合并当前页面state中对应的值，总是有问题的，比如搜索的话，我们checkedKeys的值，就会消失
+            // expandedKeys, //只这样传，不合并当前页面state中对应的值，总是有问题的，比如搜索的话，我们之前展开的expandedKeys的值，就会默认消失，并且被最外面父组件传递过来的默认值替代
+            checkedKeys: [...new Set([...this.state.checkedKeys,...checkedKeys])],
+            expandedKeys: [...new Set([...this.state.expandedKeys,...expandedKeys])],
             treeData,
             sampleTreeData,
         })

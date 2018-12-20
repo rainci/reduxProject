@@ -45,9 +45,9 @@ class TaskTagTreeList extends React.Component {
         let { checkedKeys = [], expandedKeys = [], treeData = [] } = props;
         this.state = {
             autoExpandParent: true,
-            checkedKeys: checkedKeys,
-            expandedKeys: expandedKeys,
-            treeData: treeData,
+            checkedKeys,
+            expandedKeys,
+            treeData,
             sampleTreeData: generateList(treeData)
 
         }
@@ -59,8 +59,11 @@ class TaskTagTreeList extends React.Component {
 
     }
     getCheckedTagListFn = checkedKeys => {//将选中的数组id转换成平级的有id和name的对象集数组
+        const { sampleTreeData } = this.state;
         return [...checkedKeys].map(i => {
-            return { tagId: i, name: this.state.sampleTreeData.get(Number(i)).name }
+            if( sampleTreeData.get(Number(i))){
+                return { tagId: i, name: this.state.sampleTreeData.get(Number(i)).name }
+            } 
         })
     }
     searchTagFn = filter => {//搜索tag
@@ -73,12 +76,12 @@ class TaskTagTreeList extends React.Component {
             }
         });
         console.log('search:',expandedKeys)
-        // let searchExpandKeys = [...new Set([...(this.props.expandedKeys?this.props.expandedKeys:[]),...expandedKeys])]
-        // console.log('new:',searchExpandKeys)
-        // this.setState({
-        //     expandedKeys: searchExpandKeys,
-        // });
-        this.props.onTreeSearch && this.props.onTreeSearch({expandedKeys})
+        let searchExpandKeys = [...new Set([...(this.props.expandedKeys?this.props.expandedKeys:[]),...expandedKeys])]
+        console.log('new:',searchExpandKeys)
+        this.setState({
+            expandedKeys: searchExpandKeys,
+        });
+        // this.props.onTreeSearch && this.props.onTreeSearch({expandedKeys})
     }
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {
