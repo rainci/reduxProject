@@ -212,7 +212,6 @@ class TaskTreeList extends React.Component {
         setTimeout(() => {
             const { checkedKeys } = this.state;
             this.checkedWork(checkedKeys);
-            console.log('inner:state',this.state)
         }, 10)
         
     }
@@ -220,7 +219,6 @@ class TaskTreeList extends React.Component {
     onExpand = (expandedKeys) => {
         // if not set autoExpandParent to false, if children expanded, parent can not collapse.
         // or, you can remove all expanded children keys.
-        console.log('inner:expand:',expandedKeys)
         this.setState({
             expandedKeys,
             autoExpandParent: false,
