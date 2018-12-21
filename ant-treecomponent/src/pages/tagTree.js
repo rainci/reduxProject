@@ -52,6 +52,7 @@ const treeDatas = [
         bfcheckedKeys: [],
         checkedKeys: [],
         expandedKeys: [],
+        initKeys:false,
         transformTagData: ['老虎','狮子'] 
       }
     }
@@ -59,14 +60,17 @@ const treeDatas = [
     treeCheckFn = ({checkedKeys, relationLeaf, checkedTagList}) => { //every time check tree
       console.log('outercheckd:',checkedKeys,relationLeaf,checkedTagList) 
       this.setState({
-        bfcheckedKeys: [...checkedKeys]
+        checkedKeys
       })
     }
     deleteTag = () => { // delete tags
-      let { bfcheckedKeys } = this.state;
-      bfcheckedKeys.pop();
+      let { checkedKeys } = this.state;
+      let bfcheckedKeys = [...checkedKeys];
+      bfcheckedKeys.pop()
+     
       this.setState({
-        checkedKeys:bfcheckedKeys
+        checkedKeys:bfcheckedKeys,
+        initKeys:true
       })
     }
     eachTagClose = e => {
@@ -84,14 +88,16 @@ const treeDatas = [
     }
     /***********生命周期 end **************/
     render() {
-      let { expandedKeys, checkedKeys, treeData } =this.state;
+      console.log('outerrender:',)
+      let { expandedKeys, checkedKeys, treeData, initKeys } =this.state;
       return (
         <div >
           <TaskTagTreeList 
             treeData={treeData} 
             onTreeCheck={this.treeCheckFn}
             checkedKeys={checkedKeys} 
-            expandedKeys={expandedKeys} 
+            expandedKeys={expandedKeys}
+            initKeys={initKeys} 
           />
           
           {/* {

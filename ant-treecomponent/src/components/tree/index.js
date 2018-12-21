@@ -82,12 +82,13 @@ class TaskTagTreeList extends React.Component {
     }
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {
-        const { checkedKeys, expandedKeys, treeData } = nextProps;
+        const { checkedKeys, expandedKeys, initKeys, treeData } = nextProps;
         this.setState({
             treeData,
             sampleTreeData: generateList(treeData),
             checkedKeys: checkedKeys || this.state.checkedKeys,
-            expandedKeys: expandedKeys || this.state.expandedKeys
+            expandedKeys: expandedKeys || this.state.expandedKeys,
+            initKeys
         })
     }
     shouldComponentUpdate(nextProps, nextState) {
@@ -97,7 +98,7 @@ class TaskTagTreeList extends React.Component {
     }
     /***********生命周期 end **************/
     render() {
-        const { autoExpandParent, checkedKeys, expandedKeys, treeData, sampleTreeData } = this.state;
+        const { autoExpandParent, checkedKeys, expandedKeys, treeData, sampleTreeData, initKeys } = this.state;
 
         return (
             <div>
@@ -109,7 +110,9 @@ class TaskTagTreeList extends React.Component {
                     checkedKeys={checkedKeys}
                     autoExpandParent={autoExpandParent}
                     expandedKeys={expandedKeys}
+                    initKeys={initKeys}
                     onTreeCheck={this.treeCheckedFn}
+
                 />
             </div>
         )

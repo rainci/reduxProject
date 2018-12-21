@@ -226,12 +226,12 @@ class TaskTreeList extends React.Component {
     }
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {
-        const { checkedKeys=[], expandedKeys=[], autoExpandParent, treeData, sampleTreeData } = nextProps;
+        const { checkedKeys=[], expandedKeys=[], autoExpandParent, treeData, sampleTreeData,initKeys } = nextProps;
         this.setState({
             autoExpandParent,
             // checkedKeys, //只这样传，不合并当前页面state中对应的值，总是有问题的，比如搜索的话，我们checkedKeys的值，就会消失
             // expandedKeys, //只这样传，不合并当前页面state中对应的值，总是有问题的，比如搜索的话，我们之前展开的expandedKeys的值，就会默认消失，并且被最外面父组件传递过来的默认值替代
-            checkedKeys: [...new Set([...this.state.checkedKeys,...checkedKeys])],
+            checkedKeys: initKeys? checkedKeys: [...new Set([...this.state.checkedKeys,...checkedKeys])],
             expandedKeys: [...new Set([...this.state.expandedKeys,...expandedKeys])],
             treeData,
             sampleTreeData,
