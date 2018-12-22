@@ -42,13 +42,15 @@ export const generateList = (() => {//将多层级的数据处理成单层级的
 class TaskTagTreeList extends React.Component {
     constructor(props) {
         super(props)
-        let { checkedKeys = [], expandedKeys = [], treeData = [] } = props;
+        let { checkedKeys = [], expandedKeys = [], treeData = [], initKeys=false } = props;
         this.state = {
-            autoExpandParent: true,
-            checkedKeys,
-            expandedKeys,
-            treeData,
-            sampleTreeData: generateList(treeData)
+            autoExpandParent: true,//自动展开
+            checkedKeys,//选中的keys
+            expandedKeys,//展开的keys
+            initKeys, //是否要初始化tree内部的数据
+            treeData,//数据源
+            searchValue: '',
+            sampleTreeData: generateList(treeData)//数据源转换成单层数据
 
         }
     }
@@ -64,6 +66,7 @@ class TaskTagTreeList extends React.Component {
             if( sampleTreeData.get(Number(i))){
                 return { tagId: i, name: this.state.sampleTreeData.get(Number(i)).name }
             } 
+            return {}
         })
     }
     searchTagFn = filter => {//搜索tag
@@ -78,11 +81,12 @@ class TaskTagTreeList extends React.Component {
         // let searchExpandKeys = [...new Set([...(this.props.expandedKeys?this.props.expandedKeys:[]),...expandedKeys])]
         this.setState({
             expandedKeys,
+            searchValue: value,
         });
     }
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {
-        const { checkedKeys, expandedKeys, initKeys, treeData } = nextProps;
+        const { checkedKeys, expandedKeys, initKeys=false, treeData } = nextProps;
         this.setState({
             treeData,
             sampleTreeData: generateList(treeData),
@@ -98,7 +102,7 @@ class TaskTagTreeList extends React.Component {
     }
     /***********生命周期 end **************/
     render() {
-        const { autoExpandParent, checkedKeys, expandedKeys, treeData, sampleTreeData, initKeys } = this.state;
+        const { autoExpandParent, checkedKeys, expandedKeys, treeData, sampleTreeData, initKeys, searchValue } = this.state;
 
         return (
             <div>
@@ -111,6 +115,7 @@ class TaskTagTreeList extends React.Component {
                     autoExpandParent={autoExpandParent}
                     expandedKeys={expandedKeys}
                     initKeys={initKeys}
+                    searchValue={searchValue}
                     onTreeCheck={this.treeCheckedFn}
 
                 />

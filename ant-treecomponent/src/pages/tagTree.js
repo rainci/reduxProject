@@ -64,12 +64,14 @@ const treeDatas = [
       })
     }
     deleteTag = () => { // delete tags
-      let { checkedKeys } = this.state;
-      let bfcheckedKeys = [...checkedKeys];
-      bfcheckedKeys.pop()
-     
       this.setState({
-        checkedKeys:bfcheckedKeys,
+        checkedKeys:['1'],
+        initKeys:true
+      })
+    }
+    deleteTag2 = () => { // delete tags
+      this.setState({
+        checkedKeys:['1'],
         initKeys:true
       })
     }
@@ -83,12 +85,11 @@ const treeDatas = [
       this.setState({
         treeData: treeDatas,
         expandedKeys: ['1'],
-        checkedKeys: ['1'],  
+        checkedKeys: ['1','11'],  
       })
     }
     /***********生命周期 end **************/
     render() {
-      console.log('outerrender:',)
       let { expandedKeys, checkedKeys, treeData, initKeys } =this.state;
       return (
         <div >
@@ -105,7 +106,8 @@ const treeDatas = [
               return <Tag closable key={key} id={key} onClose={this.eachTagClose}>{item}</Tag>
             })
           } */}
-          <span onClick={this.deleteTag}>delete</span>
+          <Tag onClick={this.deleteTag}>delete</Tag>
+          <Tag onClick={this.deleteTag2}>delete2</Tag>
         </div>
       );
     }

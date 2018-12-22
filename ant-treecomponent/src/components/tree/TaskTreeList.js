@@ -18,11 +18,12 @@ const TreeNode = Tree.TreeNode;
 class TaskTreeList extends React.Component {
     constructor(props) {
         super(props)
-        let { checkedKeys = [], expandedKeys = [], treeData = [], sampleTreeData = []} = props;
+        let { checkedKeys = [], expandedKeys = [], treeData = [], sampleTreeData = [], searchValue } = props;
         this.state = {
             autoExpandParent: true, //是否自动展开
             checkedKeys, //选择的keys
             expandedKeys, //展开的keys
+            searchValue,
             treeData, //tree data
             sampleTreeData, //平级tree data   
         }
@@ -36,16 +37,28 @@ class TaskTreeList extends React.Component {
      * 渲染treeNode
      */
     renderTreeNodes = data => { //渲染treeNode
+        const { searchValue } = this.state;
         return data.map(item => {
             let { name, tagId, children, parentId } = item;
+            const index = name.indexOf(searchValue),
+                beforeStr = name.substr(0, index),
+                afterStr = name.substr(index + searchValue.length);
+            const title = index > -1 ? (
+                <span>
+                    {beforeStr}
+                    <span style={{ color: '#f50' }}>{searchValue}</span>
+                    {afterStr}
+                </span>
+            ) : <span>{name}</span>;
+
             if (children && children.length) {
                 return (
-                    <TreeNode title={name} key={tagId} dataRef={item} id={tagId} parentId={parentId} >
+                    <TreeNode title={title} key={tagId} dataRef={item} id={tagId} parentId={parentId} >
                         {this.renderTreeNodes(children)}
                     </TreeNode>
                 )
             }
-            return <TreeNode title={name} key={tagId} dataRef={item} id={tagId} parentId={parentId} />
+            return <TreeNode title={title} key={tagId} dataRef={item} id={tagId} parentId={parentId} />
         })
     }
     /**
@@ -131,7 +144,7 @@ class TaskTreeList extends React.Component {
      * 筛选data(tree data)，把data中的子节点和子节点没有在data中的父节点返回
      */
     filterLeaf = data => { //筛选select后的叶子节点
-        const {sampleTreeData} = this.state;
+        const { sampleTreeData } = this.state;
         return data.filter(item => {
             let itemChildren = sampleTreeData && sampleTreeData.size && sampleTreeData.get(parseInt(item)) && sampleTreeData.get(parseInt(item)).children;
             if (itemChildren && itemChildren.length && this.checkHasChildren(data, itemChildren)) {
@@ -191,8 +204,8 @@ class TaskTreeList extends React.Component {
     checkedWork = (checkedKeys) => {//select后要工作的内容
         let leaf = this.filterLeaf(checkedKeys)
         let relationLeaf = this.relationLeafFn(leaf)
-        this.props.onTreeCheck && this.props.onTreeCheck({checkedKeys, relationLeaf})
-        
+        this.props.onTreeCheck && this.props.onTreeCheck({ checkedKeys, relationLeaf })
+
     }
     onTreeCheck = (checkedKeys, e) => {//当checkbox被点击时
         //ids存放被选中的checkbox的id及它父辈们的id；names存放被选中的checkbox的name和它父辈们的name
@@ -213,7 +226,7 @@ class TaskTreeList extends React.Component {
             const { checkedKeys } = this.state;
             this.checkedWork(checkedKeys);
         }, 10)
-        
+
     }
 
     onExpand = (expandedKeys) => {
@@ -226,15 +239,16 @@ class TaskTreeList extends React.Component {
     }
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {
-        const { checkedKeys=[], expandedKeys=[], autoExpandParent, treeData, sampleTreeData,initKeys } = nextProps;
+        const { checkedKeys = [], expandedKeys = [], autoExpandParent, treeData, sampleTreeData, initKeys, searchValue } = nextProps;
         this.setState({
             autoExpandParent,
             // checkedKeys, //只这样传，不合并当前页面state中对应的值，总是有问题的，比如搜索的话，我们checkedKeys的值，就会消失
             // expandedKeys, //只这样传，不合并当前页面state中对应的值，总是有问题的，比如搜索的话，我们之前展开的expandedKeys的值，就会默认消失，并且被最外面父组件传递过来的默认值替代
-            checkedKeys: initKeys? checkedKeys: [...new Set([...this.state.checkedKeys,...checkedKeys])],
-            expandedKeys: [...new Set([...this.state.expandedKeys,...expandedKeys])],
+            checkedKeys: initKeys ? checkedKeys : [...new Set([...this.state.checkedKeys, ...checkedKeys])],
+            expandedKeys: [...new Set([...this.state.expandedKeys, ...expandedKeys])],
             treeData,
             sampleTreeData,
+            searchValue
         })
         this.checkedWork(checkedKeys);
     }
@@ -248,7 +262,7 @@ class TaskTreeList extends React.Component {
         let { autoExpandParent, checkedKeys, expandedKeys, treeData } = this.state;
 
         return (
-            <div style={{'height':`${this.props.treeHeight || 500 }px`,'overflow':'scroll'}}>
+            <div style={{ 'height': `${this.props.treeHeight || 500}px`, 'overflow': 'scroll' }}>
                 <Tree
                     checkable={true}
                     checkStrictly={true}
