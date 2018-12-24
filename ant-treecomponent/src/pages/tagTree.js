@@ -42,6 +42,23 @@ const treeDatas = [
             parentId: 12,
           }
         ]
+      },
+      {
+        name: '生物',
+        tagId: 13,
+        parentId: 1,
+        children: [
+          {
+            name: '花',
+            tagId: 131,
+            parentId: 13,
+          },
+          {
+            name: '草',
+            tagId: 132,
+            parentId: 13,
+          }
+        ]
       }
     ]
   }
@@ -63,7 +80,8 @@ class TagTree extends Component {
     console.log('outercheckd:', checkedKeys, relationLeaf, checkedTagList)
     this.props.onTagCheckedkeys(checkedKeys)
     this.setState({
-      checkedKeys
+      checkedKeys,
+      initKeys: false
     })
   }
   deleteTag = () => { // delete tags
@@ -87,7 +105,7 @@ class TagTree extends Component {
   componentDidMount() {
     this.setState({
       treeData: treeDatas,
-      expandedKeys: ['1'],
+      expandedKeys: ['1','11'],
       checkedKeys: ['1', '11'],
     })
   }

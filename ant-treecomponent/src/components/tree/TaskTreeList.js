@@ -25,7 +25,7 @@ class TaskTreeList extends React.Component {
             expandedKeys, //展开的keys
             searchValue,
             treeData, //tree data
-            sampleTreeData, //平级tree data   
+            sampleTreeData, //平级tree data
         }
     }
     /***********公共方法 begin *****************/

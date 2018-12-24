@@ -74,8 +74,10 @@ class TaskTagTreeList extends React.Component {
         const value = filter.name,
             expandedKeys = [];
         sampleTreeData.forEach(item => {
-            if (item.name.indexOf(value) > -1) {
-                expandedKeys.push(item.tagId.toString());
+            const { name, tagId, parentId, children } = item;
+            if (name.indexOf(value) > -1) {
+                (children && children.length) ? expandedKeys.push(`${tagId}`) : expandedKeys.push(`${parentId}`)
+                // expandedKeys.push(`${item.tagId}`);
             }
         });
         // let searchExpandKeys = [...new Set([...(this.props.expandedKeys?this.props.expandedKeys:[]),...expandedKeys])]
