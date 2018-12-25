@@ -21,9 +21,9 @@ const allArr_1 = [
     },
 ]
 class EchartDemo extends React.Component{
-    setChartpie = (nameArr, allArr,dom,{title}) => {
+    setChartpie = (nameArr, allArr,{title}) => {
         // 基于准备好的dom，初始化echarts实例   圆环形状
-        var myChart = echarts.init(dom);
+        var myChart = echarts.init(document.getElementById('chart_1'));
         // 绘制图表
         myChart.setOption({
             tooltip: {
@@ -78,17 +78,18 @@ class EchartDemo extends React.Component{
         });
     }
     componentDidMount(){
-        this.setChartpie(nameArr_1, allArr_1,this.refs.chart_1,{title:"容量信息(单位:TB)"})
+        console.log(this.refs)
+        this.setChartpie(nameArr_1, allArr_1,{title:"容量信息(单位:TB)"})
     }
     render(){
         return (
             <div style={{ background: '#fff', padding: 24, height:"100%",overflow:"auto",minWidth:"1280px" }}>
                 <Row>
                     <Col span={12}>
-                        <div className="chartBox" id="chart_1" ref="chart_1">11</div>
+                        <div className="chartBox" id="chart_1" ref="chart_1" style={{'width':'600px','height':'400px'}}>11</div>
                     </Col>
                     <Col span={12}>
-                        <div className="chartBox" id="chart_2" ref="chart_2">22</div>
+                        {/* <div className="chartBox" id="chart_2" ref="chart_2">22</div> */}
                     </Col>
                 </Row>
             </div>
