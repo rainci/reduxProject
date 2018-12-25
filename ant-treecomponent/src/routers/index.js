@@ -6,6 +6,7 @@ import MyMenu from '../components/menu';
 import TagTree from '../pages/tagTree';
 import TableList from '../pages/tableList';
 import DateShow from '../pages/date';
+import EchartDemo from '../pages/echart';
 const { Content, Sider } = Layout;
 
 class Routers extends React.Component {
@@ -22,6 +23,7 @@ class Routers extends React.Component {
                                 <Route exact path="/" component={TagTree} />
                                 <Route path="/tablelist" component={TableList} />
                                 <Route path="/dateshow" component={DateShow} />
+                                <Route path="/echart" component={EchartDemo} />
                             </div>
                         </Content>
                     </Layout>

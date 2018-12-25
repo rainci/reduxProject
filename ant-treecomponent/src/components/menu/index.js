@@ -18,6 +18,11 @@ const menuList = [
     url: '/dateshow',
     name: 'date show'
   },
+  {
+    id: 4,
+    url: '/echart',
+    name: 'echart demo'
+  },
 ]
 class MyMenu extends React.Component {
   state = {
