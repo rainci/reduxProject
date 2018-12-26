@@ -1,7 +1,7 @@
 /**
  * 
  * @author rainci(刘雨熙)
- * 利用jest作为测试引擎，react集成jest，所以不用我们单独安装，直接编写即可。
+ * 利用enzyme[ˈɛnzaɪm]（酶）作为测试引擎，react集成enzyme，所以不用我们单独安装，直接编写即可。
  */
 import * as actions from './index'
 import { TAG_CHECKED_KEYS } from '../types'
