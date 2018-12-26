@@ -6,8 +6,8 @@
 import { TAG_CHECKED_KEYS } from '../types';
 import tagCheckedReducer from './tagCheckedKeys'
 
-describe('tagCheckedKeys reducer', () => {
-  it('should return the initial state', () => {
+describe('tagCheckedKeys reducer', () => {//describe方法表示进行一组单元测试（Suites）
+  it('should return the initial state', () => {//it内部是一组测试中的某一个测试（Specs）
     const tagCheckedKeys = [];
     const expectedReducer = {
       tagCheckedKeys

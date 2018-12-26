@@ -4,4 +4,6 @@ create-react-app
 #启动 npm start
 #其次增加antd框架
 yarn add antd 
-cnpm install --save-dev jest
+#TDD指的是Test Drive Development，很明显的意思是测试驱动开发
+#react 自带react-test-renderer 和 react-dom/test-utils 两兄弟。 
+#Enzyme底层其实也是基于 react-test-renderer 和 react-dom/test-utils 的。但它在二者的基础上进行了封装提供了更加简单易用的查询、断言方法。
