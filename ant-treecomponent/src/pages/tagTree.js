@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Tag } from 'antd';
 import TaskTagTreeList from '../components/tree/index';
 import { connect } from 'react-redux';
-import { tagCheckedKeys } from '../redux/actions';
+import { tagCheckedKeys, tagCheckedAction, tagCloseAction  } from '../redux/actions';
 const treeDatas = [
   {
     name: '顶部',
@@ -63,6 +63,30 @@ const treeDatas = [
     ]
   }
 ];
+/**
+ * 
+ * @param {Array[[]]} data
+ * @return {Array} tagCheckedName
+ * @author rainci(刘雨熙)
+ */
+const changeTagLeafToNames = (data = []) => {
+  let tagCheckedData = [];
+  if (!data.length) {
+    return tagCheckedData;
+  }
+  for (var item of data) {
+    let itemData = {},
+      tagKey = [];
+    var name = item.map(({ tagId, name }) => {
+      tagKey.push(tagId)
+      return name
+    })
+    itemData['id'] = tagKey.join(',');
+    itemData['name'] = name.join('-');
+    tagCheckedData.push(itemData)
+  }
+  return tagCheckedData
+}
 class TagTree extends Component {
   constructor(props) {
     super(props)
@@ -76,36 +100,41 @@ class TagTree extends Component {
     }
   }
   /***************************页面业务逻辑 begin ******************************/
-  treeCheckFn = ({ checkedKeys, relationLeaf, checkedTagList }) => { //every time check tree
+  /***********选取tag begin *****************/
+  treeCheckFn = ({ checkedKeys, relationLeaf, checkedTagList }) => { //每次checked tag Fn
     console.log('outercheckd:', checkedKeys, relationLeaf, checkedTagList)
-    this.props.onTagCheckedkeys(checkedKeys)
+    let tagSelectName = changeTagLeafToNames(relationLeaf); //转换数据格式存储到redux中
+    console.log('tagSelectName:', tagSelectName)
+    this.props.onTagCheckedFn && this.props.onTagCheckedFn(tagSelectName)
+    // this.props.onTagCheckedkeys(checkedKeys)
     this.setState({
       checkedKeys,
       initKeys: false
     })
   }
-  deleteTag = () => { // delete tags
-    this.setState({
-      checkedKeys: ['1'],
-      initKeys: true
-    })
+  tagCloseFn = (id) => {//每次close tag Fn
+    console.log('tagclose:', id)
+    this.props.onTagCloseFn && this.props.onTagCloseFn(id)
   }
-  deleteTag2 = () => { // delete tags
-    this.setState({
-      checkedKeys: ['1'],
-      initKeys: true
-    })
-  }
-  eachTagClose = e => {
-    e.preventDefault();
-    console.log(e)
-  }
+  // deleteTag = () => { // delete tags
+  //   this.setState({
+  //     checkedKeys: ['1'],
+  //     initKeys: true
+  //   })
+  // }
+  // deleteTag2 = () => { // delete tags
+  //   this.setState({
+  //     checkedKeys: ['1'],
+  //     initKeys: true
+  //   })
+  // }
+  /***********选取tag end *****************/
   /***************************页面业务逻辑 end ******************************/
   /***********生命周期 begin **************/
   componentDidMount() {
     this.setState({
       treeData: treeDatas,
-      expandedKeys: ['1','11'],
+      expandedKeys: ['1', '11'],
       checkedKeys: ['1', '11'],
     })
   }
@@ -121,14 +150,14 @@ class TagTree extends Component {
           expandedKeys={expandedKeys}
           initKeys={initKeys}
         />
-
-        {/* {
-            this.state.transformTagData.map((item,key) => {
-              return <Tag closable key={key} id={key} onClose={this.eachTagClose}>{item}</Tag>
-            })
-          } */}
-        <Tag onClick={this.deleteTag}>delete</Tag>
-        <Tag onClick={this.deleteTag2}>delete2</Tag>
+        {
+          this.props.tagCheckedReducer.map((item, key) => {
+            const { name, id } = item;
+            return <Tag closable key={id} id={id} onClose={() => this.tagCloseFn(id)}>{name}</Tag>
+          })
+        }
+        {/* <Tag onClick={this.deleteTag}>delete</Tag>
+        <Tag onClick={this.deleteTag2}>delete2</Tag> */}
       </div>
     );
   }
@@ -136,11 +165,14 @@ class TagTree extends Component {
 
 const mapStateToProps = state => {
   return ({
-    tagCheckedKeys: state.tagCheckedKeys
+    tagCheckedKeys: state.tagCheckedKeys,
+    tagCheckedReducer: state.tagCheckedReducer
   })
 }
 const mapDispatchToProps = dispatch => ({
-  onTagCheckedkeys: (selectedKeys) => dispatch(tagCheckedKeys(selectedKeys)),
+  // onTagCheckedkeys: (selectedKeys) => dispatch(tagCheckedKeys(selectedKeys)),
+  onTagCheckedFn: tagChecked => dispatch(tagCheckedAction(tagChecked)),
+  onTagCloseFn: id => dispatch(tagCloseAction(id))
 })
 
-export default connect(mapStateToProps,mapDispatchToProps)(TagTree)
+export default connect(mapStateToProps, mapDispatchToProps)(TagTree)
