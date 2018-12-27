@@ -9,20 +9,39 @@ const getArrayIndex = (array, key, value) => {
     })
     return i
 }
-const tagCheckedReducer = (state = [], { type, payload={} }) => {
-    const { tagCheckedData, id } = payload;
+const defaultState = {
+    tagCheckedData: [],
+    tagCheckedKeys:['1'] 
+}
+const dealData = data => {
+    let allId = [];
+    for(const {id} of data){
+        const itemId = id.split(',');
+        allId = [...allId,...itemId];
+    }
+    return [...new Set(allId)];
+}
+const tagCheckedReducer = (state = defaultState, { type, payload={} }) => {
+    const { tagCheckedData, tagCheckedKeys, id } = payload;
     switch (type) {
         case TAG_CHECKED:
-            console.log('reducerTagchecked:', tagCheckedData)
-            return [
-                ...tagCheckedData
-            ]
+            console.log('reducerTagchecked:', tagCheckedData,tagCheckedKeys)
+            return {
+                ...state,
+                tagCheckedData,
+                tagCheckedKeys
+            }
+                
+            
         case TAG_CLOSE:
-            // debugger
-            let newState = [...state];
-            newState.splice(getArrayIndex(state, 'id', id), 1);
-            console.log('reducerTagclose:', newState)
-            return newState;
+            let newState = [...state.tagCheckedData];
+            newState.splice(getArrayIndex(state.tagCheckedData, 'id', id), 1);
+            let newCheckedKeys = dealData(newState);
+            console.log('reducerTagclose:', newState,newCheckedKeys)
+            return {
+                tagCheckedData: newState,
+                tagCheckedKeys: newCheckedKeys
+            };
         default:
             return state
     }

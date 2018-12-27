@@ -103,9 +103,9 @@ class TagTree extends Component {
   /***********选取tag begin *****************/
   treeCheckFn = ({ checkedKeys, relationLeaf, checkedTagList }) => { //每次checked tag Fn
     console.log('outercheckd:', checkedKeys, relationLeaf, checkedTagList)
-    let tagSelectName = changeTagLeafToNames(relationLeaf); //转换数据格式存储到redux中
-    console.log('tagSelectName:', tagSelectName)
-    this.props.onTagCheckedFn && this.props.onTagCheckedFn(tagSelectName)
+    let tagCheckedData = changeTagLeafToNames(relationLeaf); //转换数据格式存储到redux中
+    console.log('tagCheckedData:', tagCheckedData)
+    this.props.onTagCheckedFn && this.props.onTagCheckedFn(tagCheckedData,checkedKeys)
     // this.props.onTagCheckedkeys(checkedKeys)
     this.setState({
       checkedKeys,
@@ -113,7 +113,9 @@ class TagTree extends Component {
     })
   }
   tagCloseFn = (id) => {//每次close tag Fn
-    console.log('tagclose:', id)
+    this.setState({
+      initKeys: true
+    })
     this.props.onTagCloseFn && this.props.onTagCloseFn(id)
   }
   // deleteTag = () => { // delete tags
@@ -135,7 +137,7 @@ class TagTree extends Component {
     this.setState({
       treeData: treeDatas,
       expandedKeys: ['1', '11'],
-      checkedKeys: ['1', '11'],
+      // checkedKeys: ['1', '11'],
     })
   }
   /***********生命周期 end **************/
@@ -146,12 +148,12 @@ class TagTree extends Component {
         <TaskTagTreeList
           treeData={treeData}
           onTreeCheck={this.treeCheckFn}
-          checkedKeys={checkedKeys}
+          checkedKeys={this.props.tagCheckedReducer.tagCheckedKeys}
           expandedKeys={expandedKeys}
           initKeys={initKeys}
         />
         {
-          this.props.tagCheckedReducer.map((item, key) => {
+          this.props.tagCheckedReducer.tagCheckedData.map((item, key) => {
             const { name, id } = item;
             return <Tag closable key={id} id={id} onClose={() => this.tagCloseFn(id)}>{name}</Tag>
           })
@@ -165,13 +167,13 @@ class TagTree extends Component {
 
 const mapStateToProps = state => {
   return ({
-    tagCheckedKeys: state.tagCheckedKeys,
+    // tagCheckedKeys: state.tagCheckedKeys,
     tagCheckedReducer: state.tagCheckedReducer
   })
 }
 const mapDispatchToProps = dispatch => ({
   // onTagCheckedkeys: (selectedKeys) => dispatch(tagCheckedKeys(selectedKeys)),
-  onTagCheckedFn: tagChecked => dispatch(tagCheckedAction(tagChecked)),
+  onTagCheckedFn: (tagCheckedData,tagCheckedKeys) => dispatch(tagCheckedAction(tagCheckedData,tagCheckedKeys)),
   onTagCloseFn: id => dispatch(tagCloseAction(id))
 })
 
