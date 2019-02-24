@@ -8,21 +8,21 @@ const menuList = [
     url: '/',
     name: 'tag tree'
   },
-  // {
-  //   id: 2,
-  //   url: '/tablelist',
-  //   name: 'table list'
-  // },
-  // {
-  //   id: 3,
-  //   url: '/dateshow',
-  //   name: 'date show'
-  // },
-  // {
-  //   id: 4,
-  //   url: '/echart',
-  //   name: 'echart demo'
-  // },
+  {
+    id: 2,
+    url: '/tablelist',
+    name: 'table list'
+  },
+  {
+    id: 3,
+    url: '/dateshow',
+    name: 'date show'
+  },
+  {
+    id: 4,
+    url: '/echart',
+    name: 'echart demo'
+  },
 ]
 class MyMenu extends React.Component {
   state = {

@@ -6,6 +6,7 @@
     "antd": "^3.11.0",
     "enzyme": "^3.7.0",
     "enzyme-adapter-react-16": "^1.7.0",
+    "mockjs": "^1.0.1-beta3",
     "moment": "^2.23.0",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
@@ -28,7 +29,9 @@
     "not op_mini all"
   ],
   "devDependencies": {
+    "axios": "^0.18.0",
     "jest": "^23.6.0",
+    "mockjs": "^1.0.1-beta3",
     "prop-types": "^15.6.2",
     "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
