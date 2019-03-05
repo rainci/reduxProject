@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Tag } from 'antd';
+import { Tag, message } from 'antd';
 import TaskTagTreeList from '../components/tree/index';
 import { connect } from 'react-redux';
 import { tagCheckedKeys, tagCheckedAction, tagCloseAction  } from '../redux/actions';
+import server from '../api/server';
 const treeDatas = [
   {
     name: '顶部',
@@ -99,6 +100,18 @@ class TagTree extends Component {
       transformTagData: ['老虎', '狮子']
     }
   }
+  /***********公共方法 begin *****************/
+  getTableListData = () => {//获取tablelist data
+    return server.getDataSetIdList().then((db) => {
+      const { code, data = [] } = db;
+      if (code === 200 || code === '200') {
+       return data
+      } else {
+        message.error(db.msg)
+      }
+    })
+  }
+  /***********公共方法 end *****************/
   /***************************页面业务逻辑 begin ******************************/
   /***********选取tag begin *****************/
   treeCheckFn = ({ checkedKeys, relationLeaf, checkedTagList }) => { //每次checked tag Fn
@@ -139,6 +152,7 @@ class TagTree extends Component {
       expandedKeys: ['1', '11'],
       // checkedKeys: ['1', '11'],
     })
+    this.getTableListData()
   }
   /***********生命周期 end **************/
   render() {
