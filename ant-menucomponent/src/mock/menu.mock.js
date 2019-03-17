@@ -18,15 +18,15 @@ Mock.mock('/mockapi/menudata', {
     'name': '标注系统标签树',
     'children|1-10': [
       {
-        'tagId': 10000,
+        'tagId|+10': 10,
         'name': '文本舆情中性',
         'children|1-10': [
           {
-            'tagId': 10001,
+            'tagId|+1': 100,
             'name': '文本舆情中性',
             'children|1-10': [
               {
-                'tagId': 10001,
+                'tagId|+1': 1000,
                 'name': '文本舆情中性',
                 
               }

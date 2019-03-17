@@ -1,11 +1,32 @@
 import React, { Component } from 'react';
-import { Menu, Icon } from 'antd';
+import { Menu, Icon, message } from 'antd';
+import server from '../api/server';
+
 const SubMenu = Menu.SubMenu;
 const MenuItemGroup = Menu.ItemGroup;
 function handleClick(e) {
     console.log('click', e);
   }
 class MenuReset extends Component {
+    getTableListData = () => {//获取tablelist data
+        return server.getMenuData().then((db) => {
+          const { code, data = [] } = db;
+          if (code === 200 || code === '200') {
+           return data
+          } else {
+            message.error(db.msg)
+          }
+        })
+    }
+    getTableDataFn = () => {
+        this.getTableListData()
+        .then(db => {
+          console.log(11111111,db)
+        })
+    }
+    componentDidMount() {
+        this.getTableDataFn()//talelist get data
+      }
     render() {
         return (
             <Menu onClick={handleClick}  style={{ width: 256 }} mode="vertical">
