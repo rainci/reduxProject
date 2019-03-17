@@ -13,7 +13,7 @@ const Mock = require ('mockjs')
 // })
 Mock.mock('/mockapi/menudata', {
   'code': 200,
-  'data|1': [{
+  'data|1-1': [{
     'tagId': 1,
     'name': '标注系统标签树',
     'children|1-10': [
