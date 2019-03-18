@@ -20,11 +20,11 @@ Mock.mock('/mockapi/menudata', {
       {
         'tagId|+10': 10,
         'name': '文本舆情中性',
-        'children|1-10': [
+        'children|0-10': [
           {
             'tagId|+1': 100,
             'name': '文本舆情中性',
-            'children|1-10': [
+            'children|0-10': [
               {
                 'tagId|+1': 1000,
                 'name': '文本舆情中性',

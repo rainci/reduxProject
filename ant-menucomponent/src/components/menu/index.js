@@ -1,37 +1,52 @@
 /* eslint-disable  */
 import React from 'react';
-import { Menu, Icon } from 'antd';
-import { Link } from 'react-router-dom';
-const menuList = [
-  {
-    id: 1,
-    url: '/',
-    name: 'menu demo'
-  },
-]
+import { Menu, Row, Col } from 'antd';
+const SubMenu = Menu.SubMenu;
 class MyMenu extends React.Component {
-  state = {
-    collapsed: true,
+  constructor(props){
+    super(props)
+    this.state = {
+      current: ''
+    }
   }
-  render() {
+  subMenuClick = ({key}) => {
+    console.log('click ', key);
+    this.setState({
+      current: key,
+    });
+    this.props.subMenuFn && this.props.subMenuFn(key)
+  }
 
+  render() {
     const menuProps = {
       style: { height: "100%" },
       theme: "dark",
-      mode: "inline",
-      defaultSelectedKeys:['1'],
-      inlineCollapsed: this.state.collapsed
-    }
+      mode: "vertical",
+      defaultSelectedKeys:['10'],
+      selectedKeys:[`${this.state.current}`]
+    };
+    console.log('menuProps:',menuProps,this.state)
+    let navStyle = { height: "100%" };
+    let { menuListData = [], menuStyle={} } = this.props;
+    navStyle = {...navStyle,...menuStyle};
+    let subMenuStyle = {'width':'50%','float':'left'};
     return (
-      <div style={{ height: "100%" }}>
+      <div style={navStyle}>
         <Menu
           {...menuProps}
         >
           {
-            menuList.map(item => {
-              const { id, url, name } = item;
+            menuListData.map(item => {
+              const { tagId, name } = item;
               return (
-                <Menu.Item key={id}><Link to={url}>{name}</Link></Menu.Item>)
+                    <SubMenu 
+                    style={subMenuStyle}
+                    key={tagId} 
+                    title={name}
+                    onTitleClick={this.subMenuClick}
+                  />
+               
+                )
             })
           }
         </Menu>

@@ -2,7 +2,7 @@ import React from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import { Layout } from 'antd';
 import MyMenu from '../components/menu';
-import menuDemo from '../pages/menu';
+import menuDemo from '../pages/menuPage';
 const { Content, Sider } = Layout;
 class Routers extends React.Component {
   render() {
