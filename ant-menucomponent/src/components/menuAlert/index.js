@@ -6,11 +6,29 @@ class MenuAlert extends PureComponent {
     state = {
         menuCheckedKeys: [],
     }
-    filterOneData = (id, data) => { //筛选符合id的一条数据
+    /**
+     * 
+     * @param {Array} data 必选
+     * @param {Number} id 必选
+     * @return {Object} 
+     * @author rainci(刘雨熙)
+     * 筛选data(平级tree data)，把data中对应的id的值返回
+     */
+    filterOneData = (data, id) => { //筛选符合id的一条数据
         return data && data.get(id)
     }
+    /**
+     * 
+     * @param {Array} sampleTreeData 必选 
+     * @param {Number} currentId 必选
+     * @param {Array} secletIds 可选
+     * @param {Array} relationLeaf 可选
+     * @return {Object} {secletIds,relationLeaf}
+     * @author rainci(刘雨熙)
+     * @attention 筛选data(平级tree data)，把data中对应的id的值返回
+     */
     getParentIdAndName = ({ currentId, sampleTreeData, secletIds = [], relationLeaf = [] }) => {//获取父辈们的id和name
-        let parentItem = this.filterOneData(currentId, sampleTreeData);
+        let parentItem = this.filterOneData(sampleTreeData, currentId);
         if (parentItem && Object.keys(parentItem).length) {
             let { tagId, name, parentId } = parentItem;
             secletIds.unshift(`${tagId}`)
@@ -30,7 +48,7 @@ class MenuAlert extends PureComponent {
     }
     /**
      * 
-     * @param {Array} data 
+     * @param {Array} data 必选 
      * @return {Boolean} 
      * @author rainci(刘雨熙)
      * 筛选data(tree data)，把data中的子节点和子节点没有在data中的父节点返回
