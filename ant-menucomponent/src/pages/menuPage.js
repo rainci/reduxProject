@@ -73,6 +73,7 @@ class MenuReset extends Component {
                                 sampleMenuData = {sampleMenuData}
                                 closeFn = {this.menuAlertCloseFn}
                                 memuClickFn= {this.menuAlertClickFn}
+                                checkedKeys = {["10005", "10014", "10007", "10008", "10514"]}
                             />
                             : null
                         }
