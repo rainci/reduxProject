@@ -14,7 +14,7 @@ function myAxios(ax) {
                     message.error( msg,1,()=>{
                         console.log('mie~')
                         // store.dispatch(push('/login'))
-                        window.location.href = '/tablelist'
+                        // window.location.href = '/tablelist'
                     } )
                     return 
                     // this.props.history.push('/login')   
@@ -47,10 +47,15 @@ function myAxios(ax) {
     })
 }
 export default {
-    getMenuData() {//获取menu data
+    getMenuData(filter) {//获取menu data
         return myAxios({
-            url: `${api}/menudata`,
+            url: `${api}/service/tag/tag/list`,
             method: 'get',
+            params: {...filter},
+            headers: {
+                'Univer-Code': '9ad3a28d05c04502933568d41a29faa0',
+                'Univer-token': 'eyJhbGciOiJIUzI1NiJ9.eyJqdGkiOiI5YWQzYTI4ZDA1YzA0NTAyOTMzNTY4ZDQxYTI5ZmFhMCIsImlhdCI6MTU1Mjk2NzQ3Nywic3ViIjoie1widXNlcklkXCI6MTQ4LFwiY29kZVwiOlwiOWFkM2EyOGQwNWMwNDUwMjkzMzU2OGQ0MWEyOWZhYTBcIixcInVzZXJuYW1lXCI6XCJmZWlmZW5nXCIsXCJuaWNrbmFtZVwiOlwiZmVpZmVuZ1wiLFwicGhvbmVcIjpcIjE4NjAwMDA4ODg4XCIsXCJlbWFpbFwiOlwibGl1ZmVpZmVuZ0B1bml2ZXIuYWlcIn0iLCJleHAiOjE1NTMwNTM4Nzd9.Xn4Cbc9I-Rk74QHT5EvTmD1eG5rPEy3Y9MYoWKOc6kg'
+            }
         })
     },
     

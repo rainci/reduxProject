@@ -9,12 +9,13 @@ class MenuReset extends Component {
         super(props)
         this.state = {
             menuData: [],
+            sampleMenuData: new Map(),
             showMenuAlertFlag: false,    
         }
     }
     /***********公共方法 begin *****************/
     getMenuListData = () => {//获取menu data
-        return server.getMenuData().then((db) => {
+        return server.getMenuData({'belong': 'sort'}).then((db) => {
           const { code, data = [], msg } = db;
           if (code === 200 || code === '200') {
            return data
@@ -43,10 +44,13 @@ class MenuReset extends Component {
             menuAlertData: this.state.sampleMenuData.get(key*1).children
         })
     }
-    menuAlertCloseFn = () => {
+    menuAlertCloseFn = () => {//关闭menu弹框
         this.setState({
             showMenuAlertFlag: false
         })
+    }
+    menuAlertClickFn = tagId => {//menu click fn
+        console.log('menuclickout:',tagId)
     }
     /***********生命周期 begin **************/
     componentDidMount() {
@@ -54,7 +58,7 @@ class MenuReset extends Component {
     }
     /***********生命周期 end **************/
     render() {
-        let { showMenuAlertFlag, menuAlertData } = this.state;
+        let { showMenuAlertFlag, menuAlertData, sampleMenuData } = this.state;
         return (
             <div>  
                 <Row>
@@ -65,8 +69,10 @@ class MenuReset extends Component {
                         {
                             showMenuAlertFlag ? 
                             <MenuAlert
-                                closeFn = {this.menuAlertCloseFn}
                                 menuAlertData = {menuAlertData}
+                                sampleMenuData = {sampleMenuData}
+                                closeFn = {this.menuAlertCloseFn}
+                                memuClickFn= {this.menuAlertClickFn}
                             />
                             : null
                         }

@@ -52,16 +52,14 @@ class TabItem extends Component {
 
 class App extends Component {
   handleClickTab = e => {
-    debugger
   }
   handleClickItem = index => {
-    debugger
   }
   render() {
     return (
       <div className="App">
 
-        <Tab onClick={this.handleClickTab}>
+        {/* <Tab onClick={this.handleClickTab}>
           <TabItem
             onClick={this.handleClickItem}
             className="ronffy"
@@ -70,7 +68,7 @@ class App extends Component {
           </TabItem>
           <TabItem>tab2</TabItem>
           <TabItem>tab3</TabItem>
-        </Tab>
+        </Tab> */}
 
         <RouteMap />
       </div>

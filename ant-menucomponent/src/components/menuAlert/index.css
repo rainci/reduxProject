@@ -1,3 +1,4 @@
 .menuAlert {
     border: 1px solid #eaeaea;
+    overflow: hidden;
 }

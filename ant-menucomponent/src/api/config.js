@@ -1,5 +1,5 @@
 let api = '';//sever api
 if (process.env.NODE_ENV === 'development') {
-    api = '/mockapi'
+    // api = '/mockapi'
 }
 export default api;

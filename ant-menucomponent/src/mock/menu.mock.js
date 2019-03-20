@@ -11,7 +11,7 @@ const Mock = require ('mockjs')
 //   }],
 //   'msg': '操作成功',
 // })
-Mock.mock('/mockapi/menudata', {
+Mock.mock('/mockapi/service/tag/tag/list?belong=sort', {
   'code': 200,
   'data|1-1': [{
     'tagId': 1,
@@ -19,16 +19,21 @@ Mock.mock('/mockapi/menudata', {
     'children|1-10': [
       {
         'tagId|+10': 10,
-        'name': '文本舆情中性',
+        'name': /[A-Z][a-z]{1,5}/,
         'children|0-10': [
           {
             'tagId|+1': 100,
-            'name': '文本舆情中性',
+            'name': /[A-Z][a-z]{1,5}/,
             'children|0-10': [
               {
                 'tagId|+1': 1000,
-                'name': '文本舆情中性',
-                
+                'name': /[A-Z][a-z]{1,5}/,
+                'children|0-10': [
+                  {
+                    'tagId|+1': 10000,
+                    'name': /[A-Z][a-z]{1,5}/,
+                  }
+                ]
               }
             ]
           }
