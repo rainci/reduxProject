@@ -1,7 +1,7 @@
 import React, { PureComponent } from 'react';
 import { Icon, Row, Col } from 'antd';
 
-import './index.css'
+import './index.less'
 class MenuAlert extends PureComponent {
     state = {
         menuCheckedKeys: [],

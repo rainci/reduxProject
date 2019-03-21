@@ -15,7 +15,7 @@ class MenuReset extends Component {
     }
     /***********公共方法 begin *****************/
     getMenuListData = () => {//获取menu data
-        return server.getMenuData({'belong': 'sort'}).then((db) => {
+        return server.getMenuData({'belong': 'tag'}).then((db) => {
           const { code, data = [], msg } = db;
           if (code === 200 || code === '200') {
            return data
@@ -63,7 +63,9 @@ class MenuReset extends Component {
             <div>  
                 <Row>
                     <Col span={5}>
+                        {/* <MyMenu menuListData={this.state.menuData} menuLine={8} subMenuFn={this.subMenuFn} /> */}
                         <MyMenu menuListData={this.state.menuData} subMenuFn={this.subMenuFn} />
+
                     </Col>
                     <Col span={19}>
                         {
