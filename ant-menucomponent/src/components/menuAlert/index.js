@@ -1,21 +1,22 @@
+/**
+ * 
+ * @param {Array} treeData 
+ * @param {Array} checkedKeys
+ * @param {Array}  expandedKeys
+ * @param {Number} 可选 treeHeight
+ * @param {boolean} autoExpandParent 
+ * @param {Function(Array)} checkedParentFn  把选中过的弹框的父id集传出去  
+ * @return {component} TaskTreeList 
+ * @author rainci(刘雨熙)
+ * @time 2019.3.22
+ */
 import React, { PureComponent } from 'react';
 import { Icon, Row, Col } from 'antd';
-
+import {filterOneData, hasIdFromDataFn} from '../../utils'
 import './index.less'
 class MenuAlert extends PureComponent {
     state = {
-        menuCheckedKeys: [],
-    }
-    /**
-     * 
-     * @param {Array} data 必选
-     * @param {Number} id 必选
-     * @return {Object} 
-     * @author rainci(刘雨熙)
-     * 筛选data(平级tree data)，把data中对应的id的值返回
-     */
-    filterOneData = (data, id) => { //筛选符合id的一条数据
-        return data && data.get(id)
+        menuCheckedKeys: [],//弹框选中的id
     }
     /**
      * 
@@ -28,7 +29,7 @@ class MenuAlert extends PureComponent {
      * @attention 筛选data(平级tree data)，把data中对应的id的值返回
      */
     getParentIdAndName = ({ currentId, sampleTreeData, secletIds = [], relationLeaf = [] }) => {//获取父辈们的id和name
-        let parentItem = this.filterOneData(sampleTreeData, currentId);
+        let parentItem = filterOneData(sampleTreeData, currentId);
         if (parentItem && Object.keys(parentItem).length) {
             let { tagId, name, parentId } = parentItem;
             secletIds.unshift(`${tagId}`)
@@ -82,13 +83,13 @@ class MenuAlert extends PureComponent {
     checkedWorkFn = (checkedKeys) => {//select后要工作的内容
         let leaf = this.filterLeafFn(checkedKeys)
         let relationLeaf = this.relationLeafFn(leaf)
-        console.log('c:',checkedKeys,leaf,relationLeaf)
-        this.props.memuClickFn && this.props.memuClickFn({ checkedKeys, relationLeaf })
+        // console.log('c:',checkedKeys,leaf,relationLeaf)
+        this.props.memuCheckedFn && this.props.memuCheckedFn({ checkedKeys, relationLeaf })
 
     }
-    memuClickFn = tagId => {// menu click fn
+    memuClickFn = tagId => {// menu tag click fn
         let { menuCheckedKeys } = this.state;
-        let status = this.hasClickIdFn(menuCheckedKeys, tagId);//是否是选中状态true or false
+        let status = hasIdFromDataFn(menuCheckedKeys, tagId);//是否是选中状态true or false
         if (status) {//当前选中状态，则取消选中
             // this.unCheckMenuFn(tagId);
             // let newCheckMenuData = [...menuCheckedKeys]
@@ -121,20 +122,27 @@ class MenuAlert extends PureComponent {
         }
         return false;
     }
-    hasClickIdFn = (data=[], tagId) => {//判断tagId是否在data数组中
-        if (data.includes(tagId)) {
-            return true;
-        }
-        return false;
-    }
+
     checkMenuFn = tagId => {//选中checked
         console.log('check')
-        let { secletIds } = this.getParentIdAndName({
+        let { secletIds } = this.getParentIdAndName({//获取当前点击tag的自身和父亲的id集
             currentId: tagId,
             sampleTreeData: this.props.sampleMenuData,
         });
-        let menuCheckedKeys = [...new Set([...secletIds, ...this.state.menuCheckedKeys])];
+        let menuCheckedKeys = [...new Set([...secletIds, ...this.state.menuCheckedKeys])];//当前弹窗选中的所有id
         console.log('checked:', secletIds, menuCheckedKeys)
+        let currentParentId = secletIds[0];//当前弹框的父id  
+        if(this.checkedParentData){//当checkedParentData存在时
+            if(!hasIdFromDataFn(this.checkedParentData,currentParentId)){//当this.checkedParentData里没有此父id时
+                this.checkedParentData.push(currentParentId)
+                this.props.checkedParentFn && this.props.checkedParentFn(this.checkedParentData) 
+                console.log('wawo1',this.checkedParentData)   
+            }
+        }else{
+            this.checkedParentData=[currentParentId]
+            this.props.checkedParentFn && this.props.checkedParentFn(this.checkedParentData) 
+            console.log('wawo2',this.checkedParentData)   
+        }
         this.setState({
             menuCheckedKeys,
         })
@@ -154,7 +162,7 @@ class MenuAlert extends PureComponent {
         return data.map(item => {
             let { name, tagId, children } = item;
             let classNames;
-            if(this.hasClickIdFn(this.state.menuCheckedKeys,`${tagId}`)){
+            if(hasIdFromDataFn(this.state.menuCheckedKeys,`${tagId}`)){
                 classNames = 'checkedMenuItem';    
             }
 
@@ -175,7 +183,7 @@ class MenuAlert extends PureComponent {
         return data.map(item => {
             let { name, tagId, children } = item;
             let classNames;
-            if(this.hasClickIdFn(this.state.menuCheckedKeys,`${tagId}`)){
+            if(hasIdFromDataFn(this.state.menuCheckedKeys,`${tagId}`)){
                 classNames = 'checkedMenuItem';    
             }
             return (
@@ -199,7 +207,7 @@ class MenuAlert extends PureComponent {
         return data.map(item => {
             let { name, tagId } = item;
             let classNames;
-            if(this.hasClickIdFn(this.state.menuCheckedKeys,`${tagId}`)){
+            if(hasIdFromDataFn(this.state.menuCheckedKeys,`${tagId}`)){
                 classNames = 'checkedMenuItem';    
             }
             return (

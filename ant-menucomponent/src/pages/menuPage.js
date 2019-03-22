@@ -25,6 +25,7 @@ class MenuReset extends Component {
         })
     }
     /***********公共方法 end *****************/
+    /***********业务方法 begin *****************/
     getMenuDataFn = () => {//获取menuData
         this.getMenuListData()
         .then(db => {
@@ -52,6 +53,12 @@ class MenuReset extends Component {
     menuAlertClickFn = tagId => {//menu click fn
         console.log('menuclickout:',tagId)
     }
+    checkedMenuItemFn = parentData => {//alert 弹框将选中的parent id传出来供左侧menu使用，点亮左侧menu对应的id
+        this.setState({
+            menuLightData: parentData
+        })
+    }
+    /***********业务方法 end *****************/
     /***********生命周期 begin **************/
     componentDidMount() {
         this.getMenuDataFn()//talelist get data
@@ -60,29 +67,31 @@ class MenuReset extends Component {
     render() {
         let { showMenuAlertFlag, menuAlertData, sampleMenuData } = this.state;
         return (
-            <div>  
-                <Row>
-                    <Col span={5}>
-                        {/* <MyMenu menuListData={this.state.menuData} menuLine={8} subMenuFn={this.subMenuFn} /> */}
-                        <MyMenu menuListData={this.state.menuData} subMenuFn={this.subMenuFn} />
-
-                    </Col>
-                    <Col span={19}>
-                        {
-                            showMenuAlertFlag ? 
-                            <MenuAlert
-                                menuAlertData = {menuAlertData}
-                                sampleMenuData = {sampleMenuData}
-                                closeFn = {this.menuAlertCloseFn}
-                                memuClickFn= {this.menuAlertClickFn}
-                                checkedKeys = {["10005", "10014", "10007", "10008", "10514"]}
-                            />
-                            : null
-                        }
+            <Row>
+                <Col span={4}>
+            <div style={{'position':'relative','zIndex':2}}>  
+                {/* <MyMenu menuListData={this.state.menuData} menuLine={8} subMenuFn={this.subMenuFn} /> */}
+                <MyMenu style={{}} menuListData={this.state.menuData} subMenuFn={this.subMenuFn} menuLightData={this.state.menuLightData} />
+                {
+                    showMenuAlertFlag ? 
+                    <MenuAlert
+                        menuAlertData = {menuAlertData}
+                        sampleMenuData = {sampleMenuData}
+                        closeFn = {this.menuAlertCloseFn}
+                        memuCheckedFn= {this.menuAlertClickFn}
+                        // checkedKeys = {[]}
+                        checkedParentFn={this.checkedMenuItemFn} 
                         
-                    </Col>
-                </Row> 
+                    />
+                    : null
+                }
+
             </div>
+            </Col>
+            <Col span={18}>
+            aaaaaaaaaa
+            </Col>
+            </Row>
         )
     }
 }
