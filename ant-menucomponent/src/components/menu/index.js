@@ -5,31 +5,30 @@
 import React,  { PureComponent }  from 'react';
 import { Menu, Row, Col, Icon, Button } from 'antd';
 import './index.less'
+import { hasIdFromDataFn } from '../../utils'
 class MyMenu extends PureComponent {
   state = {
     checkedKeysLi: []
   }
-  hasClickIdFn = (data = [], tagId) => {//判断tagId是否在data数组中
-    if (data.includes(tagId)) {
-      return true;
-    }
-    return false;
-  }
-  subMenuClick = (tagId, event) => {
+  subMenuClick = (tagId, event) => {//当menu item点击时
     let type = event.target.type;
     if (type === 'button') {
       return this.props.subMenuFn && this.props.subMenuFn(tagId)
     }
     this.setState({
-      checkedKeysLi: [...new Set([tagId, ...this.state.checkedKeysLi])]
+      checkedKeysLi: [...new Set([`${tagId}`, ...this.state.checkedKeysLi])]
     })
+    console.log('wuwu',this.state.checkedKeysLi)
+    setTimeout(()=>{
+      console.log('wuwu2',this.state.checkedKeysLi)
+    },100)
   }
   renderMenuFn = ({menuListData,subMenuStyle,menuLine,subMenuClick}) => {//渲染menuFn
     // debugger
     return menuListData.map((item,index) => {
       const { tagId, name } = item;
       let classNames;
-      if(this.hasClickIdFn(this.state.checkedKeysLi,`${tagId}`)){
+      if(hasIdFromDataFn(this.state.checkedKeysLi,`${tagId}`)){
           classNames = 'checkedMenuItem';    
       }
       return (
@@ -50,10 +49,10 @@ class MyMenu extends PureComponent {
   }
   /***********生命周期 begin **************/
   componentWillReceiveProps(nextProps) {
-    const { menuLightData = [] } = nextProps;
+    const { menuLightData = [] } = nextProps;//当有点亮menu数据时
     if (menuLightData && menuLightData.length) {
         this.setState({
-          checkedKeysLi: [...new Set([...menuLightData,this.state.checkedKeysLi])]
+          checkedKeysLi: [...new Set([...menuLightData,...this.state.checkedKeysLi])]
         })
     }
 
