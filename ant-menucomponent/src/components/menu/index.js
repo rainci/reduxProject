@@ -22,7 +22,7 @@ class MyMenu extends React.Component {
       checkedKeysLi: [tagId, ...this.state.checkedKeysLi]
     })
   }
-  renderMenuFn = ({menuListData,subMenuStyle,menuLine,subMenuClick}) => {//渲染menuFn
+  renderMenuFn = ({menuListData,subMenuStyle,menuLine=8,subMenuClick}) => {//渲染menuFn
     // debugger
     return menuListData.map((item,index) => {
       const { tagId, name } = item;
@@ -40,7 +40,7 @@ class MyMenu extends React.Component {
         >
           {name}
           <Button className='menuButton' icon="right"></Button>
-          {(menuLine==index ||menuLine==(index-1))?<hr/>:null}
+          {(menuLine==index || menuLine==(index-1))?<hr/>:null}
         </li>
         
       )
