@@ -1,4 +1,4 @@
-import { filterOneData } from '../../utils'
+import { filterOneData } from '../../../utils'
 /**
  * 
  * @param {Array} sampleTreeData 必选 

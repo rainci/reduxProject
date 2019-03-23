@@ -15,7 +15,8 @@ class Routers extends React.Component {
                       </Sider>
                       <Content style={{ padding: '10px' }}>
                           <div style={{ background: '#fff', padding: 24, height: "100%",minHeight:'750px', overflow: "auto" }}>
-                              <Route exact path="/" component={menuDemo} />
+                                <Route exact path="/" exact component={menuDemo} />
+                                <Route exact path="/menuDemo" component={menuDemo} />
                           </div>
                       </Content>
                   </Layout>
