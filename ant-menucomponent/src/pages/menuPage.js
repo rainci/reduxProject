@@ -35,6 +35,9 @@ class MenuReset extends Component {
                 }
             })
     }
+    aaaFn = ({checkedKeys,leaf,relationLeaf}) => {
+        console.log('wawo,the end data:',checkedKeys,leaf,relationLeaf)
+    }
     /***********业务方法 end *****************/
     /***********生命周期 begin **************/
     componentDidMount() {
@@ -45,14 +48,15 @@ class MenuReset extends Component {
         let { menuData, sampleMenuData } = this.state;
         return (
             <Row>
-                <Col span={3}>
+                <Col span={5}>
                     <MenuComponent 
                         menuData={menuData}    
                         sampleMenuData={sampleMenuData}
-                        checkedKeysaa={["10005", "10012", "10007", "10009","10159"]}
+                        // checkedKeysaa={["10005", "10012", "10007", "10009","10159"]}
+                        menuDataCheckedFn={this.aaaFn}
                     />
                 </Col>
-                <Col span={18} style={{'textAlign':'left'}}>
+                <Col span={15} style={{'textAlign':'left'}}>
                     aaaaaaaaaa
             </Col>
             </Row>

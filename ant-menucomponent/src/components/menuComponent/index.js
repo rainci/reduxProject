@@ -2,6 +2,7 @@ import React,  { PureComponent }  from 'react';
 import { Menu, Row, Col, Icon, Button } from 'antd';
 import MyMenu  from './menu'
 import MenuAlert from './menuAlert'
+import { relationLeafFn, filterLeafFn } from './menuAlert/tool'
 
 class MenuComponent extends PureComponent {
     state = {
@@ -16,18 +17,28 @@ class MenuComponent extends PureComponent {
             menuAlertData: this.props.sampleMenuData.get(key*1).children
         })
     }
-    menuAlertClickFn = ({checkedKeys,leaf, relationLeaf}) => {//menu click fn
-        console.log('menuclickout:',checkedKeys,leaf,relationLeaf)
+    resetCheckedKeysFn= keys => {//一级左侧menu导航点击文字时触发的函数
+        this.setState({
+            menuLightData: keys       
+        })
+        let {sampleMenuData=new Map()} = this.props;
+        let leaf = filterLeafFn({data:keys,sampleMenuData})
+        let relationLeaf = relationLeafFn({leaf,sampleMenuData})
+        this.props.menuDataCheckedFn && this.props.menuDataCheckedFn({checkedKeys:keys,leaf,relationLeaf})
+    }
+    menuAlertClickFn = ({checkedKeys,leaf, relationLeaf}) => {//menualert click fn
+        // console.log('menuclickout:',checkedKeys,leaf,relationLeaf)
+        this.props.menuDataCheckedFn && this.props.menuDataCheckedFn({checkedKeys,leaf,relationLeaf})
     }
     menuAlertCloseFn = () => {//关闭menu弹框 fn
         this.setState({
             showMenuAlertFlag: false
         })
     }
-    checkedMenuItemFn = parentData => {//alert 弹框将选中的parent id传出来供左侧menu使用，点亮左侧menu对应的id
-        console.log(11123,parentData)
+    checkedMenuItemFn = ids => {//alert 弹框将选中的parent id传出来供左侧menu使用，点亮左侧menu对应的id
+        console.log(11123,ids)
         this.setState({
-            menuLightData: parentData
+            menuLightData: [...new Set([...ids,...this.state.menuLightData])]
         })
     }
     /***********业务方法 end *****************/
@@ -48,7 +59,13 @@ class MenuComponent extends PureComponent {
         return (
             <div style={{'position':'relative','zIndex':2}}>  
                 {/* <MyMenu menuListData={this.state.menuData} menuLine={8} subMenuFn={this.subMenuFn} /> */}
-                <MyMenu style={{}} menuListData={menuData} subMenuFn={this.subMenuItemFn} menuLightData={menuLightData} />
+                <MyMenu 
+                    style={{}} 
+                    menuListData={menuData} 
+                    menuLightData={menuLightData} 
+                    subMenuFn={this.subMenuItemFn} 
+                    subMenuCheckFn={this.resetCheckedKeysFn}
+                />
                 {
                     showMenuAlertFlag ? 
                     <MenuAlert
@@ -57,7 +74,7 @@ class MenuComponent extends PureComponent {
                         closeFn = {this.menuAlertCloseFn}
                         memuCheckedFn= {this.menuAlertClickFn}
                         checkedKeys = {menuLightData}
-                        checkedParentFn={this.checkedMenuItemFn}//将选中的parentid集输出来 
+                        checkedParentFn={this.checkedMenuItemFn}//将选中的id集输出来 
                         
                     />
                     : null

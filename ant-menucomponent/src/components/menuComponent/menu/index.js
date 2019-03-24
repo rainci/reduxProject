@@ -8,18 +8,20 @@ import './index.less'
 import { hasIdFromDataFn } from '../../../utils'
 class MyMenu extends PureComponent {
   state = {
-    checkedKeysLi: []
+    checkedKeysLi: []//选中的id集
   }
   subMenuClick = (tagId, event) => {//当menu item点击时
     let type = event.target.type;
     if (type === 'button') {
       return this.props.subMenuFn && this.props.subMenuFn(tagId)
     }
+    let checkedKeysLi = [...new Set([`${tagId}`, ...this.state.checkedKeysLi])];
     this.setState({
-      checkedKeysLi: [...new Set([`${tagId}`, ...this.state.checkedKeysLi])]
+      checkedKeysLi
     })
+    this.props.subMenuCheckFn && this.props.subMenuCheckFn(checkedKeysLi)
     setTimeout(()=>{
-      console.log(5667,this.state.checkedKeysLi)
+      console.log('submenu id:',this.state.checkedKeysLi)
     },100)
   }
   renderMenuFn = ({menuListData,subMenuStyle,menuLine,subMenuClick}) => {//渲染menuFn

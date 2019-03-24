@@ -74,7 +74,7 @@ class MenuAlert extends PureComponent {
         let leaf = filterLeafFn({data:checkedKeys,sampleMenuData})
         let relationLeaf = relationLeafFn({leaf,sampleMenuData})
         // console.log('c:',checkedKeys,leaf,relationLeaf)
-        this.props.memuCheckedFn && this.props.memuCheckedFn({checkedKeys, relationLeaf })
+        this.props.memuCheckedFn && this.props.memuCheckedFn({checkedKeys, leaf, relationLeaf })
 
     }
     /***********渲染方法 begin *****************/
@@ -151,14 +151,14 @@ class MenuAlert extends PureComponent {
     componentWillReceiveProps(nextProps) {
         console.log('al',nextProps)
         const { checkedKeys = [] } = nextProps;
-        debugger
+        // debugger
         if (checkedKeys && checkedKeys.length) {
             this.setState({
                 menuCheckedKeys: checkedKeys
             })
         }
         setTimeout(()=>{
-            console.log('heng:',this.state.menuCheckedKeys)
+            console.log('al2:',this.state.menuCheckedKeys)
         },100)
         
         // this.checkedWork(checkedKeys);

@@ -11,7 +11,7 @@ const Mock = require ('mockjs')
 //   }],
 //   'msg': '操作成功',
 // })
-Mock.mock('/mockapi/service/tag/tag/list?belong=sort', {
+Mock.mock('/mockapi/service/tag/tag/list?belong=tag', {
   'code': 200,
   'data|1-1': [{
     'tagId': 1,
