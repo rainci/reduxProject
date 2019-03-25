@@ -18,6 +18,13 @@ class MenuComponent extends PureComponent {
         showMenuAlertFlag: false,//是否展示弹框 
         menuLightData:[]//高亮的id集   
     }
+    /***********公共方法 begin *****************/
+    setStateValueFn = (key, value) => {//为state设置新的value
+        this.setState({
+            [key]: value
+        })
+    }
+    /***********公共方法 end *****************/
     /***********业务方法 begin *****************/
     subMenuItemFn = key => {//左侧menu click cb fn
         this.setState({
@@ -26,9 +33,7 @@ class MenuComponent extends PureComponent {
         })
     }
     resetCheckedKeysFn= keys => {//一级左侧menu导航点击文字时触发的函数
-        this.setState({
-            menuLightData: keys       
-        })
+        this.setStateValueFn('menuLightData',keys)
         let {sampleMenuData=new Map()} = this.props;
         let leaf = filterLeafFn({data:keys,sampleMenuData})
         let relationLeaf = relationLeafFn({leaf,sampleMenuData})
@@ -39,23 +44,17 @@ class MenuComponent extends PureComponent {
         this.props.menuDataCheckedFn && this.props.menuDataCheckedFn({checkedKeys,leaf,relationLeaf})
     }
     menuAlertCloseFn = () => {//关闭menu弹框 fn
-        this.setState({
-            showMenuAlertFlag: false
-        })
+        this.setStateValueFn('showMenuAlertFlag',false)
     }
     checkedMenuItemFn = menuLightData => {//alert 弹框将选中的parent id传出来供左侧menu使用，点亮左侧menu对应的id
-        this.setState({
-            menuLightData
-        })
+        this.setStateValueFn('menuLightData',menuLightData)
     }
     /***********业务方法 end *****************/
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {
         const { menuCheckedKeys = [] } = nextProps;
         if (menuCheckedKeys && menuCheckedKeys.length) {
-            this.setState({
-                menuLightData: [...new Set([...menuCheckedKeys,...this.state.menuLightData])]
-            })
+            this.setStateValueFn('menuLightData',[...new Set([...menuCheckedKeys])])
         }
     }
     /***********生命周期 end **************/

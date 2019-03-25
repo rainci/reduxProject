@@ -48,7 +48,7 @@ class MenuReset extends Component {
     }
     /***********生命周期 end **************/
     render() {
-        let { menuData, sampleMenuData, menuCheckedKeys=["10023", "10026", "10028", "10005", "10015", "10007", "10008"] } = this.state;
+        let { menuData, sampleMenuData, menuCheckedKeys=["10023"] } = this.state;
         return (
             <Row>
                 <Col span={5}>

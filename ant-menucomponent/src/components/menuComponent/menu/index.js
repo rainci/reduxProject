@@ -24,7 +24,7 @@ class MenuSide extends PureComponent {
     if (type === 'button') {
       return this.props.subMenuFn && this.props.subMenuFn(tagId)
     }
-    debugger
+    // debugger
     let { menuSideCheckedKeys } = this.state;
     let status = hasIdFromDataFn(menuSideCheckedKeys, `${tagId}`);//是否是选中状态true or false
     if (status) {//当前选中状态，则取消选中
@@ -71,7 +71,7 @@ class MenuSide extends PureComponent {
     const { menuLightData = [] } = nextProps;//当有点亮menu数据时
     if (menuLightData && menuLightData.length) {
       this.setState({
-        menuSideCheckedKeys: [...new Set([...menuLightData, ...this.state.menuSideCheckedKeys])]
+        menuSideCheckedKeys: [...new Set([...menuLightData])]
       })
     }
 
