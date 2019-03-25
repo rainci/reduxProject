@@ -65,20 +65,21 @@ class MenuComponent extends PureComponent {
             <div style={{'position':'relative','zIndex':2}}>  
                 {/* <MenuSide menuSideData={this.state.menuData} menuSideLine={8} subMenuFn={this.subMenuFn} /> */}
                 <MenuSide 
-                    menuSideStyle={{}} 
-                    menuSideData={menuData} 
-                    menuLightData={menuLightData} 
-                    subMenuFn={this.subMenuItemFn} 
-                    subMenuCheckFn={this.resetCheckedKeysFn}
+                    menuSideStyle = {{}} //menu style
+                    menuSideData = {menuData} //menu data
+                    sampleMenuData = {sampleMenuData}//平级所有menu数据
+                    menuLightData = {menuLightData}//高亮data
+                    subMenuFn = {this.subMenuItemFn}//menu icon点击事件 
+                    subMenuCheckFn = {this.resetCheckedKeysFn}//menuitem 本身点击事件
                 />
                 {
                     showMenuAlertFlag ? 
                     <MenuAlert
-                        menuAlertData = {menuAlertData}
-                        sampleMenuData = {sampleMenuData}
-                        closeFn = {this.menuAlertCloseFn}
-                        memuCheckedFn= {this.menuAlertClickFn}
-                        checkedKeys = {menuLightData}
+                        menuAlertData = {menuAlertData}//当前点开弹框的数据
+                        sampleMenuData = {sampleMenuData}//平级所有menu数据
+                        closeFn = {this.menuAlertCloseFn}//弹框关闭回调
+                        memuCheckedFn= {this.menuAlertClickFn}//点击menu item回调
+                        checkedKeys = {menuLightData}//选中高亮的数据
                         checkedParentFn={this.checkedMenuItemFn}//将选中的id集输出来 
                         
                     />

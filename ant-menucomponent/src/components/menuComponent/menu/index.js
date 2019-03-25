@@ -13,34 +13,54 @@
 /* eslint-disable  */
 import React, { PureComponent } from 'react';
 import { Menu, Row, Col, Icon, Button } from 'antd';
-import './index.less'
-import { hasIdFromDataFn, deleteIdFromData } from '../../../utils'
+import './index.less';
+import { hasIdFromDataFn, deleteIdFromData } from '../../../utils';
+import { getChildrenIds } from './tool';
 class MenuSide extends PureComponent {
   state = {
     menuSideCheckedKeys: []//选中的id集
   }
+  /***********公共方法 begin *****************/
+  setStateValueFn = (key, value) => {//为state设置新的value
+    this.setState({
+        [key]: value
+    })
+}
+  /***********公共方法 end *****************/
+  /***********业务方法 begin *****************/
   subMenuClick = (tagId, event) => {//当menu item点击时
     let type = event.target.type;
-    if (type === 'button') {
+    if (type === 'button') {//当点击icon时
       return this.props.subMenuFn && this.props.subMenuFn(tagId)
     }
     // debugger
     let { menuSideCheckedKeys } = this.state;
     let status = hasIdFromDataFn(menuSideCheckedKeys, `${tagId}`);//是否是选中状态true or false
     if (status) {//当前选中状态，则取消选中
-      let newMenuSideCheckedKeys = deleteIdFromData([...menuSideCheckedKeys],`${tagId}`) 
-      this.setState({
-        menuSideCheckedKeys: newMenuSideCheckedKeys
-      })
-      this.props.subMenuCheckFn && this.props.subMenuCheckFn(newMenuSideCheckedKeys)
+      this.unCheckSubMenuFn(menuSideCheckedKeys,tagId)  
     } else {//未选中,应选中
-      let newmenuSideCheckedKeys = [...new Set([`${tagId}`, ...menuSideCheckedKeys])];
-      this.setState({
-        menuSideCheckedKeys: newmenuSideCheckedKeys
-      })
-      this.props.subMenuCheckFn && this.props.subMenuCheckFn(newmenuSideCheckedKeys)
+      this.checkSubMenuFn(menuSideCheckedKeys,tagId)
     }
 
+  }
+  unCheckSubMenuFn = (menuSideCheckedKeys,tagId) => {//取消选中
+      let newMenuSideCheckedKeys = deleteIdFromData([...menuSideCheckedKeys],`${tagId}`) 
+      let children = this.props.sampleMenuData && this.props.sampleMenuData.get(tagId*1).children
+        if (!children || children.length === 0) {
+          this.setStateValueFn('menuSideCheckedKeys',newMenuSideCheckedKeys)
+          return this.props.subMenuCheckFn && this.props.subMenuCheckFn(newMenuSideCheckedKeys)
+        }
+        let childrenIds = getChildrenIds(children);
+        console.log('childrenIds:',childrenIds)
+        let checkedKeysNoChild = newMenuSideCheckedKeys.filter(item => !childrenIds.includes(item))
+        this.setStateValueFn('menuSideCheckedKeys',checkedKeysNoChild)
+        return this.props.subMenuCheckFn && this.props.subMenuCheckFn(checkedKeysNoChild)
+
+  }
+  checkSubMenuFn = (menuSideCheckedKeys,tagId) => {//选中
+    let newmenuSideCheckedKeys = [...new Set([`${tagId}`, ...menuSideCheckedKeys])];
+    this.setStateValueFn('menuSideCheckedKeys',newmenuSideCheckedKeys)
+    this.props.subMenuCheckFn && this.props.subMenuCheckFn(newmenuSideCheckedKeys)
   }
   renderMenuFn = ({ menuSideData, subMenuStyle, menuSideLine, subMenuClick }) => {//渲染menuFn
     // debugger
@@ -66,6 +86,7 @@ class MenuSide extends PureComponent {
       )
     })
   }
+  /***********业务方法 end *****************/
   /***********生命周期 begin **************/
   componentWillReceiveProps(nextProps) {
     const { menuLightData = [] } = nextProps;//当有点亮menu数据时
