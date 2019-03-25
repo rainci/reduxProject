@@ -37,6 +37,9 @@ class MenuReset extends Component {
     }
     aaaFn = ({checkedKeys,leaf,relationLeaf}) => {
         console.log('wawo,the end data:',checkedKeys,leaf,relationLeaf)
+        this.setState({
+            menuCheckedKeys: checkedKeys  
+        })
     }
     /***********业务方法 end *****************/
     /***********生命周期 begin **************/
@@ -45,14 +48,14 @@ class MenuReset extends Component {
     }
     /***********生命周期 end **************/
     render() {
-        let { menuData, sampleMenuData } = this.state;
+        let { menuData, sampleMenuData, menuCheckedKeys=["10023", "10026", "10028", "10005", "10015", "10007", "10008"] } = this.state;
         return (
             <Row>
                 <Col span={5}>
                     <MenuComponent 
                         menuData={menuData}    
                         sampleMenuData={sampleMenuData}
-                        // checkedKeysaa={["10005", "10012", "10007", "10009","10159"]}
+                        menuCheckedKeys={menuCheckedKeys}
                         menuDataCheckedFn={this.aaaFn}
                     />
                 </Col>

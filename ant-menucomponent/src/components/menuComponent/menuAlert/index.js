@@ -6,7 +6,7 @@
  * @param {Number} 可选 treeHeight
  * @param {boolean} autoExpandParent 
  * @param {Function(Array)} checkedParentFn  把选中过的弹框的父id集传出去  
- * @return {component} TaskTreeList 
+ * @return {component} MenuAlert 
  * @author rainci(刘雨熙)
  * @time 2019.3.22
  */
@@ -17,28 +17,28 @@ import {getParentIdAndName, relationLeafFn, filterLeafFn} from './tool'
 import './index.less'
 class MenuAlert extends PureComponent {
     state = {
-        menuCheckedKeys: [],//弹框选中的id
+        menuAlertCheckedKeys: this.props.checkedKeys || [],//弹框选中的id
     }
     /***********业务方法 begin *****************/
     alertCloseFn = () => {//close alert fn
         this.props.closeFn && this.props.closeFn()
     }
     memuClickFn = tagId => {// menu tag click fn
-        let { menuCheckedKeys } = this.state;
-        let status = hasIdFromDataFn(menuCheckedKeys, tagId);//是否是选中状态true or false
+        let { menuAlertCheckedKeys } = this.state;
+        let status = hasIdFromDataFn(menuAlertCheckedKeys, tagId);//是否是选中状态true or false
         if (status) {//当前选中状态，则取消选中
             // this.unCheckMenuFn(tagId);
-            // let newCheckMenuData = [...menuCheckedKeys]
+            // let newCheckMenuData = [...menuAlertCheckedKeys]
             // newCheckMenuData.splice(newCheckMenuData.indexOf(tagId), 1)
             // this.setState({
-            //     menuCheckedKeys: newCheckMenuData,
+            //     menuAlertCheckedKeys: newCheckMenuData,
             // })
         } else {//当前未选中状态，则选中
             this.checkMenuFn(tagId);
         }
         setTimeout(() => {
-            const { menuCheckedKeys } = this.state;
-            this.checkedWorkFn(menuCheckedKeys);
+            const { menuAlertCheckedKeys } = this.state;
+            this.checkedWorkFn(menuAlertCheckedKeys);
         }, 10)
         // this.props.memuClickFn && this.props.memuClickFn(tagId)
     }
@@ -47,12 +47,12 @@ class MenuAlert extends PureComponent {
             currentId: tagId,
             sampleTreeData: this.props.sampleMenuData,
         });
-        let menuCheckedKeys = [...new Set([...secletIds, ...this.state.menuCheckedKeys])];//当前弹窗选中的所有id
-        this.props.checkedParentFn && this.props.checkedParentFn(menuCheckedKeys)
+        let menuAlertCheckedKeys = [...new Set([...secletIds, ...this.state.menuAlertCheckedKeys])];//当前弹窗选中的所有id
+        this.props.checkedParentFn && this.props.checkedParentFn(menuAlertCheckedKeys)
         this.setState({
-            menuCheckedKeys,
+            menuAlertCheckedKeys,
         })
-        return menuCheckedKeys;
+        return menuAlertCheckedKeys;
     }
     unCheckMenuFn = tagId => {//未选中unchecked
         console.log('cancelCheck', tagId)
@@ -78,7 +78,7 @@ class MenuAlert extends PureComponent {
             let { name, tagId, children } = item;
             let classNames;
             // debugger
-            if(hasIdFromDataFn(this.state.menuCheckedKeys,`${tagId}`)){
+            if(hasIdFromDataFn(this.state.menuAlertCheckedKeys,`${tagId}`)){
                 classNames = 'checkedMenuItem';    
             }
 
@@ -99,7 +99,7 @@ class MenuAlert extends PureComponent {
         return data.map(item => {
             let { name, tagId, children } = item;
             let classNames;
-            if(hasIdFromDataFn(this.state.menuCheckedKeys,`${tagId}`)){
+            if(hasIdFromDataFn(this.state.menuAlertCheckedKeys,`${tagId}`)){
                 classNames = 'checkedMenuItem';    
             }
             return (
@@ -123,7 +123,7 @@ class MenuAlert extends PureComponent {
         return data.map(item => {
             let { name, tagId } = item;
             let classNames;
-            if(hasIdFromDataFn(this.state.menuCheckedKeys,`${tagId}`)){
+            if(hasIdFromDataFn(this.state.menuAlertCheckedKeys,`${tagId}`)){
                 classNames = 'checkedMenuItem';    
             }
             return (
@@ -140,7 +140,7 @@ class MenuAlert extends PureComponent {
         const { checkedKeys = [] } = nextProps;
         if (checkedKeys && checkedKeys.length) {
             this.setState({
-                menuCheckedKeys: checkedKeys
+                menuAlertCheckedKeys: checkedKeys
             })
         }
     }

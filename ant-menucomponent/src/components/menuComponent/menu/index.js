@@ -17,25 +17,25 @@ import './index.less'
 import { hasIdFromDataFn } from '../../../utils'
 class MenuSide extends PureComponent {
   state = {
-    checkedKeysLi: []//选中的id集
+    menuSideCheckedKeys: []//选中的id集
   }
   subMenuClick = (tagId, event) => {//当menu item点击时
     let type = event.target.type;
     if (type === 'button') {
       return this.props.subMenuFn && this.props.subMenuFn(tagId)
     }
-    let checkedKeysLi = [...new Set([`${tagId}`, ...this.state.checkedKeysLi])];
+    let menuSideCheckedKeys = [...new Set([`${tagId}`, ...this.state.menuSideCheckedKeys])];
     this.setState({
-      checkedKeysLi
+      menuSideCheckedKeys
     })
-    this.props.subMenuCheckFn && this.props.subMenuCheckFn(checkedKeysLi)
+    this.props.subMenuCheckFn && this.props.subMenuCheckFn(menuSideCheckedKeys)
   }
   renderMenuFn = ({menuSideData,subMenuStyle,menuSideLine,subMenuClick}) => {//渲染menuFn
     // debugger
     return menuSideData.map((item,index) => {
       const { tagId, name } = item;
       let classNames;
-      if(hasIdFromDataFn(this.state.checkedKeysLi,`${tagId}`)){
+      if(hasIdFromDataFn(this.state.menuSideCheckedKeys,`${tagId}`)){
           classNames = 'checkedMenuItem';    
       }
       return (
@@ -59,7 +59,7 @@ class MenuSide extends PureComponent {
     const { menuLightData = [] } = nextProps;//当有点亮menu数据时
     if (menuLightData && menuLightData.length) {
         this.setState({
-          checkedKeysLi: [...new Set([...menuLightData,...this.state.checkedKeysLi])]
+          menuSideCheckedKeys: [...new Set([...menuLightData,...this.state.menuSideCheckedKeys])]
         })
     }
 
