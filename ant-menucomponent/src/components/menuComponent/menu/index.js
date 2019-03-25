@@ -23,9 +23,9 @@ class MenuSide extends PureComponent {
   /***********公共方法 begin *****************/
   setStateValueFn = (key, value) => {//为state设置新的value
     this.setState({
-        [key]: value
+      [key]: value
     })
-}
+  }
   /***********公共方法 end *****************/
   /***********业务方法 begin *****************/
   subMenuClick = (tagId, event) => {//当menu item点击时
@@ -37,29 +37,28 @@ class MenuSide extends PureComponent {
     let { menuSideCheckedKeys } = this.state;
     let status = hasIdFromDataFn(menuSideCheckedKeys, `${tagId}`);//是否是选中状态true or false
     if (status) {//当前选中状态，则取消选中
-      this.unCheckSubMenuFn(menuSideCheckedKeys,tagId)  
+      this.unCheckSubMenuFn(menuSideCheckedKeys, tagId)
     } else {//未选中,应选中
-      this.checkSubMenuFn(menuSideCheckedKeys,tagId)
+      this.checkSubMenuFn(menuSideCheckedKeys, tagId)
     }
 
   }
-  unCheckSubMenuFn = (menuSideCheckedKeys,tagId) => {//取消选中
-      let newMenuSideCheckedKeys = deleteIdFromData([...menuSideCheckedKeys],`${tagId}`) 
-      let children = this.props.sampleMenuData && this.props.sampleMenuData.get(tagId*1).children
-        if (!children || children.length === 0) {
-          this.setStateValueFn('menuSideCheckedKeys',newMenuSideCheckedKeys)
-          return this.props.subMenuCheckFn && this.props.subMenuCheckFn(newMenuSideCheckedKeys)
-        }
-        let childrenIds = getChildrenIds(children);
-        console.log('childrenIds:',childrenIds)
-        let checkedKeysNoChild = newMenuSideCheckedKeys.filter(item => !childrenIds.includes(item))
-        this.setStateValueFn('menuSideCheckedKeys',checkedKeysNoChild)
-        return this.props.subMenuCheckFn && this.props.subMenuCheckFn(checkedKeysNoChild)
+  unCheckSubMenuFn = (menuSideCheckedKeys, tagId) => {//取消选中
+    let newMenuSideCheckedKeys = deleteIdFromData([...menuSideCheckedKeys], `${tagId}`)
+    let children = this.props.sampleMenuData && this.props.sampleMenuData.get(tagId * 1).children
+    if (!children || children.length === 0) {
+      this.setStateValueFn('menuSideCheckedKeys', newMenuSideCheckedKeys)
+      return this.props.subMenuCheckFn && this.props.subMenuCheckFn(newMenuSideCheckedKeys)
+    }
+    let childrenIds = getChildrenIds(children);
+    let checkedKeysNoChild = newMenuSideCheckedKeys.filter(item => !childrenIds.includes(item))
+    this.setStateValueFn('menuSideCheckedKeys', checkedKeysNoChild)
+    return this.props.subMenuCheckFn && this.props.subMenuCheckFn(checkedKeysNoChild)
 
   }
-  checkSubMenuFn = (menuSideCheckedKeys,tagId) => {//选中
+  checkSubMenuFn = (menuSideCheckedKeys, tagId) => {//选中
     let newmenuSideCheckedKeys = [...new Set([`${tagId}`, ...menuSideCheckedKeys])];
-    this.setStateValueFn('menuSideCheckedKeys',newmenuSideCheckedKeys)
+    this.setStateValueFn('menuSideCheckedKeys', newmenuSideCheckedKeys)
     this.props.subMenuCheckFn && this.props.subMenuCheckFn(newmenuSideCheckedKeys)
   }
   renderMenuFn = ({ menuSideData, subMenuStyle, menuSideLine, subMenuClick }) => {//渲染menuFn
