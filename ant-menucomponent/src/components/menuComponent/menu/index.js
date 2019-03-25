@@ -20,9 +20,6 @@ class MyMenu extends PureComponent {
       checkedKeysLi
     })
     this.props.subMenuCheckFn && this.props.subMenuCheckFn(checkedKeysLi)
-    setTimeout(()=>{
-      console.log('submenu id:',this.state.checkedKeysLi)
-    },100)
   }
   renderMenuFn = ({menuListData,subMenuStyle,menuLine,subMenuClick}) => {//渲染menuFn
     // debugger

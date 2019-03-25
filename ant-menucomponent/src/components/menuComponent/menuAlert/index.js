@@ -43,23 +43,11 @@ class MenuAlert extends PureComponent {
         // this.props.memuClickFn && this.props.memuClickFn(tagId)
     }
     checkMenuFn = tagId => {//选中checked
-        console.log('check')
         let { secletIds } = getParentIdAndName({//获取当前点击tag的自身和父亲的id集
             currentId: tagId,
             sampleTreeData: this.props.sampleMenuData,
         });
         let menuCheckedKeys = [...new Set([...secletIds, ...this.state.menuCheckedKeys])];//当前弹窗选中的所有id
-        console.log('checked:', secletIds, menuCheckedKeys)
-        // let currentParentId = secletIds[0];//当前弹框的父id  
-        // if(this.checkedParentData){//当checkedParentData存在时
-        //     if(!hasIdFromDataFn(this.checkedParentData,currentParentId)){//当this.checkedParentData里没有此父id时
-        //         this.checkedParentData.push(currentParentId)
-        //         this.props.checkedParentFn && this.props.checkedParentFn(this.checkedParentData) 
-        //     }
-        // }else{
-        //     this.checkedParentData=[currentParentId]
-        //     this.props.checkedParentFn && this.props.checkedParentFn(this.checkedParentData) 
-        // }
         this.props.checkedParentFn && this.props.checkedParentFn(menuCheckedKeys)
         this.setState({
             menuCheckedKeys,
@@ -149,23 +137,15 @@ class MenuAlert extends PureComponent {
     /***********业务方法 end *****************/
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {
-        console.log('al',nextProps)
         const { checkedKeys = [] } = nextProps;
-        // debugger
         if (checkedKeys && checkedKeys.length) {
             this.setState({
                 menuCheckedKeys: checkedKeys
             })
         }
-        setTimeout(()=>{
-            console.log('al2:',this.state.menuCheckedKeys)
-        },100)
-        
-        // this.checkedWork(checkedKeys);
     }
     /***********生命周期 end **************/
     render() {
-        console.log('menuAlertData:', this.props)
         let { menuAlertData } = this.props;
         return (
             <div className='menuAlert'>
