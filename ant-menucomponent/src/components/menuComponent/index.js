@@ -1,3 +1,12 @@
+/**
+ * 
+ * @param {Array} menuData  整个组件的data 
+ * @param {Array} sampleMenuData 整个组件的平级数据
+ * @param {Function(Object={checkedKeys,leaf,relationLeaf})} menuDataCheckedFn  把选中的数据传递出去,checkedKeys为选中的id集, leaf为叶子节点,relationLeaf为关系数据集 
+ * @return {component} MenuComponent 
+ * @author rainci(刘雨熙)
+ * @time 2019.3.22
+ */
 import React,  { PureComponent }  from 'react';
 import { Menu, Row, Col, Icon, Button } from 'antd';
 import MyMenu  from './menu'
@@ -11,7 +20,6 @@ class MenuComponent extends PureComponent {
     }
     /***********业务方法 begin *****************/
     subMenuItemFn = key => {//左侧menu click cb fn
-        console.log(typeof key, key,this.state)
         this.setState({
             showMenuAlertFlag: true,
             menuAlertData: this.props.sampleMenuData.get(key*1).children
@@ -36,7 +44,6 @@ class MenuComponent extends PureComponent {
         })
     }
     checkedMenuItemFn = ids => {//alert 弹框将选中的parent id传出来供左侧menu使用，点亮左侧menu对应的id
-        console.log(11123,ids)
         this.setState({
             menuLightData: [...new Set([...ids,...this.state.menuLightData])]
         })
@@ -53,7 +60,6 @@ class MenuComponent extends PureComponent {
     }
     /***********生命周期 end **************/
     render(){
-        console.log('conindex')
         let { showMenuAlertFlag, menuLightData, menuAlertData } = this.state;
         let {menuData=[], sampleMenuData=new Map()} = this.props;
         return (
