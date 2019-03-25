@@ -43,9 +43,9 @@ class MenuComponent extends PureComponent {
             showMenuAlertFlag: false
         })
     }
-    checkedMenuItemFn = ids => {//alert 弹框将选中的parent id传出来供左侧menu使用，点亮左侧menu对应的id
+    checkedMenuItemFn = menuLightData => {//alert 弹框将选中的parent id传出来供左侧menu使用，点亮左侧menu对应的id
         this.setState({
-            menuLightData: [...new Set([...ids,...this.state.menuLightData])]
+            menuLightData
         })
     }
     /***********业务方法 end *****************/

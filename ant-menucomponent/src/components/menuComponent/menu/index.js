@@ -11,10 +11,10 @@
  * @time 2019.3.22
  */
 /* eslint-disable  */
-import React,  { PureComponent }  from 'react';
+import React, { PureComponent } from 'react';
 import { Menu, Row, Col, Icon, Button } from 'antd';
 import './index.less'
-import { hasIdFromDataFn } from '../../../utils'
+import { hasIdFromDataFn, deleteIdFromData } from '../../../utils'
 class MenuSide extends PureComponent {
   state = {
     menuSideCheckedKeys: []//选中的id集
@@ -24,19 +24,31 @@ class MenuSide extends PureComponent {
     if (type === 'button') {
       return this.props.subMenuFn && this.props.subMenuFn(tagId)
     }
-    let menuSideCheckedKeys = [...new Set([`${tagId}`, ...this.state.menuSideCheckedKeys])];
-    this.setState({
-      menuSideCheckedKeys
-    })
-    this.props.subMenuCheckFn && this.props.subMenuCheckFn(menuSideCheckedKeys)
+    debugger
+    let { menuSideCheckedKeys } = this.state;
+    let status = hasIdFromDataFn(menuSideCheckedKeys, `${tagId}`);//是否是选中状态true or false
+    if (status) {//当前选中状态，则取消选中
+      let newMenuSideCheckedKeys = deleteIdFromData([...menuSideCheckedKeys],`${tagId}`) 
+      this.setState({
+        menuSideCheckedKeys: newMenuSideCheckedKeys
+      })
+      this.props.subMenuCheckFn && this.props.subMenuCheckFn(newMenuSideCheckedKeys)
+    } else {//未选中,应选中
+      let newmenuSideCheckedKeys = [...new Set([`${tagId}`, ...menuSideCheckedKeys])];
+      this.setState({
+        menuSideCheckedKeys: newmenuSideCheckedKeys
+      })
+      this.props.subMenuCheckFn && this.props.subMenuCheckFn(newmenuSideCheckedKeys)
+    }
+
   }
-  renderMenuFn = ({menuSideData,subMenuStyle,menuSideLine,subMenuClick}) => {//渲染menuFn
+  renderMenuFn = ({ menuSideData, subMenuStyle, menuSideLine, subMenuClick }) => {//渲染menuFn
     // debugger
-    return menuSideData.map((item,index) => {
+    return menuSideData.map((item, index) => {
       const { tagId, name } = item;
       let classNames;
-      if(hasIdFromDataFn(this.state.menuSideCheckedKeys,`${tagId}`)){
-          classNames = 'checkedMenuItem';    
+      if (hasIdFromDataFn(this.state.menuSideCheckedKeys, `${tagId}`)) {
+        classNames = 'checkedMenuItem';
       }
       return (
         <li
@@ -44,13 +56,13 @@ class MenuSide extends PureComponent {
           style={subMenuStyle}
           key={tagId}
           id={tagId}
-          onClick={subMenuClick.bind(this,tagId)}
+          onClick={subMenuClick.bind(this, tagId)}
         >
           {name}
           <Button className='menuButton' icon="right"></Button>
-          {(menuSideLine==index || menuSideLine==(index-1))?<hr/>:null}
+          {(menuSideLine == index || menuSideLine == (index - 1)) ? <hr /> : null}
         </li>
-        
+
       )
     })
   }
@@ -58,16 +70,16 @@ class MenuSide extends PureComponent {
   componentWillReceiveProps(nextProps) {
     const { menuLightData = [] } = nextProps;//当有点亮menu数据时
     if (menuLightData && menuLightData.length) {
-        this.setState({
-          menuSideCheckedKeys: [...new Set([...menuLightData,...this.state.menuSideCheckedKeys])]
-        })
+      this.setState({
+        menuSideCheckedKeys: [...new Set([...menuLightData, ...this.state.menuSideCheckedKeys])]
+      })
     }
 
   }
   /***********生命周期 end **************/
   render() {
     let ulStyle = { height: "100%", background: '#2D3049' };
-    let { menuSideData = [], menuSideStyle = {},menuSideLine, menuLightData } = this.props;
+    let { menuSideData = [], menuSideStyle = {}, menuSideLine, menuLightData } = this.props;
     ulStyle = { ...ulStyle, ...menuSideStyle };
     let subMenuStyle = { 'width': '50%', 'float': 'left' };
     return (
@@ -78,8 +90,8 @@ class MenuSide extends PureComponent {
             subMenuStyle,//menu style
             menuSideLine,//menu line
             menuLightData,//menu高亮
-            subMenuClick:this.subMenuClick
-          }) 
+            subMenuClick: this.subMenuClick
+          })
         }
       </ul>
     );
