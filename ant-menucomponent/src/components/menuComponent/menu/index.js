@@ -1,12 +1,21 @@
 /**
  * 
+ * @param {Array} menuSideData 必选 menu树data
+ * @param {Array} menuLightData 可选 高亮data
+ * @param {Object}  menuSideStyle 可选 menuSide style
+ * @param {Number}  menuSideLine 可选 导航线
+ * @param {Function(tagId)} subMenuFn 点击icon触发的fn 
+ * @param {Function(Array)} subMenuCheckFn 点击menuItem文字触发的fn 
+ * @return {component} MenuSide 
+ * @author rainci(刘雨熙)
+ * @time 2019.3.22
  */
 /* eslint-disable  */
 import React,  { PureComponent }  from 'react';
 import { Menu, Row, Col, Icon, Button } from 'antd';
 import './index.less'
 import { hasIdFromDataFn } from '../../../utils'
-class MyMenu extends PureComponent {
+class MenuSide extends PureComponent {
   state = {
     checkedKeysLi: []//选中的id集
   }
@@ -21,9 +30,9 @@ class MyMenu extends PureComponent {
     })
     this.props.subMenuCheckFn && this.props.subMenuCheckFn(checkedKeysLi)
   }
-  renderMenuFn = ({menuListData,subMenuStyle,menuLine,subMenuClick}) => {//渲染menuFn
+  renderMenuFn = ({menuSideData,subMenuStyle,menuSideLine,subMenuClick}) => {//渲染menuFn
     // debugger
-    return menuListData.map((item,index) => {
+    return menuSideData.map((item,index) => {
       const { tagId, name } = item;
       let classNames;
       if(hasIdFromDataFn(this.state.checkedKeysLi,`${tagId}`)){
@@ -39,7 +48,7 @@ class MyMenu extends PureComponent {
         >
           {name}
           <Button className='menuButton' icon="right"></Button>
-          {(menuLine==index || menuLine==(index-1))?<hr/>:null}
+          {(menuSideLine==index || menuSideLine==(index-1))?<hr/>:null}
         </li>
         
       )
@@ -58,16 +67,16 @@ class MyMenu extends PureComponent {
   /***********生命周期 end **************/
   render() {
     let ulStyle = { height: "100%", background: '#2D3049' };
-    let { menuListData = [], menuStyle = {},menuLine, menuLightData } = this.props;
-    ulStyle = { ...ulStyle, ...menuStyle };
+    let { menuSideData = [], menuSideStyle = {},menuSideLine, menuLightData } = this.props;
+    ulStyle = { ...ulStyle, ...menuSideStyle };
     let subMenuStyle = { 'width': '50%', 'float': 'left' };
     return (
       <ul className='menuUl' style={ulStyle}>
         {
           this.renderMenuFn({
-            menuListData,//menu data
+            menuSideData,//menu data
             subMenuStyle,//menu style
-            menuLine,//menu line
+            menuSideLine,//menu line
             menuLightData,//menu高亮
             subMenuClick:this.subMenuClick
           }) 
@@ -77,7 +86,7 @@ class MyMenu extends PureComponent {
   }
 }
 
-export default MyMenu;
+export default MenuSide;
 
 
 

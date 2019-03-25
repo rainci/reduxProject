@@ -9,7 +9,7 @@
  */
 import React,  { PureComponent }  from 'react';
 import { Menu, Row, Col, Icon, Button } from 'antd';
-import MyMenu  from './menu'
+import MenuSide  from './menu'
 import MenuAlert from './menuAlert'
 import { relationLeafFn, filterLeafFn } from './menuAlert/tool'
 
@@ -64,10 +64,10 @@ class MenuComponent extends PureComponent {
         let {menuData=[], sampleMenuData=new Map()} = this.props;
         return (
             <div style={{'position':'relative','zIndex':2}}>  
-                {/* <MyMenu menuListData={this.state.menuData} menuLine={8} subMenuFn={this.subMenuFn} /> */}
-                <MyMenu 
-                    style={{}} 
-                    menuListData={menuData} 
+                {/* <MenuSide menuSideData={this.state.menuData} menuSideLine={8} subMenuFn={this.subMenuFn} /> */}
+                <MenuSide 
+                    menuSideStyle={{}} 
+                    menuSideData={menuData} 
                     menuLightData={menuLightData} 
                     subMenuFn={this.subMenuItemFn} 
                     subMenuCheckFn={this.resetCheckedKeysFn}
