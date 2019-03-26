@@ -48,7 +48,7 @@ class MenuReset extends Component {
     }
     /***********生命周期 end **************/
     render() {
-        let { menuData, sampleMenuData, menuCheckedKeys=["10023"] } = this.state;
+        let { menuData, sampleMenuData, menuCheckedKeys=[] } = this.state;
         return (
             <Row>
                 <Col span={5}>
@@ -57,6 +57,8 @@ class MenuReset extends Component {
                         sampleMenuData={sampleMenuData}
                         menuCheckedKeys={menuCheckedKeys}
                         menuDataCheckedFn={this.aaaFn}
+                        // menuSideStyle = {{'height':'800px'}}
+                        // menuAlertStyle = {{'height':'800px'}}
                     />
                 </Col>
                 <Col span={15} style={{'textAlign':'left'}}>

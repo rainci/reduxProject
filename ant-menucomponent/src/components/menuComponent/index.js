@@ -3,6 +3,8 @@
  * @param {Array} menuData  整个组件的data 
  * @param {Array} sampleMenuData 整个组件的平级数据
  * @param {Number} menuSideLine menuside分割线
+ * @param {Object} menuSideStyle menuSide style
+ * @param {Object} menuAlertStyle menuAlert style
  * @param {Function(Object={checkedKeys,leaf,relationLeaf})} menuDataCheckedFn  把选中的数据传递出去,checkedKeys为选中的id集, leaf为叶子节点,relationLeaf为关系数据集 
  * @return {component} MenuComponent 
  * @author rainci(刘雨熙)
@@ -59,12 +61,12 @@ class MenuComponent extends PureComponent {
     /***********生命周期 end **************/
     render(){
         let { showMenuAlertFlag, menuLightData, menuAlertData } = this.state;
-        let {menuData=[], sampleMenuData=new Map()} = this.props;
+        let {menuData=[], sampleMenuData=new Map(),menuSideStyle, menuAlertStyle} = this.props;
         return (
             <div style={boxStyle}>  
                 {/* <MenuSide menuSideData={this.state.menuData} menuSideLine={8} subMenuFn={this.subMenuFn} /> */}
                 <MenuSide 
-                    menuSideStyle = {{}} //menu style
+                    menuSideStyle = {menuSideStyle} //menu style
                     menuSideData = {menuData} //menu data
                     sampleMenuData = {sampleMenuData}//平级所有menu数据
                     menuLightData = {menuLightData}//高亮data
@@ -80,6 +82,7 @@ class MenuComponent extends PureComponent {
                         closeFn = {this.menuAlertCloseFn}//弹框关闭回调
                         memuCheckedFn= {this.menuAlertClickFn}//点击menu item回调
                         checkedKeys = {menuLightData}//选中高亮的数据
+                        menuAlertStyle = {menuAlertStyle}//alert弹框样式
                     />
                     : null
                 }

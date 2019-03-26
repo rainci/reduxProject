@@ -146,9 +146,9 @@ class MenuAlert extends PureComponent {
     }
     /***********生命周期 end **************/
     render() {
-        let { menuAlertData } = this.props;
+        let { menuAlertData, menuAlertStyle } = this.props;
         return (
-            <div className='menuAlert'>
+            <div className='menuAlert' style={menuAlertStyle}>
                 <Row className='rowHeight'>
                     <Icon className='closeIcon' type="close" onClick={this.alertCloseFn} />
                 </Row>
