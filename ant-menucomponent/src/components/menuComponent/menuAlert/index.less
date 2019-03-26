@@ -1,25 +1,71 @@
+.clearfix {
+    clear: both;
+    overflow: hidden;
+}
+.floatLeft {
+    float: left;
+}
+.padRight20 {
+    padding-right: 25px;
+}
+.marginRight20 {
+    margin-right: 25px;
+}
+.cursor {
+    cursor: pointer;    
+}
+.closeIcon {
+    position: absolute;
+    top: 8px;
+    right: -20px;
+    font-size: 20px;
+    color: #999999;
+}
+.rowHeight {
+    height: 35px !important;
+}
 .menuAlert {
     position: absolute;
     left: 286px;
     top: 0;
     width: 950px;
-    min-height: 580px;
+    min-height: 418px;
+    padding: 10px 40px;
     border: 1px solid #eaeaea;
     background: white;
     overflow: hidden;
+    .menuItemTwo,.menuItemThree {
+
+        margin-bottom: 25px;
+        padding: 9px 15px;
+        font-size: 14px;
+        text-align: left;
+        .cursor;  
+    }
+    .menuItemTwo {
+        background: #ECF2FF;
+    }
+    .menuThreeUl {
+        padding-left: 15px;
+        margin-top: -20px;
+        li {
+            list-style: none;
+        }
+    }
 }
+
 .checkedMenuItem {
-    background: #4780FF;
+    background: #4780FF !important;
     color: white;
 }
 .checkedMenuItemTwo {
-    background: #4780FF;
+    background: #4780FF !important;
     color: white;
 }
 .checkedMenuItemThree {
     font-weight: bold;
-    color: #4780FF;
+    color: #4780FF !important;
 }
 .checkedMenuItemFour {
-    color: #4780FF;
+    color: #4780FF !important;
 }

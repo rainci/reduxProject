@@ -13,7 +13,7 @@ class MenuReset extends Component {
     }
     /***********公共方法 begin *****************/
     getMenuListData = () => {//获取menu data
-        return server.getMenuData({ 'belong': 'tag' }).then((db) => {
+        return server.getMenuData({ 'belong': 'sort' }).then((db) => {
             const { code, data = [], msg } = db;
             if (code === 200 || code === '200') {
                 return data

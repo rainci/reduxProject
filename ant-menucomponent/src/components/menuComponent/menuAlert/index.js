@@ -89,14 +89,14 @@ class MenuAlert extends PureComponent {
             if (children && children.constructor.name === 'Array' && children.length) {
                 return (
                     <div style={{ 'clear': 'both', 'overflow': 'hidden' }} key={tagId}>
-                        <h2 title={name} key={tagId} id={tagId} style={{ 'clear': 'both', 'textAlign': 'left', 'cursor': 'pointer' }} onClick={this.memuClickFn.bind(this, tagId)}>
-                            <span className={classNames}>{name}</span>
+                        <h2 title={name} key={tagId} id={tagId} className='clearfix' onClick={this.memuClickFn.bind(this, tagId)}>
+                            <span className={`menuItemTwo ${classNames}`}>{name}</span>
                         </h2>
                         {this.renderNodesChildren(children)}
                     </div>
                 )
             }
-            return <h2 title={name} key={tagId} id={tagId} style={{ 'float': 'left', 'paddingRight': '20px', 'cursor': 'pointer' }} onClick={this.memuClickFn.bind(this, tagId)}><span className={classNames}>{name}</span></h2>
+            return <h2 title={name} key={tagId} id={tagId} className='floatLeft marginRight20'  onClick={this.memuClickFn.bind(this, tagId)}><span className={`menuItemTwo ${classNames}`}>{name}</span></h2>
         })
     }
     renderNodesChildren = (data = []) => { //渲染三级数据
@@ -107,13 +107,13 @@ class MenuAlert extends PureComponent {
                 classNames = 'checkedMenuItemThree';
             }
             return (
-                <div style={{ 'float': 'left', 'paddingRight': '20px' }} key={tagId}>
-                    <h2 title={name} key={tagId} id={tagId} style={{ 'clear': 'both', 'textAlign': 'left', 'cursor': 'pointer' }} onClick={this.memuClickFn.bind(this, tagId)}>
+                <div className='floatLeft padRight20' key={tagId}>
+                    <h2 title={name} key={tagId} id={tagId} className='menuItemThree' onClick={this.memuClickFn.bind(this, tagId)}>
                         <span className={classNames}>{name}{123}</span>
                     </h2>
                     {
                         (children && children.constructor.name === 'Array' && children.length) ?
-                            <ul style={{ 'float': 'left', 'paddingRight': '20px' }}>
+                            <ul className='floatLeft padRight20 menuThreeUl'>
                                 {this.renderNodesChildren2(children)}
                             </ul> : null
                     }
@@ -131,7 +131,7 @@ class MenuAlert extends PureComponent {
                 classNames = 'checkedMenuItemFour';
             }
             return (
-                <li key={tagId} style={{ 'cursor': 'pointer' }} onClick={this.memuClickFn.bind(this, tagId)}>
+                <li key={tagId} className='cursor' onClick={this.memuClickFn.bind(this, tagId)}>
                     <span className={classNames}>{name}{456}</span>
                 </li>
             )
@@ -149,8 +149,8 @@ class MenuAlert extends PureComponent {
         let { menuAlertData } = this.props;
         return (
             <div className='menuAlert'>
-                <Row>
-                    <Col span={2} offset={22}><Icon type="close" onClick={this.alertCloseFn} /></Col>
+                <Row className='rowHeight'>
+                    <Icon className='closeIcon' type="close" onClick={this.alertCloseFn} />
                 </Row>
                 {menuAlertData ? this.renderNodes(menuAlertData) : null}
             </div>

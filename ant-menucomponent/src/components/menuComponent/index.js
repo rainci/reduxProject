@@ -14,6 +14,7 @@ import MenuSide  from './menu'
 import MenuAlert from './menuAlert'
 import { relationLeafFn, filterLeafFn } from './menuAlert/tool'
 
+const boxStyle = {'position':'relative','zIndex':20};
 class MenuComponent extends PureComponent {
     state = {
         showMenuAlertFlag: false,//是否展示弹框 
@@ -60,7 +61,7 @@ class MenuComponent extends PureComponent {
         let { showMenuAlertFlag, menuLightData, menuAlertData } = this.state;
         let {menuData=[], sampleMenuData=new Map()} = this.props;
         return (
-            <div style={{'position':'relative','zIndex':2}}>  
+            <div style={boxStyle}>  
                 {/* <MenuSide menuSideData={this.state.menuData} menuSideLine={8} subMenuFn={this.subMenuFn} /> */}
                 <MenuSide 
                     menuSideStyle = {{}} //menu style
