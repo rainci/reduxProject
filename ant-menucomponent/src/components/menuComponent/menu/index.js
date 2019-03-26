@@ -79,7 +79,7 @@ class MenuSide extends PureComponent {
         >
           {name}
           <Button className='menuButton' icon="right"></Button>
-          {(menuSideLine == index || menuSideLine == (index - 1)) ? <hr /> : null}
+          {(menuSideLine == index || menuSideLine == (index - 1)) ? <h3 className='menuLine' /> : null}
         </li>
 
       )
@@ -99,7 +99,7 @@ class MenuSide extends PureComponent {
   /***********生命周期 end **************/
   render() {
     let ulStyle = { height: "100%", background: '#2D3049' };
-    let { menuSideData = [], menuSideStyle = {}, menuSideLine, menuLightData } = this.props;
+    let { menuSideData = [], menuSideStyle = {}, menuSideLine } = this.props;
     ulStyle = { ...ulStyle, ...menuSideStyle };
     let subMenuStyle = { 'width': '50%', 'float': 'left' };
     return (
@@ -109,7 +109,6 @@ class MenuSide extends PureComponent {
             menuSideData,//menu data
             subMenuStyle,//menu style
             menuSideLine,//menu line
-            menuLightData,//menu高亮
             subMenuClick: this.subMenuClick
           })
         }

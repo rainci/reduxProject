@@ -2,6 +2,7 @@
  * 
  * @param {Array} menuData  整个组件的data 
  * @param {Array} sampleMenuData 整个组件的平级数据
+ * @param {Number} menuSideLine menuside分割线
  * @param {Function(Object={checkedKeys,leaf,relationLeaf})} menuDataCheckedFn  把选中的数据传递出去,checkedKeys为选中的id集, leaf为叶子节点,relationLeaf为关系数据集 
  * @return {component} MenuComponent 
  * @author rainci(刘雨熙)
@@ -40,14 +41,11 @@ class MenuComponent extends PureComponent {
         this.props.menuDataCheckedFn && this.props.menuDataCheckedFn({checkedKeys:keys,leaf,relationLeaf})
     }
     menuAlertClickFn = ({checkedKeys,leaf, relationLeaf}) => {//menualert click fn
-        // console.log('menuclickout:',checkedKeys,leaf,relationLeaf)
+        this.setStateValueFn('menuLightData',checkedKeys)//alert 弹框将选中的parent id传出来供左侧menu使用，点亮左侧menu对应的id
         this.props.menuDataCheckedFn && this.props.menuDataCheckedFn({checkedKeys,leaf,relationLeaf})
     }
     menuAlertCloseFn = () => {//关闭menu弹框 fn
         this.setStateValueFn('showMenuAlertFlag',false)
-    }
-    checkedMenuItemFn = menuLightData => {//alert 弹框将选中的parent id传出来供左侧menu使用，点亮左侧menu对应的id
-        this.setStateValueFn('menuLightData',menuLightData)
     }
     /***********业务方法 end *****************/
     /***********生命周期 begin **************/
@@ -69,6 +67,7 @@ class MenuComponent extends PureComponent {
                     menuSideData = {menuData} //menu data
                     sampleMenuData = {sampleMenuData}//平级所有menu数据
                     menuLightData = {menuLightData}//高亮data
+                    menuSideLine={8} //分割线
                     subMenuFn = {this.subMenuItemFn}//menu icon点击事件 
                     subMenuCheckFn = {this.resetCheckedKeysFn}//menuitem 本身点击事件
                 />
@@ -80,8 +79,6 @@ class MenuComponent extends PureComponent {
                         closeFn = {this.menuAlertCloseFn}//弹框关闭回调
                         memuCheckedFn= {this.menuAlertClickFn}//点击menu item回调
                         checkedKeys = {menuLightData}//选中高亮的数据
-                        checkedParentFn={this.checkedMenuItemFn}//将选中的id集输出来 
-                        
                     />
                     : null
                 }

@@ -5,7 +5,6 @@
  * @param {Array}  expandedKeys
  * @param {Number} 可选 treeHeight
  * @param {boolean} autoExpandParent 
- * @param {Function(Array)} checkedParentFn  把选中过的弹框的父id集传出去  
  * @return {component} MenuAlert 
  * @author rainci(刘雨熙)
  * @time 2019.3.22
@@ -34,16 +33,13 @@ class MenuAlert extends PureComponent {
     memuClickFn = tagId => {// menu tag click fn
         let { menuAlertCheckedKeys } = this.state;
         let status = hasIdFromDataFn(menuAlertCheckedKeys, `${tagId}`);//是否是选中状态true or false
+        let endKeys;
         if (status) {//当前选中状态，则取消选中
-            this.unCheckMenuFn(menuAlertCheckedKeys,tagId)
+            endKeys = this.unCheckMenuFn(menuAlertCheckedKeys,tagId)
         } else {//当前未选中状态，则选中
-            this.checkMenuFn(tagId);
+            endKeys = this.checkMenuFn(tagId);
         }
-        setTimeout(() => {
-            const { menuAlertCheckedKeys } = this.state;
-            this.checkedWorkFn(menuAlertCheckedKeys);
-        }, 10)
-        // this.props.memuClickFn && this.props.memuClickFn(tagId)
+        this.checkedWorkFn(endKeys);
     }
     checkMenuFn = tagId => {//选中checked
         let { secletIds } = getParentIdAndName({//获取当前点击tag的自身和父亲的id集
@@ -51,28 +47,25 @@ class MenuAlert extends PureComponent {
             sampleTreeData: this.props.sampleMenuData,
         });
         let menuAlertCheckedKeys = [...new Set([...secletIds, ...this.state.menuAlertCheckedKeys])];//当前弹窗选中的所有id
-        this.props.checkedParentFn && this.props.checkedParentFn(menuAlertCheckedKeys)
         this.setStateValueFn('menuAlertCheckedKeys',menuAlertCheckedKeys)
         return menuAlertCheckedKeys;
     }
     unCheckMenuFn = (menuAlertCheckedKeys,tagId) => {//未选中unchecked
-        console.log('cancelCheck', tagId)
         let newMenuAlertCheckedKeys = deleteIdFromData([...menuAlertCheckedKeys], `${tagId}`)
         let children = this.props.sampleMenuData && this.props.sampleMenuData.get(tagId * 1).children
         if (!children || children.length === 0) {
             this.setStateValueFn('menuAlertCheckedKeys', newMenuAlertCheckedKeys)
-            return this.props.checkedParentFn && this.props.checkedParentFn(newMenuAlertCheckedKeys)
+            return newMenuAlertCheckedKeys
         }
         let childrenIds = getChildrenIds(children);
         let checkedKeysNoChild = newMenuAlertCheckedKeys.filter(item => !childrenIds.includes(item))
         this.setStateValueFn('menuAlertCheckedKeys', checkedKeysNoChild)
-        return this.props.checkedParentFn && this.props.checkedParentFn(checkedKeysNoChild)
+        return checkedKeysNoChild;
     }
     checkedWorkFn = (checkedKeys) => {//select后要工作的内容
         let { sampleMenuData } = this.props;
         let leaf = filterLeafFn({ data: checkedKeys, sampleMenuData })
         let relationLeaf = relationLeafFn({ leaf, sampleMenuData })
-        // console.log('c:',checkedKeys,leaf,relationLeaf)
         this.props.memuCheckedFn && this.props.memuCheckedFn({ checkedKeys, leaf, relationLeaf })
 
     }
@@ -90,7 +83,7 @@ class MenuAlert extends PureComponent {
             let classNames;
             // debugger
             if (hasIdFromDataFn(this.state.menuAlertCheckedKeys, `${tagId}`)) {
-                classNames = 'checkedMenuItem';
+                classNames = 'checkedMenuItemTwo';
             }
 
             if (children && children.constructor.name === 'Array' && children.length) {
@@ -111,7 +104,7 @@ class MenuAlert extends PureComponent {
             let { name, tagId, children } = item;
             let classNames;
             if (hasIdFromDataFn(this.state.menuAlertCheckedKeys, `${tagId}`)) {
-                classNames = 'checkedMenuItem';
+                classNames = 'checkedMenuItemThree';
             }
             return (
                 <div style={{ 'float': 'left', 'paddingRight': '20px' }} key={tagId}>
@@ -135,7 +128,7 @@ class MenuAlert extends PureComponent {
             let { name, tagId } = item;
             let classNames;
             if (hasIdFromDataFn(this.state.menuAlertCheckedKeys, `${tagId}`)) {
-                classNames = 'checkedMenuItem';
+                classNames = 'checkedMenuItemFour';
             }
             return (
                 <li key={tagId} style={{ 'cursor': 'pointer' }} onClick={this.memuClickFn.bind(this, tagId)}>
