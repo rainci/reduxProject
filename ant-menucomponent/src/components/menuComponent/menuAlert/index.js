@@ -35,12 +35,6 @@ class MenuAlert extends PureComponent {
         let { menuAlertCheckedKeys } = this.state;
         let status = hasIdFromDataFn(menuAlertCheckedKeys, `${tagId}`);//是否是选中状态true or false
         if (status) {//当前选中状态，则取消选中
-            // this.unCheckMenuFn(tagId);
-            // let newCheckMenuData = [...menuAlertCheckedKeys]
-            // newCheckMenuData.splice(newCheckMenuData.indexOf(tagId), 1)
-            // this.setState({
-            //     menuAlertCheckedKeys: newCheckMenuData,
-            // })
             this.unCheckMenuFn(menuAlertCheckedKeys,tagId)
         } else {//当前未选中状态，则选中
             this.checkMenuFn(tagId);
@@ -58,9 +52,7 @@ class MenuAlert extends PureComponent {
         });
         let menuAlertCheckedKeys = [...new Set([...secletIds, ...this.state.menuAlertCheckedKeys])];//当前弹窗选中的所有id
         this.props.checkedParentFn && this.props.checkedParentFn(menuAlertCheckedKeys)
-        this.setState({
-            menuAlertCheckedKeys,
-        })
+        this.setStateValueFn('menuAlertCheckedKeys',menuAlertCheckedKeys)
         return menuAlertCheckedKeys;
     }
     unCheckMenuFn = (menuAlertCheckedKeys,tagId) => {//未选中unchecked
@@ -157,11 +149,7 @@ class MenuAlert extends PureComponent {
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {
         const { checkedKeys = [] } = nextProps;
-        if (checkedKeys && checkedKeys.length) {
-            this.setState({
-                menuAlertCheckedKeys: checkedKeys
-            })
-        }
+        this.setStateValueFn('menuAlertCheckedKeys',checkedKeys)
     }
     /***********生命周期 end **************/
     render() {
