@@ -56,6 +56,7 @@ class MenuReset extends Component {
                         menuData={menuData}    
                         sampleMenuData={sampleMenuData}
                         menuCheckedKeys={menuCheckedKeys}
+                        // menuSideLine={8}
                         menuDataCheckedFn={this.aaaFn}
                         // menuSideStyle = {{'height':'800px'}}
                         // menuAlertStyle = {{'height':'800px'}}

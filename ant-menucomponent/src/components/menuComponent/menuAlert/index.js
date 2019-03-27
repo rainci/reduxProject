@@ -10,7 +10,7 @@
  * @time 2019.3.22
  */
 import React, { PureComponent } from 'react';
-import { Icon, Row, Col } from 'antd';
+import { Icon, Row } from 'antd';
 import { hasIdFromDataFn, deleteIdFromData } from '../../../utils'
 import { getParentIdAndName, relationLeafFn, filterLeafFn } from './tool'
 import { getChildrenIds } from '../menu/tool';
@@ -81,7 +81,6 @@ class MenuAlert extends PureComponent {
         return data.map(item => {
             let { name, tagId, children } = item;
             let classNames;
-            // debugger
             if (hasIdFromDataFn(this.state.menuAlertCheckedKeys, `${tagId}`)) {
                 classNames = 'checkedMenuItemTwo';
             }
@@ -114,7 +113,7 @@ class MenuAlert extends PureComponent {
                     {
                         (children && children.constructor.name === 'Array' && children.length) ?
                             <ul className='floatLeft padRight20 menuThreeUl'>
-                                {this.renderNodesChildren2(children)}
+                                {this.renderNodesChildrenFour(children)}
                             </ul> : null
                     }
 
@@ -123,7 +122,7 @@ class MenuAlert extends PureComponent {
             )
         })
     }
-    renderNodesChildren2 = (data = []) => {//渲染四级数据
+    renderNodesChildrenFour = (data = []) => {//渲染四级数据
         return data.map(item => {
             let { name, tagId } = item;
             let classNames;

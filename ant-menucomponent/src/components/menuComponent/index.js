@@ -11,7 +11,6 @@
  * @time 2019.3.22
  */
 import React,  { PureComponent }  from 'react';
-import { Menu, Row, Col, Icon, Button } from 'antd';
 import MenuSide  from './menu'
 import MenuAlert from './menuAlert'
 import { relationLeafFn, filterLeafFn } from './menuAlert/tool'
@@ -31,10 +30,13 @@ class MenuComponent extends PureComponent {
     /***********公共方法 end *****************/
     /***********业务方法 begin *****************/
     subMenuItemFn = key => {//左侧menu click cb fn
-        this.setState({
-            showMenuAlertFlag: true,
-            menuAlertData: this.props.sampleMenuData.get(key*1).children
-        })
+        let menuAlertData =  this.props.sampleMenuData.get(key*1).children;
+        if(menuAlertData && menuAlertData.length){
+            this.setState({
+                showMenuAlertFlag: true,
+                menuAlertData: this.props.sampleMenuData.get(key*1).children
+            })
+        }
     }
     resetCheckedKeysFn= keys => {//一级左侧menu导航点击文字时触发的函数
         this.setStateValueFn('menuLightData',keys)
@@ -61,16 +63,15 @@ class MenuComponent extends PureComponent {
     /***********生命周期 end **************/
     render(){
         let { showMenuAlertFlag, menuLightData, menuAlertData } = this.state;
-        let {menuData=[], sampleMenuData=new Map(),menuSideStyle, menuAlertStyle} = this.props;
+        let {menuData=[], sampleMenuData=new Map(),menuSideStyle, menuAlertStyle, menuSideLine=6  } = this.props;
         return (
             <div style={boxStyle}>  
-                {/* <MenuSide menuSideData={this.state.menuData} menuSideLine={8} subMenuFn={this.subMenuFn} /> */}
                 <MenuSide 
                     menuSideStyle = {menuSideStyle} //menu style
                     menuSideData = {menuData} //menu data
                     sampleMenuData = {sampleMenuData}//平级所有menu数据
                     menuLightData = {menuLightData}//高亮data
-                    menuSideLine={8} //分割线
+                    menuSideLine={menuSideLine} //分割线
                     subMenuFn = {this.subMenuItemFn}//menu icon点击事件 
                     subMenuCheckFn = {this.resetCheckedKeysFn}//menuitem 本身点击事件
                 />
