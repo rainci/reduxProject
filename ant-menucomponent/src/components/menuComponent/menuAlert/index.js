@@ -78,16 +78,16 @@ class MenuAlert extends PureComponent {
      * 渲染treeNode
      */
     renderNodes = (data = []) => { //渲染treeNode二级数据
-        return data.map(item => {
+        return data.map((item,index) => {
             let { name, tagId, children } = item;
             let classNames;
             if (hasIdFromDataFn(this.state.menuAlertCheckedKeys, `${tagId}`)) {
                 classNames = 'checkedMenuItemTwo';
             }
-
+            let navTwo = index === 0 ? 'borderTopNull' : ''
             if (children && children.constructor.name === 'Array' && children.length) {
                 return (
-                    <div className='clearfix hasChildrenBox' key={tagId}>
+                    <div className={`clearfix hasChildrenBox ${navTwo}`} key={tagId}>
                         <h2 title={name} key={tagId} id={tagId} className='clearfix textLeft' onClick={this.memuClickFn.bind(this, tagId)}>
                             <span className={`menuItemTwo ${classNames}`}>{name}</span>
                         </h2>

@@ -14,6 +14,9 @@
 .marginRight20 {
     margin-right: 25px;
 }
+.borderTopNull {
+    border-top:0 !important;
+}
 .cursor {
     cursor: pointer;    
 }
@@ -39,13 +42,19 @@
     overflow: hidden;
     color: #666666;
     .hasChildrenBox {
+        border-top: 1px solid #E5E5E5;
         border-bottom: 1px solid #E5E5E5;
-        margin-bottom: 30px;
+        margin-top: -1px;
+        // margin-bottom: 30px;
+        padding-top: 20px;
         padding-bottom: 25px;
         .threeBox {
             border-left: 1px solid #E5E5E5;
             padding:0 9px;
         }
+    }
+    .hasChildrenBox:first-child {
+        border-top: 0;
     }
     .menuItemTwo,.menuItemThree {
         margin-bottom: 0px;
@@ -55,6 +64,7 @@
     }
     .menuItemTwo {
         display: inline-block;
+        margin: 15px 0;
         padding: 0px 15px;
         height: 30px;
         line-height: 30px;
