@@ -11,6 +11,7 @@
  * @time 2019.3.22
  */
 import React,  { PureComponent }  from 'react';
+import { message } from 'antd'
 import MenuSide  from './menu'
 import MenuAlert from './menuAlert'
 import { relationLeafFn, filterLeafFn } from './menuAlert/tool'
@@ -36,6 +37,8 @@ class MenuComponent extends PureComponent {
                 showMenuAlertFlag: true,
                 menuAlertData: this.props.sampleMenuData.get(key*1).children
             })
+        }else{
+            message.warn('暂无数据!')
         }
     }
     resetCheckedKeysFn= keys => {//一级左侧menu导航点击文字时触发的函数
