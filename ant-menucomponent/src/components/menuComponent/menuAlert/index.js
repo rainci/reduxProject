@@ -106,7 +106,7 @@ class MenuAlert extends PureComponent {
                 classNames = 'checkedMenuItemThree';
             }
             return (
-                <div className='floatLeft padRight20' key={tagId}>
+                <div className='floatLeft threeBox' key={tagId}>
                     <h2 title={name} key={tagId} id={tagId} className='menuItemThree' onClick={this.memuClickFn.bind(this, tagId)}>
                         <span className={classNames}>{name}</span>
                     </h2>

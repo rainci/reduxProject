@@ -7,14 +7,20 @@
     font-weight: bold;
     list-style: none;
     li {
+        position: relative;
         padding: 2px 0;
         margin-bottom: 2px;
         height: 32px;
         line-height: 32px;
         text-align: center;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+        padding-right: 20px;
         cursor: pointer;
         .menuButton {
-            float: right;
+            position: absolute;
+            right: 0;
             border: 0;
             background: none;
             color: white;
