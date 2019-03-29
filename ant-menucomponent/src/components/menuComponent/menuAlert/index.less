@@ -37,26 +37,36 @@
     border: 1px solid #eaeaea;
     background: white;
     overflow: hidden;
+    .hasChildrenBox {
+        border-bottom: 1px solid #E5E5E5;
+        margin-bottom: 30px;
+    }
     .menuItemTwo,.menuItemThree {
-
-        margin-bottom: 25px;
-        padding: 9px 15px;
+        margin-bottom: 0px;
+        height: 30px;
+        line-height: 30px;
         font-size: 14px;
         text-align: left;
         .cursor;  
     }
     .menuItemTwo {
+        display: inline-block;
+        padding: 0px 15px;
         background: #ECF2FF;
     }
     .menuThreeUl {
-        padding-left: 15px;
-        margin-top: -20px;
+        padding-left: 0px;
+        // margin-top: -20px;
         li {
             list-style: none;
+            text-align: left;
+            padding-top: 10px;
         }
     }
 }
-
+.checkedItem {
+    color: #467EFD !important;
+}
 .checkedMenuItem {
     background: #4780FF !important;
     color: white;

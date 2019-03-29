@@ -67,7 +67,7 @@ class MenuSide extends PureComponent {
       const { tagId, name } = item;
       let classNames;
       if (hasIdFromDataFn(this.state.menuSideCheckedKeys, `${tagId}`)) {
-        classNames = 'checkedMenuItem';
+        classNames = 'checkedItem';
       }
       return (
         <li

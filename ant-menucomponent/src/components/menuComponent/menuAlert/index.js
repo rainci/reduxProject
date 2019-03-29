@@ -87,8 +87,8 @@ class MenuAlert extends PureComponent {
 
             if (children && children.constructor.name === 'Array' && children.length) {
                 return (
-                    <div className='clearfix' key={tagId}>
-                        <h2 title={name} key={tagId} id={tagId} className='clearfix' onClick={this.memuClickFn.bind(this, tagId)}>
+                    <div className='clearfix hasChildrenBox' key={tagId}>
+                        <h2 title={name} key={tagId} id={tagId} className='clearfix textLeft' onClick={this.memuClickFn.bind(this, tagId)}>
                             <span className={`menuItemTwo ${classNames}`}>{name}</span>
                         </h2>
                         {this.renderNodesChildren(children)}
@@ -108,7 +108,7 @@ class MenuAlert extends PureComponent {
             return (
                 <div className='floatLeft padRight20' key={tagId}>
                     <h2 title={name} key={tagId} id={tagId} className='menuItemThree' onClick={this.memuClickFn.bind(this, tagId)}>
-                        <span className={classNames}>{name}{123}</span>
+                        <span className={classNames}>{name}</span>
                     </h2>
                     {
                         (children && children.constructor.name === 'Array' && children.length) ?
@@ -131,7 +131,7 @@ class MenuAlert extends PureComponent {
             }
             return (
                 <li key={tagId} className='cursor' onClick={this.memuClickFn.bind(this, tagId)}>
-                    <span className={classNames}>{name}{456}</span>
+                    <span className={classNames}>{name}</span>
                 </li>
             )
         })
