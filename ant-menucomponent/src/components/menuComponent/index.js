@@ -59,9 +59,7 @@ class MenuComponent extends PureComponent {
     /***********生命周期 begin **************/
     componentWillReceiveProps(nextProps) {
         const { menuCheckedKeys = [] } = nextProps;
-        if (menuCheckedKeys && menuCheckedKeys.length) {
-            this.setStateValueFn('menuLightData',[...new Set([...menuCheckedKeys])])
-        }
+        this.setStateValueFn('menuLightData',[...new Set([...menuCheckedKeys])])
     }
     /***********生命周期 end **************/
     render(){

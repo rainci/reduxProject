@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Menu, Icon, message, Row, Col } from 'antd';
+import { connect } from 'react-redux';
+import { Menu, Icon, message, Row, Col, Tag } from 'antd';
 import server from '../api/server';
-import MenuComponent from '../components/menuComponent'
-import { generateList } from '../utils'
+import MenuComponent from '../components/menuComponent';
+import { generateList, changeArrayToString } from '../utils';
+import { menuCheckedAction, menuCloseAction } from '../redux/actions';
+
 class MenuReset extends Component {
     constructor(props) {
         super(props)
@@ -35,11 +38,13 @@ class MenuReset extends Component {
                 }
             })
     }
-    aaaFn = ({checkedKeys,leaf,relationLeaf}) => {
-        console.log('wawo,the end data:',checkedKeys,leaf,relationLeaf)
-        this.setState({
-            menuCheckedKeys: checkedKeys  
-        })
+    aaaFn = ({ checkedKeys, leaf, relationLeaf }) => {
+        console.log('wawo,the end data:', checkedKeys, leaf, relationLeaf)
+        let menuCheckedData = changeArrayToString({ data: relationLeaf, matchParam: ['tagId', 'name'] });
+        this.props.onMenuCheckedFn({ menuCheckedData, menuCheckedKeys: checkedKeys })
+        // this.setState({
+        //     menuCheckedKeys: checkedKeys  
+        // })
     }
     /***********业务方法 end *****************/
     /***********生命周期 begin **************/
@@ -48,25 +53,40 @@ class MenuReset extends Component {
     }
     /***********生命周期 end **************/
     render() {
-        let { menuData, sampleMenuData, menuCheckedKeys=[] } = this.state;
+        let { menuData, sampleMenuData,} = this.state;
         return (
             <Row>
                 <Col span={5}>
-                    <MenuComponent 
-                        menuData={menuData}    
+                    <MenuComponent
+                        menuData={menuData}
                         sampleMenuData={sampleMenuData}
-                        menuCheckedKeys={menuCheckedKeys}
+                        menuCheckedKeys={this.props.menuPageReducer.menuCheckedKeys}
                         // menuSideLine={8}
                         menuDataCheckedFn={this.aaaFn}
-                        // menuSideStyle = {{'height':'800px'}}
-                        // menuAlertStyle = {{'height':'800px'}}
+                    // menuSideStyle = {{'height':'800px'}}
+                    // menuAlertStyle = {{'height':'800px'}}
                     />
                 </Col>
-                <Col span={15} style={{'textAlign':'left'}}>
+                <Col span={15} style={{ 'textAlign': 'left' }}>
                     aaaaaaaaaa
-            </Col>
+                    <div>
+                        {
+                            this.props.menuPageReducer.menuCheckedData.map((item, key) => {
+                                const { name, tagId } = item;
+                                return <Tag closable key={tagId} id={tagId} onClose={() => this.props.onMenuCloseFn(tagId)}>{name}</Tag>
+                            })
+                        }
+                    </div>
+                </Col>
             </Row>
         )
     }
 }
-export default MenuReset;
+const mapStateToProps = state => ({
+    menuPageReducer: state.menuPageReducer
+})
+const mapDispatchToProps = dispatch => ({
+    onMenuCheckedFn: ({ menuCheckedData, menuCheckedKeys }) => dispatch(menuCheckedAction({ menuCheckedData, menuCheckedKeys })),//menu click
+    onMenuCloseFn: tagId => dispatch(menuCloseAction(tagId))// 页面tag close
+})
+export default connect(mapStateToProps, mapDispatchToProps)(MenuReset);

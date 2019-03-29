@@ -89,12 +89,7 @@ class MenuSide extends PureComponent {
   /***********生命周期 begin **************/
   componentWillReceiveProps(nextProps) {
     const { menuLightData = [] } = nextProps;//当有点亮menu数据时
-    if (menuLightData && menuLightData.length) {
-      this.setState({
-        menuSideCheckedKeys: [...new Set([...menuLightData])]
-      })
-    }
-
+    this.setStateValueFn('menuSideCheckedKeys', [...new Set([...menuLightData])])
   }
   /***********生命周期 end **************/
   render() {
