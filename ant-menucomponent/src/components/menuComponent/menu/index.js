@@ -65,13 +65,16 @@ class MenuSide extends PureComponent {
     // debugger
     return menuSideData.map((item, index) => {
       const { tagId, name } = item;
-      let classNames;
+      let classNames,classSpecial;
       if (hasIdFromDataFn(this.state.menuSideCheckedKeys, `${tagId}`)) {
         classNames = 'checkedItem';
       }
+      if(menuSideLine == index || menuSideLine == (index - 1)){
+        classSpecial= 'menuLine';
+      }
       return (
         <li
-          className={classNames}
+          className={`${classNames} ${classSpecial}`}
           style={subMenuStyle}
           key={tagId}
           id={tagId}
@@ -79,7 +82,6 @@ class MenuSide extends PureComponent {
         >
           {name}
           <Button className='menuButton' icon="right"></Button>
-          {(menuSideLine == index || menuSideLine == (index - 1)) ? <h3 className='menuLine' /> : null}
         </li>
 
       )
