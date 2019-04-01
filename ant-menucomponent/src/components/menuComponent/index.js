@@ -38,7 +38,7 @@ class MenuComponent extends PureComponent {
                 menuAlertData: this.props.sampleMenuData.get(key*1).children
             })
         }else{
-            message.warn('暂无数据!')
+            message.warn('仅有一级标签')
         }
     }
     resetCheckedKeysFn= keys => {//一级左侧menu导航点击文字时触发的函数

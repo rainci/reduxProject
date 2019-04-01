@@ -1,10 +1,7 @@
 /**
  * 
- * @param {Array} treeData 
- * @param {Array} checkedKeys
- * @param {Array}  expandedKeys
- * @param {Number} 可选 treeHeight
- * @param {boolean} autoExpandParent 
+ * @param {Array} menuAlertData 可选 弹框数据
+ * @param {Object} menuAlertStyle 可选 弹框样式
  * @return {component} MenuAlert 
  * @author rainci(刘雨熙)
  * @time 2019.3.22

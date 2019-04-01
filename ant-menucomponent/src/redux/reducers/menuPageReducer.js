@@ -22,7 +22,7 @@ const dealData = data => {
     return [...new Set(allId)];
 }
 const defaultState = {
-    menuCheckedKeys: [],//menu checkedKeys
+    menuCheckedKeys: ["10085", "10089", "10087"],//menu checkedKeys
     menuCheckedData: [],
 }
 const menuPageReducer = (state = defaultState, { type, payload = {} }) => {//menuPage reducer
