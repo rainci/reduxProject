@@ -42,9 +42,6 @@ class MenuReset extends Component {
         console.log('wawo,the end data:', checkedKeys, leaf, relationLeaf)
         let menuCheckedData = changeArrayToString({ data: relationLeaf, matchParam: ['tagId', 'name'] });
         this.props.onMenuCheckedFn({ menuCheckedData, menuCheckedKeys: checkedKeys })
-        // this.setState({
-        //     menuCheckedKeys: checkedKeys  
-        // })
     }
     /***********业务方法 end *****************/
     /***********生命周期 begin **************/
@@ -57,7 +54,9 @@ class MenuReset extends Component {
         return (
             <Row>
                 <Col span={5}>
-                    <MenuComponent
+                    {
+                      menuData && menuData.length ?
+                      <MenuComponent
                         menuData={menuData}
                         sampleMenuData={sampleMenuData}
                         menuCheckedKeys={this.props.menuPageReducer.menuCheckedKeys}
@@ -65,7 +64,9 @@ class MenuReset extends Component {
                         menuDataCheckedFn={this.aaaFn}
                     // menuSideStyle = {{'height':'800px'}}
                     // menuAlertStyle = {{'height':'800px'}}
-                    />
+                    /> 
+                    :null
+                    }
                 </Col>
                 <Col span={15} style={{ 'textAlign': 'left' }}>
                     aaaaaaaaaa

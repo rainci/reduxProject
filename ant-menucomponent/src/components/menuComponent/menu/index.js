@@ -21,7 +21,7 @@ let ulStyle = { height: "100%", background: '#2D3049' };
 let subMenuStyle = { 'width': '50%', 'float': 'left' };
 class MenuSide extends PureComponent {
   state = {
-    menuSideCheckedKeys: []//选中的id集
+    menuSideCheckedKeys: this.props.menuLightData || []//选中的id集
   }
   /***********公共方法 begin *****************/
   setStateValueFn = (key, value) => {//为state设置新的value

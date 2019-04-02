@@ -19,9 +19,9 @@ import { relationLeafFn, filterLeafFn } from './menuAlert/tool'
 const boxStyle = {'position':'relative','zIndex':20};
 class MenuComponent extends PureComponent {
     state = {
-        showMenuAlertFlag: false,//是否展示弹框 
-        menuLightData:[]//高亮的id集   
-    }
+            showMenuAlertFlag: false,//是否展示弹框 
+            menuLightData:this.props.menuCheckedKeys || []//高亮的id集   
+        }
     /***********公共方法 begin *****************/
     setStateValueFn = (key, value) => {//为state设置新的value
         this.setState({
@@ -55,8 +55,18 @@ class MenuComponent extends PureComponent {
     menuAlertCloseFn = () => {//关闭menu弹框 fn
         this.setStateValueFn('showMenuAlertFlag',false)
     }
+    getOriginCheckedData = () => { //默认传入checkedkeys时,返回的数据
+        let {sampleMenuData=new Map()} = this.props;
+        let { menuLightData } = this.state;
+        let leaf = filterLeafFn({data:menuLightData,sampleMenuData})
+        let relationLeaf = relationLeafFn({leaf,sampleMenuData})
+        this.props.menuDataCheckedFn && this.props.menuDataCheckedFn({checkedKeys:menuLightData,leaf,relationLeaf})    
+    }
     /***********业务方法 end *****************/
     /***********生命周期 begin **************/
+    componentDidMount(){
+        this.getOriginCheckedData()    
+    }
     componentWillReceiveProps(nextProps) {
         const { menuCheckedKeys = [] } = nextProps;
         this.setStateValueFn('menuLightData',[...new Set([...menuCheckedKeys])])
