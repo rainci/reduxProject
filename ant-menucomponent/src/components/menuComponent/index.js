@@ -16,7 +16,6 @@ import MenuSide  from './menu'
 import MenuAlert from './menuAlert'
 import { relationLeafFn, filterLeafFn } from './menuAlert/tool'
 
-const boxStyle = {'position':'relative','zIndex':20};
 class MenuComponent extends PureComponent {
     state = {
         showMenuAlertFlag: false,//是否展示弹框 

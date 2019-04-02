@@ -16,6 +16,9 @@ import { Menu, Row, Col, Icon, Button } from 'antd';
 import './index.less';
 import { hasIdFromDataFn, deleteIdFromData } from '../../../utils';
 import { getChildrenIds } from './tool';
+
+let ulStyle = { height: "100%", background: '#2D3049' };
+let subMenuStyle = { 'width': '50%', 'float': 'left' };
 class MenuSide extends PureComponent {
   state = {
     menuSideCheckedKeys: []//选中的id集
@@ -95,10 +98,8 @@ class MenuSide extends PureComponent {
   }
   /***********生命周期 end **************/
   render() {
-    let ulStyle = { height: "100%", background: '#2D3049' };
     let { menuSideData = [], menuSideStyle = {}, menuSideLine } = this.props;
     ulStyle = { ...ulStyle, ...menuSideStyle };
-    let subMenuStyle = { 'width': '50%', 'float': 'left' };
     return (
       <ul className='menuUl' style={ulStyle}>
         {
