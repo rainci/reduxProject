@@ -81,7 +81,7 @@ class MenuAlert extends PureComponent {
             if (hasIdFromDataFn(this.state.menuAlertCheckedKeys, `${tagId}`)) {
                 classNames = 'checkedMenuItemTwo';
             }
-            let navTwo = index === 0 ? 'borderTopNull' : ''
+            let navTwo = index === 0 ? 'borderTopNull padTop0' : ''
             if (children && children.constructor.name === 'Array' && children.length) {
                 return (
                     <div className={`clearfix hasChildrenBox ${navTwo}`} key={tagId}>

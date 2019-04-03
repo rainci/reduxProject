@@ -38,6 +38,9 @@ class MenuComponent extends PureComponent {
                 menuAlertData: this.props.sampleMenuData.get(key*1).children
             })
         }else{
+            if(this.state.showMenuAlertFlag){
+                this.setStateValueFn('showMenuAlertFlag',false)
+            }
             message.warn('仅有一级标签')
         }
     }
