@@ -4,6 +4,13 @@ import { Layout } from 'antd';
 import MyMenu from '../components/menu';
 import menuDemo from '../pages/menuPage';
 const { Content, Sider } = Layout;
+const menuList = [
+    {
+      id: 1,
+      url: '/menuDemo',
+      name: 'menuDemo component'
+    },
+]
 class Routers extends React.Component {
   render() {
       return (
@@ -11,7 +18,7 @@ class Routers extends React.Component {
               <div>
                   <Layout>
                       <Sider width={200} style={{ background: '#fff' }}>
-                          <MyMenu />
+                          <MyMenu menuList={menuList} />
                       </Sider>
                       <Content style={{ padding: '10px' }}>
                           <div style={{ background: '#fff', padding: 24, height: "100%",minHeight:'750px', overflow: "auto" }}>
