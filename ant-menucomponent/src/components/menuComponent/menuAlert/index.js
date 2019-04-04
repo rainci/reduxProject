@@ -109,7 +109,7 @@ class MenuAlert extends PureComponent {
                     </h2>
                     {
                         (children && children.constructor.name === 'Array' && children.length) ?
-                            <ul className='floatLeft padRight20 menuThreeUl'>
+                            <ul className='floatLeft menuThreeUl'>
                                 {this.renderNodesChildrenFour(children)}
                             </ul> : null
                     }
