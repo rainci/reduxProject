@@ -32,7 +32,7 @@ class MenuSide extends PureComponent {
   /***********公共方法 end *****************/
   /***********业务方法 begin *****************/
   subMenuClick = (tagId, event) => {//当menu item点击时
-    let type = event.target.type;
+    let type = event && event.target && event.target.type;
     if (type === 'button') {//当点击icon时
       return this.props.subMenuFn && this.props.subMenuFn(tagId)
     }

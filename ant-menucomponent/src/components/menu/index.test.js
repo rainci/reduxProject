@@ -1,4 +1,8 @@
-/* eslint-disable  */
+/**
+ * 
+ * @author rainci(刘雨熙)
+ * @time 2019.4.4
+ */
 import React from 'react'
 import Enzyme, { mount } from 'enzyme'
 import Adapter from 'enzyme-adapter-react-16'
@@ -13,7 +17,7 @@ const menuList = [
     name: 'menuDemo component'
   },
 ]
-function setup() {
+const setup = () => {
   const propss = {
     menuList,
   }
@@ -27,7 +31,7 @@ describe('test menu component', () => {//describe方法表示进行一组单元�
       const { enzymeWrapper } = setup();
       expect(enzymeWrapper.find('div').hasClass('demoMenu')).toBe(true)
       const menuProps = enzymeWrapper.find('Menu').first().props()
-      console.log('mount:',menuProps)
+      // console.log('mount:',menuProps)
       expect(menuProps.inlineCollapsed).toBe(true)
       expect(menuProps.theme).toEqual('dark')
       expect(menuProps.mode).toEqual('inline')
