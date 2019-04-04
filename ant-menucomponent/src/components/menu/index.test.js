@@ -14,10 +14,10 @@ const menuList = [
   },
 ]
 function setup() {
-  const props = {
+  const propss = {
     menuList,
   }
-  const enzymeWrapper = mount( <Router><MyMenu {...props} /></Router>)
+  const enzymeWrapper = mount( <Router><MyMenu {...propss} /></Router>)
   return {
     enzymeWrapper
   }
@@ -25,7 +25,14 @@ function setup() {
 describe('test menu component', () => {//describe方法表示进行一组单元测试,"测试套件"（Suites）
     it('test menu', () => {//it内部是一组测试中的某一个测试（Specs）
       const { enzymeWrapper } = setup();
-        expect(enzymeWrapper.find('div').hasClass('demoMenu')).toBe(true)
+      expect(enzymeWrapper.find('div').hasClass('demoMenu')).toBe(true)
+      const menuProps = enzymeWrapper.find('Menu').first().props()
+      console.log('mount:',menuProps)
+      expect(menuProps.inlineCollapsed).toBe(true)
+      expect(menuProps.theme).toEqual('dark')
+      expect(menuProps.mode).toEqual('inline')
+      expect(menuProps.defaultSelectedKeys).toEqual(['1'])
+
     })
 })
 
