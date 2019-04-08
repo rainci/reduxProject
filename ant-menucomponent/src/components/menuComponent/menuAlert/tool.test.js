@@ -5,8 +5,8 @@
  */
 import { getParentIdAndName, checkHasChildrenFn } from './tool'
 
-describe('check getParentIdAndName fn', () => { 
-    it('', () => {
+describe('test menuComponent menuAlert tool', () => { 
+    it('test getParentIdAndName fn', () => {
         const sampleData = new Map([
             [
                 1,[
@@ -70,12 +70,10 @@ describe('check getParentIdAndName fn', () => {
         // expect(getParentIdAndName({currentId:1,sampleTreeData:sampleData})).toEqual(expectResult)    
         
     })
-})
-
-describe('check checkHasChildrenFn fn', () => {//describe方法表示进行一组单元测试,"测试套件"（Suites）
-    it('should create an checked reducer', () => {//it内部是一组测试中的某一个测试（Specs）
+    it('test checkHasChildrenFn fn', () => {//it内部是一组测试中的某一个测试（Specs）
         const data = ['1','2','3'],
         itemChildren = [{tagId:1},{tagId:2}];
         expect(checkHasChildrenFn(data,itemChildren)).toEqual(true)
     })
 })
+

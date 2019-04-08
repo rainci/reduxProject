@@ -5,8 +5,8 @@
  * get children的ids
  */
 import { getChildrenIds } from './tool'
-describe('test getChildrenIds Fn',() => {
-    it('get children ids ', () => {
+describe('test menuComponent menu tool',() => {
+    it('test getChildrenIds Fn ', () => {
         const data = [
             {tagId: 1},
             {
