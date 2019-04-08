@@ -31,7 +31,7 @@ describe('test menuSide component', () => {//describe方法表示进行一组单
       expect(enzymeWrapper.find('ul').hasClass('menuUl')).toBe(true)
       const menuSideProps = enzymeWrapper.props()
       expect(enzymeWrapper.find('li')).toHaveLength(menuSideProps.menuSideData.length)//.toHaveLength可以很方便的用来测试字符串和数组类型的长度是否满足预期 
-      console.log('mount:',menuSideProps)
+      // console.log('mount:',menuSideProps)
       // expect(menuProps.inlineCollapsed).toBe(true)
       // expect(menuProps.theme).toEqual('dark')
       // expect(menuProps.mode).toEqual('inline')
