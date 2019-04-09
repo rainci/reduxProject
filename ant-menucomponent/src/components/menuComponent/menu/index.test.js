@@ -46,6 +46,7 @@ describe('test menuSide component', () => {//describe方法表示进行一组单
             liProps = li.props();
             console.log('liprop:',liProps)
       expect(subMenuCheckFn).toBeCalledTimes(0)//断言subMenuFn被调用了0次
+      // expect(props.subMenuCheckFn.mock.calls.length).toBe(0)   
       li.simulate('click')
       // expect(liProps.click).toBeCalledTimes(1)//断言subMenuFn被调用了1次
       expect(li.hasClass('checkedItem')).toBe(false)    
