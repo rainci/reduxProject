@@ -84,8 +84,8 @@ class MenuAlert extends PureComponent {
             let navTwo = index === 0 ? 'borderTopNull padTop0' : ''
             if (children && children.constructor.name === 'Array' && children.length) {
                 return (
-                    <div className={`clearfix hasChildrenBox ${navTwo}`} key={tagId}>
-                        <h2 title={name} key={tagId} id={tagId} className='clearfix textLeft' onClick={this.memuClickFn.bind(this, tagId)}>
+                    <div className={`clearfixed hasChildrenBox ${navTwo}`} key={tagId}>
+                        <h2 title={name} key={tagId} id={tagId} className='clearfixed textLeft' onClick={this.memuClickFn.bind(this, tagId)}>
                             <span className={`menuItemTwo ${classNames}`}>{name}</span>
                         </h2>
                         {this.renderNodesChildren(children)}
