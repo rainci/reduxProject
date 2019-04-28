@@ -85,9 +85,9 @@ class MenuAlert extends Component {
             let navTwo = index === 0 ? 'borderTopNull padTop0' : ''
             if (children && children.constructor.name === 'Array' && children.length) {
                 return (
-                    <div className={`clearfix hasChildrenBox ${navTwo}`} key={tagId}>
-                        <h2 title={name} key={tagId} id={tagId} className='clearfix textLeft' onClick={this.memuClickFn.bind(this, tagId)}>
-                            <span className={`menuItemTwo ${classNames}`}>{name}</span>
+                    <div className={`clearfixed hasChildrenBox ${navTwo}`} key={tagId}>
+                        <h2 title={name} key={tagId} id={tagId} className='clearfixed textLeft' >
+                            <span className={`menuItemTwo ${classNames}`} onClick={this.memuClickFn.bind(this, tagId)}>{name}</span>
                         </h2>
                         {this.renderNodesChildren(children)}
                     </div>
@@ -110,7 +110,7 @@ class MenuAlert extends Component {
                     </h2>
                     {
                         (children && children.constructor.name === 'Array' && children.length) ?
-                            <ul className='floatLeft padRight20 menuThreeUl'>
+                            <ul className='floatLeft menuThreeUl'>
                                 {this.renderNodesChildrenFour(children)}
                             </ul> : null
                     }
@@ -156,6 +156,7 @@ class MenuAlert extends Component {
                     <Icon className='closeIcon' type="close" onClick={this.alertCloseFn} />
                 </Row>
                 {menuAlertData ? this.renderNodes(menuAlertData) : null}
+                {/* <div onClick={this.alertCloseFn} style={{'background':'rgba(0,0,0,0)','position':'fixed','top': 0,'left': 0,'right': 0,'bottom': 0, 'width':'100%','height':'100%'}}></div> */}
             </div>
         )
     }

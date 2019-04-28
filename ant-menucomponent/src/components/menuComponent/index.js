@@ -67,10 +67,29 @@ class MenuComponent extends Component {
         let relationLeaf = relationLeafFn({leaf,sampleMenuData})
         this.props.menuDataCheckedFn && this.props.menuDataCheckedFn({checkedKeys:menuLightData,leaf,relationLeaf})    
     }
+    mouseLeaveFn = () => {//鼠标进入
+        this.mouseFlag = false
+    }
+    mouseEnterFn = () => {//鼠标离开
+        this.mouseFlag = true  
+    }
+    bindBodyClickFn = () => {//为body绑定事件
+        document.body.addEventListener('click', e => {
+            let { showMenuAlertFlag } = this.state;
+            if(showMenuAlertFlag && !this.mouseFlag) {
+                this.setStateValueFn('showMenuAlertFlag',false)    
+            } 
+        });      
+    }
+    removeBodyClickFn = () => {//为body remove事件
+        // document.body.removeEventListener('click');
+        document.body.removeEventListener('click', e => {});
+    }
     /***********业务方法 end *****************/
     /***********生命周期 begin **************/
     componentDidMount(){
-        this.getOriginCheckedData()    
+        this.getOriginCheckedData()
+        this.bindBodyClickFn()//为body绑定事件         
     }
     componentWillReceiveProps(nextProps) {
         // debugger
@@ -86,6 +105,9 @@ class MenuComponent extends Component {
             || !shallowEqual(this.state, nextState);
 
     }
+    componentWillUnmount(){
+        this.removeBodyClickFn()//为body remove事件
+    }
     /***********生命周期 end **************/
     render(){
         console.log('i am totle render')
@@ -93,7 +115,10 @@ class MenuComponent extends Component {
         let { showMenuAlertFlag, menuAlertData } = this.state;
         let {menuData=[], sampleMenuData=new Map(),menuSideStyle, menuAlertStyle, menuSideLine=6  } = this.props;
         return (
-            <div style={boxStyle}>  
+            <div className='menuComponentBox' style={boxStyle} 
+                onMouseLeave={this.mouseLeaveFn}
+                onMouseEnter={this.mouseEnterFn}
+            >  
                 <MenuSide 
                     menuSideStyle = {menuSideStyle} //menu style
                     menuSideData = {menuData} //menu data

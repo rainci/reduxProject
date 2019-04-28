@@ -2,19 +2,13 @@
 import React from 'react';
 import { Menu, Icon } from 'antd';
 import { Link } from 'react-router-dom';
-const menuList = [
-  {
-    id: 1,
-    url: '/menuDemo',
-    name: 'menuDemo component'
-  },
-]
+
 class MyMenu extends React.Component {
   state = {
     collapsed: true,
   }
   render() {
-
+    const { menuList } = this.props;
     const menuProps = {
       style: { height: "100%" },
       theme: "dark",
@@ -23,7 +17,7 @@ class MyMenu extends React.Component {
       inlineCollapsed: this.state.collapsed
     }
     return (
-      <div style={{ height: "100%" }}>
+      <div className='demoMenu' style={{ height: "100%" }}>
         <Menu
           {...menuProps}
         >

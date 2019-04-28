@@ -3,6 +3,8 @@
  * @time 2019.3.27
  */
 import { MENU_CHECKED, MENU_CLOSE } from '../types'
+import produce from 'immer'
+
 const getArrayIndex = (array, key, value) => {
     let i;
     array.some((val, index) => {
@@ -25,25 +27,26 @@ const defaultState = {
     menuCheckedKeys: ["10085", "10089", "10087"],//menu checkedKeys
     menuCheckedData: [],
 }
-const menuPageReducer = (state = defaultState, { type, payload = {} }) => {//menuPage reducer
+const menuPageReducer = produce((state = defaultState, { type, payload = {} }) => {//menuPage reducer
     let { menuCheckedKeys, menuCheckedData, tagId } = payload;
     switch (type) {
         case MENU_CHECKED:
-            return {
-                ...state,
-                menuCheckedKeys,
-                menuCheckedData,
-            }
+            state.menuCheckedKeys = menuCheckedKeys;
+            state.menuCheckedData = menuCheckedData;
+            return;
         case MENU_CLOSE:
-            let newMenuCheckedData = [...state.menuCheckedData];
-            newMenuCheckedData.splice(getArrayIndex(state.menuCheckedData, 'tagId', tagId), 1);
-            let newMenuCheckedKeys = dealData(newMenuCheckedData);
-            return {
-                menuCheckedData: newMenuCheckedData,
-                menuCheckedKeys: newMenuCheckedKeys
-            };
+            state.menuCheckedData.splice(getArrayIndex(state.menuCheckedData, 'tagId', tagId), 1);
+            state.menuCheckedKeys = dealData(state.menuCheckedData);
+            return
+             // let newMenuCheckedData = [...state.menuCheckedData];
+            // newMenuCheckedData.splice(getArrayIndex(state.menuCheckedData, 'tagId', tagId), 1);
+            // let newMenuCheckedKeys = dealData(newMenuCheckedData);
+            // return {
+            //     menuCheckedData: newMenuCheckedData,
+            //     menuCheckedKeys: newMenuCheckedKeys
+            // };
         default:
             return state
     }
-}
+})
 export default menuPageReducer;
