@@ -6,13 +6,14 @@
  * @author rainci(刘雨熙)
  * @time 2019.3.22
  */
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { Icon, Row } from 'antd';
+import shallowEqual from 'shallowequal';
 import { hasIdFromDataFn, deleteIdFromData } from '../../../utils'
 import { getParentIdAndName, relationLeafFn, filterLeafFn } from './tool'
 import { getChildrenIds } from '../menu/tool';
 import './index.less'
-class MenuAlert extends PureComponent {
+class MenuAlert extends Component {
     state = {
         menuAlertCheckedKeys: this.props.checkedKeys || [],//弹框选中的id
     }
@@ -81,7 +82,7 @@ class MenuAlert extends PureComponent {
             if (hasIdFromDataFn(this.state.menuAlertCheckedKeys, `${tagId}`)) {
                 classNames = 'checkedMenuItemTwo';
             }
-            let navTwo = index === 0 ? 'borderTopNull' : ''
+            let navTwo = index === 0 ? 'borderTopNull padTop0' : ''
             if (children && children.constructor.name === 'Array' && children.length) {
                 return (
                     <div className={`clearfix hasChildrenBox ${navTwo}`} key={tagId}>
@@ -140,8 +141,14 @@ class MenuAlert extends PureComponent {
         const { checkedKeys = [] } = nextProps;
         this.setStateValueFn('menuAlertCheckedKeys',checkedKeys)
     }
+    shouldComponentUpdate(nextProps, nextState) {
+        return !shallowEqual(this.props, nextProps)
+            || !shallowEqual(this.state, nextState);
+
+    }
     /***********生命周期 end **************/
     render() {
+        console.log('i am alert render')
         let { menuAlertData, menuAlertStyle } = this.props;
         return (
             <div className='menuAlert' style={menuAlertStyle}>

@@ -10,18 +10,19 @@
  * @author rainci(刘雨熙)
  * @time 2019.3.22
  */
-import React,  { PureComponent }  from 'react';
+import React,  { Component }  from 'react';
 import { message } from 'antd'
+import shallowEqual from 'shallowequal';
 import MenuSide  from './menu'
 import MenuAlert from './menuAlert'
 import { relationLeafFn, filterLeafFn } from './menuAlert/tool'
 
 const boxStyle = {'position':'relative','zIndex':20};
-class MenuComponent extends PureComponent {
+class MenuComponent extends Component {
     state = {
-        showMenuAlertFlag: false,//是否展示弹框 
-        menuLightData:[]//高亮的id集   
-    }
+            showMenuAlertFlag: false,//是否展示弹框 
+            menuLightData:this.props.menuCheckedKeys || []//高亮的id集   
+        }
     /***********公共方法 begin *****************/
     setStateValueFn = (key, value) => {//为state设置新的value
         this.setState({
@@ -38,32 +39,58 @@ class MenuComponent extends PureComponent {
                 menuAlertData: this.props.sampleMenuData.get(key*1).children
             })
         }else{
+            if(this.state.showMenuAlertFlag){
+                this.setStateValueFn('showMenuAlertFlag',false)
+            }
             message.warn('仅有一级标签')
         }
     }
     resetCheckedKeysFn= keys => {//一级左侧menu导航点击文字时触发的函数
-        this.setStateValueFn('menuLightData',keys)
+        this.menuLightData = keys;
         let {sampleMenuData=new Map()} = this.props;
         let leaf = filterLeafFn({data:keys,sampleMenuData})
         let relationLeaf = relationLeafFn({leaf,sampleMenuData})
         this.props.menuDataCheckedFn && this.props.menuDataCheckedFn({checkedKeys:keys,leaf,relationLeaf})
     }
     menuAlertClickFn = ({checkedKeys,leaf, relationLeaf}) => {//menualert click fn
-        this.setStateValueFn('menuLightData',checkedKeys)//alert 弹框将选中的parent id传出来供左侧menu使用，点亮左侧menu对应的id
+        this.menuLightData = checkedKeys;
+        // this.setStateValueFn('menuLightData',checkedKeys)//alert 弹框将选中的parent id传出来供左侧menu使用，点亮左侧menu对应的id
         this.props.menuDataCheckedFn && this.props.menuDataCheckedFn({checkedKeys,leaf,relationLeaf})
     }
     menuAlertCloseFn = () => {//关闭menu弹框 fn
         this.setStateValueFn('showMenuAlertFlag',false)
     }
+    getOriginCheckedData = () => { //默认传入checkedkeys时,返回的数据
+        let {sampleMenuData=new Map()} = this.props;
+        let { menuLightData } = this.state;
+        let leaf = filterLeafFn({data:menuLightData,sampleMenuData})
+        let relationLeaf = relationLeafFn({leaf,sampleMenuData})
+        this.props.menuDataCheckedFn && this.props.menuDataCheckedFn({checkedKeys:menuLightData,leaf,relationLeaf})    
+    }
     /***********业务方法 end *****************/
     /***********生命周期 begin **************/
+    componentDidMount(){
+        this.getOriginCheckedData()    
+    }
     componentWillReceiveProps(nextProps) {
-        const { menuCheckedKeys = [] } = nextProps;
-        this.setStateValueFn('menuLightData',[...new Set([...menuCheckedKeys])])
+        // debugger
+        const { menuCheckedKeys = [],sampleMenuData=new Map() } = nextProps;
+        this.menuLightData = menuCheckedKeys;
+        if(sampleMenuData && sampleMenuData.size){
+            this.checkedWork(menuCheckedKeys,sampleMenuData)
+        }
+        
+    }
+    shouldComponentUpdate(nextProps, nextState) {
+        return !shallowEqual(this.props, nextProps)
+            || !shallowEqual(this.state, nextState);
+
     }
     /***********生命周期 end **************/
     render(){
-        let { showMenuAlertFlag, menuLightData, menuAlertData } = this.state;
+        console.log('i am totle render')
+        let {menuLightData} = this;
+        let { showMenuAlertFlag, menuAlertData } = this.state;
         let {menuData=[], sampleMenuData=new Map(),menuSideStyle, menuAlertStyle, menuSideLine=6  } = this.props;
         return (
             <div style={boxStyle}>  

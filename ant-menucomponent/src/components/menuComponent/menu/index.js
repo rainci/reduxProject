@@ -11,17 +11,18 @@
  * @time 2019.3.22
  */
 /* eslint-disable  */
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import { Menu, Row, Col, Icon, Button } from 'antd';
+import shallowEqual from 'shallowequal';
 import './index.less';
 import { hasIdFromDataFn, deleteIdFromData } from '../../../utils';
 import { getChildrenIds } from './tool';
 
 let ulStyle = { height: "100%", background: '#2D3049' };
 let subMenuStyle = { 'width': '50%', 'float': 'left' };
-class MenuSide extends PureComponent {
+class MenuSide extends Component {
   state = {
-    menuSideCheckedKeys: []//选中的id集
+    menuSideCheckedKeys: this.props.menuLightData || []//选中的id集
   }
   /***********公共方法 begin *****************/
   setStateValueFn = (key, value) => {//为state设置新的value
@@ -68,12 +69,12 @@ class MenuSide extends PureComponent {
     // debugger
     return menuSideData.map((item, index) => {
       const { tagId, name } = item;
-      let classNames,classSpecial;
+      let classNames, classSpecial;
       if (hasIdFromDataFn(this.state.menuSideCheckedKeys, `${tagId}`)) {
         classNames = 'checkedItem';
       }
-      if(menuSideLine == index || menuSideLine == (index - 1)){
-        classSpecial= 'menuLine';
+      if (menuSideLine == index || menuSideLine == (index - 1)) {
+        classSpecial = 'menuLine';
       }
       return (
         <li
@@ -96,8 +97,14 @@ class MenuSide extends PureComponent {
     const { menuLightData = [] } = nextProps;//当有点亮menu数据时
     this.setStateValueFn('menuSideCheckedKeys', [...new Set([...menuLightData])])
   }
+  shouldComponentUpdate(nextProps, nextState) {
+    return !shallowEqual(this.props, nextProps)
+      || !shallowEqual(this.state, nextState);
+
+  }
   /***********生命周期 end **************/
   render() {
+    console.log('i am menu render')
     let { menuSideData = [], menuSideStyle = {}, menuSideLine } = this.props;
     ulStyle = { ...ulStyle, ...menuSideStyle };
     return (
