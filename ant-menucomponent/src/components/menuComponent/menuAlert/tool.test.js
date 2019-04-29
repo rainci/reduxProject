@@ -76,4 +76,3 @@ describe('test menuComponent menuAlert tool', () => {
         expect(checkHasChildrenFn(data,itemChildren)).toEqual(true)
     })
 })
-
