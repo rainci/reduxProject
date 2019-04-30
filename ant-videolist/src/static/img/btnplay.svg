@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="22px" height="24px" viewBox="0 0 22 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 52.1 (67048) - http://www.bohemiancoding.com/sketch -->
+    <title>btn_play</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M13.6641006,5.49615088 L21.9270664,17.8905996 C22.5397713,18.809657 22.2914236,20.0513957 21.3723662,20.6641006 C21.0438312,20.8831239 20.6578158,21 20.2629658,21 L3.73703418,21 C2.63246468,21 1.73703418,20.1045695 1.73703418,19 C1.73703418,18.60515 1.85391024,18.2191346 2.07293359,17.8905996 L10.3358994,5.49615088 C10.9486043,4.57709351 12.190343,4.32874577 13.1094004,4.94145069 C13.329105,5.0879204 13.5176309,5.27644631 13.6641006,5.49615088 Z" id="path-1"></path>
+        <filter x="-24.0%" y="-32.7%" width="148.0%" height="174.4%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="0" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="2.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.2 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Page-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="网络视频图像监测-舆情列表" transform="translate(-476.000000, -815.000000)" fill-rule="nonzero">
+            <g id="列表" transform="translate(336.000000, 684.000000)">
+                <g id="Group-11">
+                    <g transform="translate(0.000000, 31.000000)">
+                        <g id="Group-9">
+                            <g id="1">
+                                <g id="Group-18" transform="translate(40.000000, 1.000000)">
+                                    <g id="Triangle-2" transform="translate(100.000000, 99.000000)">
+                                        <g id="btn_play" transform="translate(12.000000, 12.000000) rotate(-270.000000) translate(-12.000000, -12.000000) ">
+                                            <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                                            <use fill="#FFFFFF" xlink:href="#path-1"></use>
+                                        </g>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,75 @@
+.imgVideoUl {
+    width: 100%;
+    .imgVideoLi {
+        display: block;
+        padding: 30px 40px;
+        border-bottom: 1px solid #e8e8e8;
+        .imgVideoLiBox {
+            display: flex;
+            .liExtra {
+                margin-right: 24px;
+                width: 222px;
+                height: 222px;
+                position: relative;
+                background: #000;
+                overflow: hidden;
+                .posAbsolute {
+                    position: absolute;
+                }
+                .liPlayBtn {
+                    .posAbsolute;
+                    left: 50%;
+                    top: 50%;
+                    transform: translate(-50%,-50%);
+                }
+                .liTime{
+                    .posAbsolute;
+                    margin-bottom: 0;
+                    right: 8px;
+                    bottom: 5px;
+                    color: white;
+                    
+                }
+            }
+            .liMain {
+                display: block;
+                flex: 1 1;
+                .liMainMeta {
+                    h2 {
+                        font-size: 16px;
+                        color: #333333;
+                    }
+                }
+                .imgVideoInfoTag,.imgVideoStatusTag {
+                    float: right;
+                }
+                .imgVideoStatusTag {
+                    background: none;
+                    border: 1px solid #4780FFFF;
+                    color: #4780FFFF;
+                }
+                .liMainContent {
+                    h4 {
+                        padding-top: 5px;
+                        margin-bottom: 20px; 
+                        font-size: 14px;
+                        color: #333333;
+                        overflow: hidden;
+                        white-space: nowrap;
+                        text-overflow: ellipsis;  
+                        height: 25px;
+                        line-height: 25px;
+                         
+                    }
+                    .liTagBoxOne,.liTagBoxTwo,.liTagBoxThree {
+                        margin-bottom: 15px;
+                        overflow: hidden;
+                        width: 100%;
+                        height: 23px;
+                        
+                    }
+                }
+            }    
+        }
+    }
+}
