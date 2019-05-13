@@ -1,1 +1,2 @@
-# react-slider-light 轮播组件
+# react-swipe 轮播组件
+# cnpm install swipe-js-iso react-swipe --save
