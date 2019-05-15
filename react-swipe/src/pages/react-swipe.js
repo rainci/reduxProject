@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactSwipe from 'react-swipe';
-
+import { Icon } from 'antd'
 const Carousel = () => {
   let reactSwipeEl;
   return (
@@ -14,8 +14,8 @@ const Carousel = () => {
         <div style={{'height':'200px', 'background':'blue'}}>PANE 2</div>
         <div style={{'height':'200px', 'background':'green'}}>PANE 3</div>
       </ReactSwipe>
-      <button onClick={() => reactSwipeEl.next()}>Next</button>
-      <button onClick={() => reactSwipeEl.prev()}>Previous</button>
+      <Icon type="left" onClick={() => reactSwipeEl.prev()} />
+      <Icon type="right" onClick={() => reactSwipeEl.next()} />
     </div>
   );
 };
