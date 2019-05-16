@@ -9,6 +9,7 @@ const Carousel = () => {
         className="carousel"
         swipeOptions={{ continuous: false }}
         ref={el => (reactSwipeEl = el)}
+        swipeOptions={{ continuous: true }}
       >
         <div style={{'height':'200px', 'background':'pink'}}>PANE 1</div>
         <div style={{'height':'200px', 'background':'blue'}}>PANE 2</div>
