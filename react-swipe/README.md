@@ -3,3 +3,6 @@
 
 #react-id-swiper 轮播组件 https://github.com/kidjp85/react-id-swiper
 #cnpm install --save react-id-swiper@latest swiper@latest
+
+#swiper  轮播
+#cnpm install swiper -save
