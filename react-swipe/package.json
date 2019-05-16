@@ -12,7 +12,7 @@
     "react-slider-light": "^4.2.0",
     "react-swipe": "^6.0.4",
     "swipe-js-iso": "^2.1.5",
-    "swiper": "^4.5.0"
+    "swiper": "^3.4.2"
   },
   "scripts": {
     "start": "react-scripts start",
