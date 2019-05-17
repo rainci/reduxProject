@@ -14,7 +14,7 @@ class New extends Component {
             slidesPerView: 1,
             // centeredSlides: true,
             loop: true,
-            autoplay:3000,
+            autoplay:1000,
             // autoplay: {
             //     delay:2000,
             //     disableOnInteraction: false
