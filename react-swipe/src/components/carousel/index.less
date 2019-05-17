@@ -1,0 +1,32 @@
+.carouselBox {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    .postionAbs {
+        position: absolute;
+        top: 50%;
+        transform: translate(-50%,-50%)
+    }
+    .carouselPre {
+        .postionAbs;
+        left: 10px;
+        cursor: pointer;    
+    }
+    .carouselNext {
+        .postionAbs;
+        right: 10px;
+        cursor: pointer;    
+    }
+}
+.ant-carousel {
+    .slick-slide {
+        text-align: center;
+        background: #364d79;
+        overflow: hidden;
+    }
+}
+.carouselSlide  {
+    h3 {
+        color: white;
+    }
+}
