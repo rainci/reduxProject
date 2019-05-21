@@ -3,7 +3,7 @@ import { Carousel, Icon } from 'antd';
 import CarouselSlide from '../components/carousel'
 const CarouselPage = () => {
     return(
-        <div style={{'width':'420px', 'height':'300px'}}>
+        <div className='carouselPage' style={{'width':'420px', 'height':'300px', 'margin':'auto'}}>
             <CarouselSlide />
         </div>
         
