@@ -31,9 +31,9 @@ class CarouselSlide extends PureComponent {
     render() {
         let {
             slideData = [
-                // {name:1,title:'slide1 介绍slide1 介绍slide1 介绍', publishTime: '2019.5.20', 'sourceName': '腾讯', 'author': '熙世界'},
-                // {name:2,title:'slide2 介绍slide2 介绍slide2 介绍', publishTime: '2019.5.20', 'sourceName': '腾讯', 'author': '熙世界'},
-                // {name:3,title:'slide3 介绍slide3 介绍slide3 介绍', publishTime: '2019.5.20', 'sourceName': '腾讯', 'author': '熙世界'},
+                {name:1,title:'slide1 介绍slide1 介绍slide1 介绍', publishTime: '2019.5.20', 'sourceName': '腾讯', 'author': '熙世界'},
+                {name:2,title:'slide2 介绍slide2 介绍slide2 介绍', publishTime: '2019.5.20', 'sourceName': '腾讯', 'author': '熙世界'},
+                {name:3,title:'slide3 介绍slide3 介绍slide3 介绍', publishTime: '2019.5.20', 'sourceName': '腾讯', 'author': '熙世界'},
                 { name: 4 }]
         } = this.props;
         console.log('hei:', this.state.slideHeight)
@@ -46,8 +46,9 @@ class CarouselSlide extends PureComponent {
                         slideData && this.state.slideHeight ? slideData.map(item => {
                             let { name, title, publishTime, sourceName, author, unit = 10000, duration = '2:10:32' } = item;
                             return (
-                                <div className='carouselSlide aaa' style={{ ...st }}>
-                                    {/* <div className='carouselSlideImg'>
+															<div className='bbb'>
+                                <div className='carouselSlide' style={{ ...st }}>
+                                    <div className='carouselSlideImg'>
                                         <img src={testImg} />
                                         <p className='carouselTime'>{duration}</p>
                                     </div>
@@ -64,9 +65,9 @@ class CarouselSlide extends PureComponent {
                                         <div className='carouselDes'>
                                             <span>{publishTime}</span><span>{sourceName}</span><span>{author}</span>
                                         </div>
-                                    </div> */}
+                                    </div>
                                 </div>
-                                // <p style={{height: '300px'}}>woquww</p> 
+															</div>	
                             )
                         }) : null
                     }
