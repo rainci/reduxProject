@@ -46,9 +46,29 @@ class CarouselPage extends PureComponent {
         }
         return m;
     } 
+    _transformNum = (num) => {
+        let newNum = (parseInt(num*10000)/100).toFixed(2) + "%";
+        return newNum
+    }
     render() {
         let { slideData = [
-            { title: 'slide1 介绍slide1 介绍slide1 介绍', publishTime: '2019.5.20', sourceName: '腾讯', author: '熙世界', sourceUrl: '', duration: '1200000', heatValue: 12 },
+            { title: 'slide1 介绍slide1 介绍slide1 介绍', publishTime: '2019.5.20', sourceName: '腾讯', author: '熙世界', sourceUrl: '', duration: '1200000', heatValue: 12,
+            "tagList": [
+				[{
+					"tagId": 2,
+					"name": "分拣系统标签树",
+
+				}, {
+					"tagId": 10118,
+					"name": "住房城建",
+				}]
+            ],
+            "tags": [{
+				"tagId": 10118,
+				"name": "住房城建",
+				"tagStatus": "person",
+			}],
+            },
             { title: 'slide2 介绍slide2 介绍slide2 介绍', publishTime: '2019.5.20', sourceName: '腾讯', author: '熙世界', sourceUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558514629952&di=117f807be378fbcf191a817c6bc46499&imgtype=0&src=http%3A%2F%2Fpic21.nipic.com%2F20120510%2F7336507_204436122000_2.jpg', duration: '2:10:23', heatValue: 12 },
             { title: 'slide3 介绍slide3 介绍slide3 介绍', publishTime: '2019.5.20', sourceName: '腾讯', author: '熙世界', sourceUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558514907022&di=644b6c3a654e4d8157c65ffcbc9ed259&imgtype=0&src=http%3A%2F%2Fimgtianqi.eastday.com%2Fres%2Fupload%2Fue%2Fimage%2F20180610%2F1528632250128910.jpeg', duration: '2:10:23', heatValue: 12 },
             ] } = this.props;
@@ -56,12 +76,27 @@ class CarouselPage extends PureComponent {
         slideData.map( item => {
             let { duration } = item;
             item.duration = duration && this._timeTransform(duration)
+            if(item.tagList && item.tagList.length>0){
+                item.tagList.map((obj,i)=>{
+                    obj.splice(0,1); 
+                    if(item.tags){
+                        item.tags.map((everyone,j)=>{
+                            if(everyone.tagId == obj[obj.length - 1].tagId){
+                                obj.push({
+                                    tagId:Math.random(),
+                                    name:everyone.tagStatus == "ai" ? "[" + this.transformNum(everyone.confidence) + "]" : "[人工纠偏]"
+                                });
+                            }
+                        })
+                    }
+                })
+            }  
         })
         return(
             <Fragment>
                 <div className='carouselPage' style={{'width':'420px', 'height':'320px', 'margin':'auto'}}>
                     <CarouselSlide
-                        // videoComFlag ={false}
+                        videoComFlag ={false}
                         slideData = {slideData}
                         onInformationFn = {this._infoFn}
                         showBigImgFn = {this._bigImgFn}
@@ -79,7 +114,7 @@ class CarouselPage extends PureComponent {
                     alertCloseFn={() => this.setStateValueFn('detailAlertShow', false)}
                     alertShow={this.state.detailAlertShow}
                     // specialKeys={['sourceUrl']}
-                    // tagKeys={['tagList','peopleList']}
+                    tagKeys={['tagList']}
                     // dealTagKeys={['tagList']}
                     // operateObj={{createTime(){console.log('create')},updateTime(){console.log('update')}}}
                 />

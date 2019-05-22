@@ -5,5 +5,6 @@ export const alertLiData = [//详情弹框li的key
     { key: 'author', name: '资源发布人' },
     { key: 'publishTime', name: '发布时间' },
     {key: 'source', name: '数据来源'},
-    {key: 'heatValue', name: '热度'}
+    {key: 'heatValue', name: '热度'},
+    {key: 'tagList', name: '标签'}
 ];

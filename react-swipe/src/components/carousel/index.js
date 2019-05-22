@@ -2,6 +2,7 @@ import React, { PureComponent, Fragment } from 'react';
 import { Carousel, Icon, Tag } from 'antd';
 import './index.less'
 import noImg from './noImg.png'
+import hotIcon from './icon_hot.png'
 import ReactDOM from 'react-dom';
 
 class CarouselSlide extends PureComponent {
@@ -90,7 +91,7 @@ class CarouselSlide extends PureComponent {
                                             <h2 title={title}>
                                                 <span className='carouselTitle'>{title}</span>
                                                 <div className='carouselUnit'>
-                                                    <Icon type="retweet" /><span>{heatValue}</span><span>单位</span>
+                                                    <span><img src={hotIcon} alt=""/></span><span>{heatValue}</span><span>单位</span>
                                                 </div>
                                                 <Tag className='carouselInfoTag' color='#108ee9' onClick={() => this.infomationFn(item)}>详情</Tag>
 
