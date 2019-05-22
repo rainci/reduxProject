@@ -1,0 +1,46 @@
+ .tagWrap {
+    position: relative;
+    float: left;
+    margin-right: 10px;
+    margin-bottom: 8px;
+    height: 36px;
+    line-height: 36px;
+    padding: 0px 15px;
+    font-size: 14px;
+    background: #D9E5FFFF;
+    span {
+        position: relative;
+        margin-left: 20px;
+        color:#cf59ff;
+    }
+    span:nth-child(1) {
+        margin-left: 0px;
+        color: #336ef2;
+    }
+    span:nth-child(2) {
+        color: #7f5bff;
+    }
+    span:before {
+        content: '';
+        width: 0;
+        height: 0;
+        bottom: 6px;
+        left: -14px;
+        position: absolute;
+        border: 4px solid transparent;
+        border-left: 8px solid #4780FFFF;
+    }
+    span:nth-child(1):before {
+        border: 0px solid transparent;
+
+    }
+}
+.tagDisplayWrap {
+    span:last-child {
+        margin-left: 10px;
+        color: #333333;
+    }
+    span:last-child:before {
+        border: 0;
+    }    
+}

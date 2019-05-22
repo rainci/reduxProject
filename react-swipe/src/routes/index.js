@@ -20,9 +20,9 @@ class RouteMap extends React.Component {
                 </div>
                 <Layout>
                     <Switch>
-                        <Route path="/swipe" component={Carousel} />
+                        {/* <Route path="/swipe" component={Carousel} />
                         <Route path="/swipeId" component={SimpleSwiper} />
-                        <Route path="/swiper" component={OriginSwiper} />
+                        <Route path="/swiper" component={OriginSwiper} /> */}
                         <Route path="/carousel" component={CarouselPage} />
                     </Switch>
                 </Layout>
