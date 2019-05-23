@@ -4,7 +4,7 @@ import { Layout, } from 'antd'
 import Carousel from '../pages/react-swipe'
 import SimpleSwiper from '../pages/react-id-swiper'
 import OriginSwiper from '../pages/swiper'
-import LayOut from '../pages/carouselPage'
+import LayOut from '../pages/carouselPage/carouselPage'
 // import CarouselPage from '../pages/carousel'
 import './router.css'
 const { Sider, Content } = Layout;

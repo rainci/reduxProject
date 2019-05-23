@@ -1,6 +1,6 @@
 import React from "react";
 import { Row, Col } from 'antd';
-import CarouselBox from './carousel'
+import CarouselBox from './carouselModule/carousel'
 var resizeTimer;
 class LayOut extends React.Component{
     constructor(props){

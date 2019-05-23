@@ -1,7 +1,7 @@
 import React, {PureComponent, Fragment} from 'react';
-import CarouselSlide from '../components/carousel'
-import BigImg from '../components/bigImg/bigImg'
-import ImgVideoAlert from '../components/imgVideoAlert';
+import CarouselSlide from '../../../components/carousel'
+import BigImg from '../../../components/bigImg/bigImg'
+import ImgVideoAlert from '../../../components/imgVideoAlert';
 import { alertLiData } from './viewVariable';
 class CarouselBox extends PureComponent {
     state = {
