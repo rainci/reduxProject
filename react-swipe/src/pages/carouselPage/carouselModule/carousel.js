@@ -1,3 +1,12 @@
+/**
+ * 
+ * @param {Array} slideData slide数据
+ * @param {Boolen} videoComFlag 是否是视频轮播
+ * @param {String} layoutResize 通过接收此值，是否从新计算内部轮播高度
+ * @return {component} CarouselBox 
+ * @author rainci(刘雨熙)
+ * @time 2019.5.23
+ */
 import React, {PureComponent, Fragment} from 'react';
 import CarouselSlide from '../../../components/carousel'
 import BigImg from '../../../components/bigImg/bigImg'
@@ -51,27 +60,7 @@ class CarouselBox extends PureComponent {
         return newNum
     }
     render() {
-        let { slideData = [
-            { title: 'slide1 介绍slide1 介绍slide1 介绍', publishTime: '2019.5.20', sourceName: '腾讯', author: '熙世界', sourceUrl: '', duration: '1200000', heatValue: 12,
-            "tagList": [
-				[{
-					"tagId": 2,
-					"name": "分拣系统标签树",
-
-				}, {
-					"tagId": 10118,
-					"name": "住房城建",
-				}]
-            ],
-            "tags": [{
-				"tagId": 10118,
-				"name": "住房城建",
-				"tagStatus": "person",
-			}],
-            },
-            { title: 'slide2 介绍slide2 介绍slide2 介绍', publishTime: '2019.5.20', sourceName: '腾讯', author: '熙世界', sourceUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558514629952&di=117f807be378fbcf191a817c6bc46499&imgtype=0&src=http%3A%2F%2Fpic21.nipic.com%2F20120510%2F7336507_204436122000_2.jpg', duration: '2:10:23', heatValue: 12 },
-            { title: 'slide3 介绍slide3 介绍slide3 介绍', publishTime: '2019.5.20', sourceName: '腾讯', author: '熙世界', sourceUrl: 'https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1558514907022&di=644b6c3a654e4d8157c65ffcbc9ed259&imgtype=0&src=http%3A%2F%2Fimgtianqi.eastday.com%2Fres%2Fupload%2Fue%2Fimage%2F20180610%2F1528632250128910.jpeg', duration: '2:10:23', heatValue: 12 },
-            ] } = this.props;
+        let { slideData = [], videoComFlag=false, layoutResize } = this.props;
         let { imgUrl, bigImgIsShow } = this.state;   
         slideData.map( item => {
             let { duration } = item;
@@ -96,11 +85,12 @@ class CarouselBox extends PureComponent {
             <Fragment>
                 <div className='carouselPage' style={{'width':'100%', 'height':'100%', 'margin':'auto'}}>
                     <CarouselSlide
-                        videoComFlag ={false}
+                        videoComFlag ={videoComFlag}
                         slideData = {slideData}
+                        layoutResize = {layoutResize}
                         onInformationFn = {this._infoFn}
                         showBigImgFn = {this._bigImgFn}
-                        layoutResize = {this.props.layoutResize}
+                        
                     />
                 </div>
                 <BigImg
