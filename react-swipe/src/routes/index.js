@@ -4,7 +4,8 @@ import { Layout, } from 'antd'
 import Carousel from '../pages/react-swipe'
 import SimpleSwiper from '../pages/react-id-swiper'
 import OriginSwiper from '../pages/swiper'
-import CarouselPage from '../pages/carousel'
+import LayOut from '../pages/carouselPage'
+// import CarouselPage from '../pages/carousel'
 import './router.css'
 const { Sider, Content } = Layout;
 class RouteMap extends React.Component {
@@ -18,12 +19,12 @@ class RouteMap extends React.Component {
                     <Link to="/carousel">carousel</Link>
 
                 </div>
-                <Layout>
+                <Layout style={{height:'100%'}}>
                     <Switch>
                         {/* <Route path="/swipe" component={Carousel} />
                         <Route path="/swipeId" component={SimpleSwiper} />
                         <Route path="/swiper" component={OriginSwiper} /> */}
-                        <Route path="/carousel" component={CarouselPage} />
+                        <Route path="/carousel" component={LayOut} />
                     </Switch>
                 </Layout>
             </Router>

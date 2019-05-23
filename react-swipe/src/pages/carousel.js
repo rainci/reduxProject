@@ -3,7 +3,7 @@ import CarouselSlide from '../components/carousel'
 import BigImg from '../components/bigImg/bigImg'
 import ImgVideoAlert from '../components/imgVideoAlert';
 import { alertLiData } from './viewVariable';
-class CarouselPage extends PureComponent {
+class CarouselBox extends PureComponent {
     state = {
         bigImgIsShow: false,
 
@@ -94,12 +94,13 @@ class CarouselPage extends PureComponent {
         })
         return(
             <Fragment>
-                <div className='carouselPage' style={{'width':'420px', 'height':'320px', 'margin':'auto'}}>
+                <div className='carouselPage' style={{'width':'100%', 'height':'100%', 'margin':'auto'}}>
                     <CarouselSlide
                         videoComFlag ={false}
                         slideData = {slideData}
                         onInformationFn = {this._infoFn}
                         showBigImgFn = {this._bigImgFn}
+                        layoutResize = {this.props.layoutResize}
                     />
                 </div>
                 <BigImg
@@ -123,5 +124,5 @@ class CarouselPage extends PureComponent {
         )
     }
 }
-export default CarouselPage
+export default CarouselBox
 

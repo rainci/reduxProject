@@ -14,6 +14,13 @@ class CarouselSlide extends PureComponent {
             autoplay: false
         }
     }
+    /***********公共方法 begin *****************/
+    setStateValueFn = (key, value) => {//为state设置新的value
+        this.setState({
+            [key]: value
+        })
+    }
+    /***********公共方法 end *****************/
     /***********业务方法 begin **************/
     _handlePrev = () => {//轮播图pre btn
         this.refs.carous.prev(); //ref = img
@@ -34,7 +41,6 @@ class CarouselSlide extends PureComponent {
         let { offsetWidth, offsetHeight } = ReactDOM.findDOMNode(this.refs.carouselImgBox);
         let imgBoxScale = (offsetWidth/offsetHeight).toFixed(2);
         let imgStyle = {}
-        console.log(imgScale,imgBoxScale)
         if(imgScale > imgBoxScale) {
             imgStyle.height = '100%';
         }else{
@@ -43,7 +49,6 @@ class CarouselSlide extends PureComponent {
         Object.assign(e.target.style, { ...imgStyle });
     }
     showImgFn = (url) => {//图片点击回调
-        console.log('url:',url)
         this.props.showBigImgFn && this.props.showBigImgFn(url)
     }
     infomationFn = (item) => { //tag点击展示详情页callback
@@ -52,7 +57,14 @@ class CarouselSlide extends PureComponent {
     /***********业务方法 end **************/
     /***********生命周期 begin **************/
     componentDidMount() {
-        this._countSlideBoxFn()
+        this._countSlideBoxFn()//重新计算slide box 高度    
+    }
+    componentWillReceiveProps(nextProps){
+        const { layoutResize } = nextProps;
+        if(layoutResize && layoutResize !== this.state.layoutResize){
+            this._countSlideBoxFn()//重新计算slide box 高度  
+            this.setStateValueFn('layoutResize',layoutResize)  
+        }
     }
     /***********生命周期 end **************/
     render() {
@@ -74,11 +86,11 @@ class CarouselSlide extends PureComponent {
                                             {
                                                 videoComFlag ? 
                                                 <Fragment>
-                                                    <a href={sourceUrl} target='_blank' rel='noopener noreferrer'><img onLoad={e => this._countImgFn(e)} src={sourceUrl || noImg} /></a>
+                                                    <a href={sourceUrl} target='_blank' rel='noopener noreferrer'><img layoutResize={this.state.layoutResize} onLoad={e => this._countImgFn(e)} src={sourceUrl || noImg} /></a>
                                                     <p className='carouselTime'>{duration}</p> 
                                                 </Fragment>
                                                 : 
-                                                <img onLoad={e => this._countImgFn(e)} src={sourceUrl || noImg} onClick={() => this.showImgFn((sourceUrl || noImg))} />
+                                                <img layoutResize={this.state.layoutResize}  onLoad={e => this._countImgFn(e)} src={sourceUrl || noImg} onClick={() => this.showImgFn((sourceUrl || noImg))} />
                                             }
                                             
                                         </div>
