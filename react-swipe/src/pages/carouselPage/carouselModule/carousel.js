@@ -15,6 +15,7 @@ import { alertLiData } from './viewVariable';
 class CarouselBox extends PureComponent {
     state = {
         bigImgIsShow: false,
+        slideDatas: this.props.slideData || []
 
     }
     /***********公共方法 begin *****************/
@@ -59,16 +60,14 @@ class CarouselBox extends PureComponent {
         let newNum = (parseInt(num*10000)/100).toFixed(2) + "%";
         return newNum
     }
-    render() {
-        let { slideData = [], videoComFlag=false, layoutResize } = this.props;
-        let { imgUrl, bigImgIsShow } = this.state;   
-        slideData.map( item => {
+    _dealSlideDataFn = slideData => {
+        slideData && slideData.length && slideData.map( item => {
             let { duration } = item;
             item.duration = duration && this._timeTransform(duration)
             if(item.tagList && item.tagList.length>0){
                 item.tagList.map((obj,i)=>{
                     obj.splice(0,1); 
-                    if(item.tags){
+                    if(item.tags && item.tags.length){
                         item.tags.map((everyone,j)=>{
                             if(everyone.tagId == obj[obj.length - 1].tagId){
                                 obj.push({
@@ -81,12 +80,24 @@ class CarouselBox extends PureComponent {
                 })
             }  
         })
+        return slideData;
+    }
+    componentWillReceiveProps(nextProps){
+        const { slideData } = nextProps;
+        if(slideData && slideData.length){
+            let slideDatas = this._dealSlideDataFn(slideData);
+            this.setStateValueFn('slideDatas', slideDatas)
+        }
+    }
+    render() {
+        let { videoComFlag=false, layoutResize } = this.props;
+        let { imgUrl, bigImgIsShow, slideDatas } = this.state;   
         return(
             <Fragment>
                 <div className='carouselPage' style={{'width':'100%', 'height':'100%', 'margin':'auto'}}>
                     <CarouselSlide
                         videoComFlag ={videoComFlag}
-                        slideData = {slideData}
+                        slideData = {slideDatas}
                         layoutResize = {layoutResize}
                         onInformationFn = {this._infoFn}
                         showBigImgFn = {this._bigImgFn}

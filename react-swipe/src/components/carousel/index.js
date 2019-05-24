@@ -86,11 +86,11 @@ class CarouselSlide extends PureComponent {
                                             {
                                                 videoComFlag ? 
                                                 <Fragment>
-                                                    <a href={sourceUrl} target='_blank' rel='noopener noreferrer'><img layoutResize={this.state.layoutResize} onLoad={e => this._countImgFn(e)} src={sourceUrl || noImg} /></a>
+                                                    <a href={sourceUrl} target='_blank' rel='noopener noreferrer'><img resize={this.state.layoutResize} onLoad={e => this._countImgFn(e)} src={sourceUrl || noImg} /></a>
                                                     <p className='carouselTime'>{duration}</p> 
                                                 </Fragment>
                                                 : 
-                                                <img layoutResize={this.state.layoutResize}  onLoad={e => this._countImgFn(e)} src={sourceUrl || noImg} onClick={() => this.showImgFn((sourceUrl || noImg))} />
+                                                <img resize={this.state.layoutResize}  onLoad={e => this._countImgFn(e)} src={sourceUrl || noImg} onClick={() => this.showImgFn((sourceUrl || noImg))} />
                                             }
                                             
                                         </div>
