@@ -1,7 +1,6 @@
 /**
  * 
  * @param {Array} slideData slide数据
- * @param {Boolen} videoComFlag 是否是视频轮播
  * @param {String} layoutResize 通过接收此值，是否从新计算内部轮播高度
  * @return {component} CarouselBox 
  * @author rainci(刘雨熙)
@@ -11,12 +10,23 @@ import React, {PureComponent, Fragment} from 'react';
 import CarouselSlide from '../../../components/carousel'
 import BigImg from '../../../components/bigImg/bigImg'
 import ImgVideoAlert from '../../../components/imgVideoAlert';
+import PropTypes from 'prop-types';
 import { alertLiData } from './viewVariable';
+import {tool, timeTransform} from '../../../utils'
+const carouselPageStyle = {'width':'100%', 'height':'100%', 'margin':'auto'};
 class CarouselBox extends PureComponent {
     state = {
         bigImgIsShow: false,
-        slideDatas: this.props.slideData || []
-
+    }
+    // 声明Context对象属性
+    static childContextTypes = {
+        videoComFlag: PropTypes.bool
+    }
+    // 返回Context对象，方法名是约定好的
+    getChildContext() {
+        return {
+            videoComFlag: this.props.videoComFlag,
+        }
     }
     /***********公共方法 begin *****************/
     setStateValueFn = (key, value) => {//为state设置新的value
@@ -36,72 +46,57 @@ class CarouselBox extends PureComponent {
     _bigImgCloseFn = () => {//图片关闭
         this.setStateValueFn('bigImgIsShow', false)    
     }
-    _timeTransform = (num) => {//计算时分秒
-        // var days = parseInt(mss / (1000 * 60 * 60 * 24));
-        var hours = this._timeZero(parseInt((num % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)));
-        var minutes = this._timeZero(parseInt((num % (1000 * 60 * 60)) / (1000 * 60)));
-        var seconds = this._timeZero(Math.floor((num % (1000 * 60)) / 1000));
-        return hours + ":" + minutes + ":" + seconds;
-    }
-    _timeZero = (t) => {
-        let m="";
-        if(t>0){
-            if(t<10){
-                m="0"+t;
-            }else{
-                m=t+"";
-            }
-        }else{
-            m="00";
-        }
-        return m;
-    } 
-    _transformNum = (num) => {
-        let newNum = (parseInt(num*10000)/100).toFixed(2) + "%";
+    _transformNum = (num) => {//处理百分比数据
+        let newNum = (parseInt(num*10000)/100).toFixed(2) + '%';
         return newNum
     }
-    _dealSlideDataFn = slideData => {
+    _dealTagData = (tagList=[],tags=[]) => {//处理tagList数据
+        let _this = this;
+        if(!tagList.length) return [];
+        tagList.map(obj => {
+            obj.splice(0,1); 
+            if(!tags.length) return obj;
+            let last = [...obj].pop();
+            for(var i=0; i < tags.length; i++){
+                let { tagId, tagStatus, confidence } = tags[i];
+                if(tagId == (last && last.tagId)){
+                    return obj.push({
+                        tagId:Math.random(),
+                        name:tagStatus == "ai" ? "[" + _this._transformNum(confidence) + "]" : "[人工纠偏]"
+                    });    
+                }
+            }
+            return obj;
+        })
+        return tagList;
+   
+    }
+    _dealSlideDataFn = (slideData=[]) => {//处理slide 数据源
+        let _this = this;
         slideData && slideData.length && slideData.map( item => {
-            let { duration } = item;
-            item.duration = duration && this._timeTransform(duration)
-            if(item.tagList && item.tagList.length>0){
-                item.tagList.map((obj,i)=>{
-                    obj.splice(0,1); 
-                    if(item.tags && item.tags.length){
-                        item.tags.map((everyone,j)=>{
-                            if(everyone.tagId == obj[obj.length - 1].tagId){
-                                obj.push({
-                                    tagId:Math.random(),
-                                    name:everyone.tagStatus == "ai" ? "[" + this.transformNum(everyone.confidence) + "]" : "[人工纠偏]"
-                                });
-                            }
-                        })
-                    }
-                })
-            }  
+            // debugger
+            let { duration, tagList, tags, heatValue } = item;
+            item.duration = duration && timeTransform(duration);
+            item.heatValue = heatValue && tool.unitConvert(heatValue);
+            item.tagList = _this._dealTagData(tagList,tags);
         })
         return slideData;
     }
     componentWillReceiveProps(nextProps){
         const { slideData } = nextProps;
-        if(slideData && slideData.length){
-            let slideDatas = this._dealSlideDataFn(slideData);
-            this.setStateValueFn('slideDatas', slideDatas)
-        }
+        let slideDatas = this._dealSlideDataFn([...slideData]);
+        this.slideData = slideDatas
     }
     render() {
-        let { videoComFlag=false, layoutResize } = this.props;
-        let { imgUrl, bigImgIsShow, slideDatas } = this.state;   
+        let { imgUrl, bigImgIsShow } = this.state;   
         return(
             <Fragment>
-                <div className='carouselPage' style={{'width':'100%', 'height':'100%', 'margin':'auto'}}>
+                <div className='carouselPage' style={carouselPageStyle}>
                     <CarouselSlide
-                        videoComFlag ={videoComFlag}
-                        slideData = {slideDatas}
-                        layoutResize = {layoutResize}
+                        slideData = {this.slideData}
+                        layoutResize = {this.props.layoutResize}
                         onInformationFn = {this._infoFn}
                         showBigImgFn = {this._bigImgFn}
-                        
                     />
                 </div>
                 <BigImg

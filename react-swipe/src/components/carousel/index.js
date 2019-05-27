@@ -1,10 +1,19 @@
+/**
+ * 
+ * @param {Array} slideData slide数据
+ * @param {Boolen} videoComFlag 是否是视频轮播
+ * @param {String} layoutResize 通过接收此值，是否从新计算内部轮播高度
+ * @return {component} CarouselSlide 
+ * @author rainci(刘雨熙)
+ * @time 2019.5.23
+ */
 import React, { PureComponent, Fragment } from 'react';
 import { Carousel, Icon, Tag } from 'antd';
 import './index.less'
 import noImg from './noImg.png'
 import hotIcon from './icon_hot.png'
 import ReactDOM from 'react-dom';
-
+import PropTypes from 'prop-types';
 class CarouselSlide extends PureComponent {
     state = {
     }
@@ -13,6 +22,10 @@ class CarouselSlide extends PureComponent {
             dots: false,
             autoplay: false
         }
+    }
+    // 声明需要使用的Context属性
+    static contextTypes = {
+        videoComFlag: PropTypes.bool
     }
     /***********公共方法 begin *****************/
     setStateValueFn = (key, value) => {//为state设置新的value
@@ -68,11 +81,9 @@ class CarouselSlide extends PureComponent {
     }
     /***********生命周期 end **************/
     render() {
-        let {
-            slideData ,
-            videoComFlag = true
-        } = this.props;
+        let { slideData } = this.props;
         let st = { 'height': `${this.state.slideHeight}px` };
+        let { videoComFlag } = this.context;
         return (
             <div className='carouselBox' ref="carouselBox">
                 <Carousel ref="carous" {...this.props.carouseProp}>
@@ -99,7 +110,7 @@ class CarouselSlide extends PureComponent {
                                             <h2 title={title}>
                                                 <span className='carouselTitle'>{title}</span>
                                                 <div className='carouselUnit'>
-                                                    <span><img src={hotIcon} alt=""/></span><span>{heatValue}</span><span>单位</span>
+                                                    <span><img src={hotIcon} alt=""/></span><span>{heatValue}</span><span></span>
                                                 </div>
                                                 <Tag className='carouselInfoTag' color='#108ee9' onClick={() => this.infomationFn(item)}>详情</Tag>
 
