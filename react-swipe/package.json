@@ -6,7 +6,6 @@
     "antd": "^3.18.1",
     "enzyme": "^3.9.0",
     "enzyme-adapter-react-16": "^1.13.1",
-    "jest": "^24.8.0",
     "less": "^3.9.0",
     "less-loader": "^5.0.0",
     "react": "^16.8.6",
