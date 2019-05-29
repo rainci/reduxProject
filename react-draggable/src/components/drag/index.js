@@ -1,10 +1,10 @@
-import React from "react";
+import React, {PureComponent} from "react";
 import Draggable from 'react-draggable';
 import './drag.less';
 
 var deltaX=1,deltaY=1,translate={x:0,y:0};
 
-class BigImg extends React.Component{
+class DragImg extends PureComponent{
     constructor(props){
         super(props)
         this.state={
@@ -50,24 +50,22 @@ class BigImg extends React.Component{
     }
     render(){
         return (
-            <div className="bigImg">
+            <div className="dragImgBox">
                 <i className="close">x</i>
                 <Draggable
                     handle="#imgBox"
                     scale={2}
                 >
                     <div id="imgBox" className="imgBox" ref="imgBox" style={this.state.imgBoxWidth}
-                        onWheel={this.onMouseWheel.bind(this)}
-                    >
+                        onWheel={this.onMouseWheel.bind(this)}>
                         <div className="imgCover" ref="imgCover" style={{...this.state.imgScale}}></div>
-                        <img id="bigImg" ref="bigImg" onLoad={this.imgOnLoad.bind(this)}  src={bigImgUrl}
+                        <img id="bigImg" ref="bigImg" onLoad={this.imgOnLoad.bind(this)}  src={this.props.dragImgUrl}
                             style={{...this.state.imgScale}}
                         />
                     </div>
                 </Draggable>
-                
             </div>
         )
     }
 }
-export default BigImg;
+export default DragImg;
