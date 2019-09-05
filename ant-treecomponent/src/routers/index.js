@@ -1,6 +1,6 @@
-import React from 'react'
+import React , { useState, useEffect }from 'react'
 import { BrowserRouter as Router, Route } from 'react-router-dom';
-import { Layout } from 'antd';
+import { Layout, Checkbox } from 'antd';
 import MyMenu from '../components/menu';
 
 import TagTree from '../pages/tagTree';
@@ -9,7 +9,15 @@ import DateShow from '../pages/date';
 import EchartDemo from '../pages/echart';
 import MenuReset from '../pages/menu';
 const { Content, Sider } = Layout;
-
+const Aa = function(){
+    const [isPlace, setIsPlace] = useState(false);//是否选中湖南所有地点
+    return (
+        <div>
+            bbb
+            {/* <Checkbox >所有湖南地点</Checkbox> */}
+        </div>
+    )
+}
 class Routers extends React.Component {
     render() {
         return (
@@ -26,6 +34,7 @@ class Routers extends React.Component {
                                 <Route path="/dateshow" component={DateShow} />
                                 <Route path="/echart" component={EchartDemo} />
                                 <Route path="/menu" component={MenuReset} />
+                                <Route path="/aa" component={Aa} />
 
                             </div>
                         </Content>

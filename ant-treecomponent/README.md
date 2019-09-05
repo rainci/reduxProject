@@ -9,3 +9,5 @@ yarn add antd
 #Enzyme底层其实也是基于 react-test-renderer 和 react-dom/test-utils 的。但它在二者的基础上进行了封装提供了更加简单易用的查询、断言方法。
 #Jest有一个集成的覆盖率报告器，可以很好地与ES6配合使用，无需配置。
 #运行npm test -- --coverage（--在中间注意额外）以包括如下的覆盖率报告
+
+#hooks 报错，Object is not a function 解决办法 cnpm i react@next react-dom@next
