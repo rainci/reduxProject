@@ -11,3 +11,5 @@ yarn add antd
 #运行npm test -- --coverage（--在中间注意额外）以包括如下的覆盖率报告
 
 #hooks 报错，Object is not a function 解决办法 cnpm i react@next react-dom@next
+
+#增加了mockjs 1.根目录增加mock.js 2.index.js引入mockjs 3.根目录增加mock文件夹，放相对应的mockjs

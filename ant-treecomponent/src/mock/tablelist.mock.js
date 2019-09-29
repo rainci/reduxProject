@@ -1,4 +1,18 @@
 const Mock = require ('mockjs')
+const Random = Mock.Random
+let list = []
+for (let j = 0; j < 10; j++){
+    list.push(Mock.mock({
+        // key:Random.guid,
+        // time: Random.datetime,
+        // name: Random.cname,
+        // email:Random.email,
+        'type|1':['全部','上传数据','案例审核'],
+        'status|1': ['全部','未完结','已完结'],
+        remark: Random.cparagraph(1,3)
+    }))
+}
+console.log('list:',list)
 Mock.mock('/mockapi/tablelist', {
   'code': 200,
   'data|1-10': [{
@@ -7,6 +21,7 @@ Mock.mock('/mockapi/tablelist', {
     'email': /^\d{6,}(@qq\.com)$/,
     'status|1': Boolean,
     'id|+1': 0,
+    // "img":Mock.Random.image('200x100')
 
   }],
   'msg': '操作成功',
