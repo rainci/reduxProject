@@ -1,14 +1,21 @@
-import React, { Component } from 'react';
-import { Layout, Carousel } from 'antd';
-import 'antd/dist/antd.css';
+import React from 'react';
+import { Carousel } from 'antd';
 import './index.css';
-const Banner = (props) => (
-    <Carousel autoplay effect='scrollx'>
-        <div><h3>1</h3></div>
-        <div><h3>2</h3></div>
-        <div><h3>3</h3></div>
-        <div><h3>4</h3></div>
-    </Carousel>
-);
+const bannerData = [
+    { name: 'page one', id: 0 },
+    { name: 'page two', id: 1 },
+    { name: 'page three', id: 2 },
+]
+const Banner = ({ data = bannerData }) => {
+    return (
+        <Carousel autoplay effect='scrollx'>
+            {
+                data.map(({ name, id }) => {
+                    return <div key={id}>{name}</div>
+                })
+            }
+        </Carousel>
+    )
+};
 
 export default Banner;
